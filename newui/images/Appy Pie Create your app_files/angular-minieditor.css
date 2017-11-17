@@ -1,0 +1,70 @@
+.minieditor{}
+.minieditor-menu{width:100%;}
+.minieditor-menu-group{margin-right:5px;float:right;}
+.minieditor-content{width:100%;resize:vertical;overflow-y:scroll;background-color:white;border-collapse:separate;border:1px solid rgb(204, 204, 204);padding:4px;box-sizing:border-box;box-shadow:rgba(0, 0, 0, 0.07) 0 1px 1px 0 inset;border-radius:3px;outline:none;}
+.minieditor-content:focus{outline:-webkit-focus-ring-color auto 5px;}
+@media (max-width:740px){.minieditor{float:left !important;}
+.minieditor-content{z-index:0;}
+}
+.minieditor-menu .btn{margin:2px;font-size:8px;width: 35px;transition: all .2s ease-in-out;height: 25px;}
+.minieditor-menu .btn:hover{font-size: 15px;padding: 1px 8px;transition: all .2s ease-in-out;}
+
+
+.minieditor-menu {
+    text-align: center;
+    position: absolute;
+    float: right;
+    background: #b1b1b1;
+    height: 30px;
+    line-height: 30px;
+    width: 30px;
+    border-radius: 100%;
+    margin-bottom: 3px;
+    color: #fff;
+    cursor: pointer;
+    z-index: 99;
+    right: 13px;
+    top: -15px;
+}
+.minieditor-menu:hover{background:#95b10c;}
+.minieditor-tab {
+    background: #95b10c;
+    width: 14rem;
+    position: absolute;
+    right: 18px;
+    top: 0;
+    display: none;
+    border-radius: 20px 0 0 20px;
+    height: 30px;
+    line-height: 29px;
+    text-align: center;
+    z-index: -1;
+	-webkit-backface-visibility: hidden;
+}
+.minieditor-tab a {
+    color: #fff;
+    display: inline-block;
+    margin: 0 6px;
+    font-size: 12px;
+}
+.minieditor-menu:hover .minieditor-tab{
+	display:block;
+}
+.customComoMinieditor{
+    background: transparent;
+    border: 0;
+    font-size: 12px;
+    padding: 0 8px;
+}
+.minieditorqutoe .minieditor-menu{
+	right:0;
+}
+.minieditorreals .minieditor-menu {
+    right: 15px;
+	top: -11px;
+}
+.minieditorfood .minieditor-menu{right: -2px;}
+.minieditorchat .minieditor-menu{
+	right: 5px;
+	top: 2px;
+}

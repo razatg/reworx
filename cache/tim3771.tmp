@@ -1,0 +1,1217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <meta http-equiv="refresh" content="2;url=http://www.appypie.com">   
+<link rel="canonical" href="http://snappy.appypie.com/media/user_space/6c1d9b3e76db/appicon/1351667928.png" />
+<title></title><!-- Add fabicon for reseller -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0" />-->
+<meta name="viewport" content="initial-scale = 1,user-scalable=no,maximum-scale=1.0">
+<link type="text/css" rel="stylesheet" href="http://angularml.pbodev.info/newui/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet" href="http://angularml.pbodev.info/newui/css/appypie-en.css?v=10">
+<link type="text/css" rel="stylesheet" href="http://angularml.pbodev.info/newui/css/ng-dashboard-en.css?v=10">
+<link type="text/css" rel="stylesheet" href="http://angularml.pbodev.info/newui/icons/css/fontello.css?v=10">
+
+<script type="text/javascript" src="http://angularml.pbodev.info/newui/js/jquery.min.js"></script>
+<script type="text/javascript" src="http://angularml.pbodev.info/newui/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://angularml.pbodev.info/newui/js/angular.min.js"></script>
+<script type="text/javascript" src="http://angularml.pbodev.info/newui/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://angularml.pbodev.info/newui/js/angular-sanitize.js"></script>
+<script type="text/javascript" src="http://angularml.pbodev.info/newui/js/ui-bootstrap-tpls.min.js"></script>
+
+<link href="/style/chrome.css" rel="stylesheet" type="text/css">
+
+<!-- Start of Google Analytics code -->
+
+ 
+
+</head>
+<body ng-app="loginModule" ng-cloak ng-csp>
+<script src="//platform.twitter.com/oct.js" type="text/javascript"></script> 
+<script type="text/javascript">twttr.conversion.trackPid('l6bsl', { tw_sale_amount: 0, tw_order_quantity: 0 });</script>
+<noscript>
+<img height="1" width="1" style="display:none;" alt="" src="https://analytics.twitter.com/i/adsct?txn_id=l6bsl&p_id=Twitter&tw_sale_amount=0&tw_order_quantity=0" /> <img height="1" width="1" style="display:none;" alt="" src="//t.co/i/adsct?txn_id=l6bsl&p_id=Twitter&tw_sale_amount=0&tw_order_quantity=0" />
+</noscript>
+
+<!-- Start New UI -->
+<main id="spanSC" data-ng-controller="LoginController">
+<span ng-if="loginsession==0" ><a href="javascript:;" data-backdrop="static" data-toggle="modal" id="showLoginPopup" ng-click="initAllSocial('loginpop', 'yes', 'loginPopup', true);" data-target="#myModallogin"></a></span>
+<header class="container grn"> 
+  <!--spa-support --> 
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div id="" class="container">
+	  <div class="navbar-header">
+		 		 <button ng-if="loginsession==0"  data-backdrop="static" data-toggle="modal"  ng-click="initLoginPopUp('loginpop', 'yes', 'loginPopupCheck', true);" data-target="#myModallogin" class="showLoginPopup visible-xs-block f-right buttontextonly"><span>Login/Signup</span></button>
+                
+	 
+	   	   
+	   		
+		 
+
+		 			<button ng-if="loginsession!=0" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+			  <span class="sr-only">Toggle navigation</span>
+			  <span class="icon-bar"></span>
+			  <span class="icon-bar"></span>
+			  <span class="icon-bar"></span>
+			</button>
+        		<aside class="navbar-brand logo">
+		 <a href="https://www.appypie.com">
+					<img src="http://media.appypie.com/newui/images/logo.png" alt="Small Business App Builder" />
+		
+		</a>
+		</aside>
+		
+		     </div>
+     <!-- Collect the nav links, forms, and other content for toggling -->
+	  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		  
+		  	      
+	        	  
+	       	  
+	      	   
+	       
+	      	   </div>
+	</div> <!-- /.container-fluid or container-->
+   </nav>
+   
+   
+</header>
+<div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-large">
+  <form id="idForm" enctype="multipart/form-data">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" ng-click="showmsgSocial('ModelMessage', '')"><span aria-hidden="true" style="font-size:16px;">x</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Report a Problem</h4>
+      </div>
+      <div class="modal-body">
+       <div class="form-group">
+       <div class="alert alert-success" id="result" style="display:none;"></div>
+	   <div class="alert alert-danger" id="result1" style="display:none;"></div>
+    <label for="exampleInputEmail1">Subject<sup class="red-astrick">*</sup></label>
+    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter Subject" name="subject" onblur="checkSubject();">
+	<input type="hidden" id="currenturl" name="currenturl" value="http://angularml.pbodev.info/media/user_space/6c1d9b3e76db/appicon/1351667928.png">
+	<div id="error_subject" class="error" style="color: red;"></div>
+  </div>
+		  <div class="form-group">
+			<label for="exampleInputEmail1">Define the Problem<sup class="red-astrick">*</sup></label>
+			<textarea class="form-control" rows="3" style="resize: none;" placeholder="Write message..." id="exampleInputEmail2" name="detail" onblur="checkSubject1();"></textarea>
+			<div id="error_detail" style="color: red;"></div>
+		  </div>
+		  <div class="form-group">
+		  <!--<div class="checkbox">
+			<label>
+			  <input type="checkbox" id="takeScreenShot" value="1"> Include a screenshot with my report
+			</label>
+		  </div>-->
+				<div class="btn buttonGreen" style="position:relative; overflow:hidden;margin-left: 0px;margin-top: 5px;"> <i class="glyphicon iconz-upload"></i> <span> Upload Screenshot(s)</span>
+                      <input id="csv_upload" class="input-hide-file input-hide-file-add" type="file" multiple="true" name="csv_upload[]">
+                    </div>
+					<div ><small>Note: - You can upload only 5 images. The maximum file(s) size allowed is 10MB.</small></div>
+					<div class="preview-area"></div>
+					<div id="preview" style="color: red;"></div>
+			  </div>
+				
+	  </div>
+	   
+      <div class="modal-footer" style="min-height: 65px;"><div class="resultLoader" id="modeLoader" style="display:none;" ><img  src='/images/loader-newui.gif'  style='width: 32px; height:32px;' ></div><div class="resultSubmit" id="resultSubmit"><button  type="submit" class="button" onclick="reportFormSubmit();">Submit</button> <a href="javascript:void(0);" class="button" ng-click="showmsgSocial('ModelMessage', '')" data-dismiss="modal">Close</a></div></div>
+    </div>
+	</form>
+  </div>
+</div>
+
+<script>
+
+function checkSubject()
+{
+	if(document.getElementById("exampleInputEmail1").value.trim()!="")
+	{
+		document.getElementById("error_subject").innerHTML = "";
+	}
+	else
+	{
+		document.getElementById("error_subject").innerHTML = "Field can&#039;t be empty.";
+	}
+	
+}
+
+function checkSubject1()
+{
+	if(document.getElementById("exampleInputEmail2").value.trim()!="")
+	{
+		document.getElementById("error_detail").innerHTML = "";
+	}
+	else
+	{
+		document.getElementById("error_detail").innerHTML = "Field can&#039;t be empty.";
+	}
+}
+var UploadArr = [];
+var uploadSize = 0;
+$(csv_upload).change(function(){
+var uploadFileName = [];
+var file_data=$("#csv_upload").prop("files");
+	var totalSize = 0;
+	var error = 0;
+	for(var i=0;i<file_data.length;i++)
+	{
+		var name = file_data[i].name.split(".");
+        var ext = name[parseInt(name.length)-1];
+		totalSize = parseInt(totalSize) + parseInt(file_data[i].size);
+		if(ext !="jpg" && ext !="jpeg" && ext !="png")
+		{
+			error = 1;
+		}
+	}
+	if(error == 1)
+	{
+		document.getElementById("preview").innerHTML = "Please select valid image(.jpg or .png)";
+		return false;
+	}
+	 if((parseInt(uploadSize) + parseInt(totalSize)) > 10485760)
+	{
+		document.getElementById("preview").innerHTML = "Total size of image(s) should not be greater then 10 Mb.";
+		return false;
+	}
+	else if(parseInt(UploadArr.length)+parseInt(file_data.length) > 5)
+	{
+		document.getElementById("preview").innerHTML = "No. of files should be less than or equal to 5";
+		return false;
+	}
+	else
+	{
+		uploadSize = parseInt(uploadSize) + parseInt(totalSize);
+		document.getElementById("preview").innerHTML = "";
+		var anyWindow = window.URL || window.webkitURL;
+		for(var i=0;i<file_data.length;i++)
+		{
+			  var objectUrl = anyWindow.createObjectURL(file_data[i]);
+			  uploadFileName.push(file_data[i]);
+			  var size = parseInt(file_data[i].size)/1024;
+			  $('.preview-area').append('<div class="imgReport" id="dom_'+i+'"><img src="' + objectUrl + '" width="100px"/><span> <strong>Name:</strong> '+file_data[i].name+'<br><strong>Size:</strong> '+size.toFixed(0)+' kb</span><span class="cut deleteDomImage" id="'+i+'">x</span></div>');
+			  window.URL.revokeObjectURL(file_data[i]);
+		}
+		UploadArr = UploadArr.concat(uploadFileName);
+	}
+$("#csv_upload").val('');	
+	
+});
+
+$(".deleteDomImage").live('click',function() {
+	var name = $(this).attr("id");
+   UploadArr.splice(name,1);
+   $('#dom_'+name).remove();
+		
+});
+
+function reportFormSubmit()
+ {
+    var url = "/app/report-an-error"; 
+	var subject = document.getElementById("exampleInputEmail1").value.trim();
+	var detail = document.getElementById("exampleInputEmail2").value.trim();
+	var currenturl = document.getElementById("currenturl").value;
+	if(subject == "")
+	{
+		document.getElementById("error_subject").innerHTML = "Field can&#039;t be empty.";
+		return false;
+	}
+	else
+	{
+		document.getElementById("error_subject").innerHTML = "";
+	}
+	if(detail == "")
+	{
+		document.getElementById("error_detail").innerHTML = "Field can&#039;t be empty.";
+		return false;
+	}
+	else
+	{
+		document.getElementById("error_detail").innerHTML = "";
+	}
+	
+	//JavaScript 
+var fd = new FormData();
+var ins = UploadArr.length;
+for (var x = 0; x < ins; x++) {
+     fd.append("csv_upload[]", UploadArr[x]);
+} 
+fd.append("subject",subject);
+fd.append("detail",detail);
+fd.append("url",currenturl);
+    $.ajax({
+           type: "POST",
+           url: url,
+	data: (fd),
+		   processData: false,
+     	   contentType: false,
+		    beforeSend: function(){
+			$("#modeLoader").css({ display: "block" });	
+			$("#resultSubmit").css({ display: "none" });
+                },
+           success: function(result)
+           {
+            
+			 if(result == "Thanks")
+			 {
+			    document.getElementById("result").innerHTML = "Thank you for reporting the issue you encountered with our system. We value your feedback. We will review the problem and will get back to you in 24 to 48 Hrs."; 
+				$("#result").css({ display: "block" });
+				document.getElementById("exampleInputEmail1").value = "";
+	            document.getElementById("exampleInputEmail2").value = ""; 
+				var $el = $('#csv_upload');
+				$el.wrap('<form>').closest('form').get(0).reset();
+				$el.unwrap();
+				$('.preview-area').html("");
+				$("#modeLoader").css({ display: "none" });	
+			    $("#resultSubmit").css({ display: "block" });
+				 UploadArr = [];
+                var uploadSize = 0;
+				setTimeout(function(){ document.getElementById("result").innerHTML='';
+                    $('#reportModal').modal('hide');
+					$("#result").css({ display: "none" });
+					$("#modeLoader").css({ display: "none" });	
+			        $("#resultSubmit").css({ display: "block" });
+		
+			 }, 15000);
+			 }
+			 else
+			 {
+				 document.getElementById("result1").innerHTML = result;  
+				 $("#result1").css({ display: "block" });
+				 $("#modeLoader").css({ display: "none" });	
+			     $("#resultSubmit").css({ display: "block" });
+				 setTimeout(function(){ 
+				    document.getElementById("result1").innerHTML='';
+					$("#result1").css({ display: "none" });
+		
+			 }, 6000);
+			 }
+			 
+           }
+         });
+
+    
+}
+</script>
+<style>
+.imgReport {position:relative; margin: 10px;width: 29%;display: inline-block;height: 75px; }
+.imgReport span {display: block;font-size: 12px;width: 90%;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
+.imgReport img {object-fit: cover;width: 100%;height: 100%;}
+.imgReport .cut {cursor:pointer; position: absolute;top: -7px;font-size: 13px;bottom: 0;right: -8px;display: inline-block;width: 19px;height: 7px;background: #333;color: #FFF;border-radius: 50%;text-align: center;padding-bottom: 19px;display: inline-block;float: right;}
+.resultLoader { position: absolute;right: 86px;margin: 0px; }
+</style>
+
+ 
+<div id="outer"  class="{{bandwithexceeded=='Yes'?'container-fluid':'container'}}">
+	
+<div class="row">
+  <div class="{{bandwithexceeded=='Yes'?'abc':'col-md-12'}}">
+   <div class="wide-page">
+<h2 class="main-heading4">Oops!</h2>
+<p class="oops-msg">We encountered some problem, our tech team has been informed of this, you can visit our <a href="/">Home page</a> for further navigation.</p>
+<br class="clear">
+</div>
+ </div>
+</div>
+<div class="modal fade" id="myModallogin"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg"> 
+    <!-- Login/Signup ----->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" ng-click="redirectPage()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span> </button>
+        <h4 class="modal-title" id="myModalLabel" ng-bind-html='"SignUp/Login" | htmlEntities'></h4>
+      </div>
+      <div class="modal-body">
+        <div ng-if="loginpop=='yes'" ng-include="'/app/publish/id/1/mlogin/1'" class="tab"> </div>
+      </div>
+    </div>
+  </div>
+  <!-- Login / SignUp Modal Ends --> 
+</div>    
+
+</div>
+</main>
+<script>
+
+//Application base url
+var base_url='http://angularml.pbodev.info';
+var base_url1='http://angularml.pbodev.info';
+var ang=angular.element;
+var login = angular.module('loginModule', ['ngSanitize','ui.bootstrap']);
+
+login.filter('html', ['$sce', function ($sce) { 
+    return function (text) {
+        return $sce.trustAsHtml(text);
+    };    
+}]);
+
+login.filter('htmlEntities', ['$sce', function($sce) {
+    var div = document.createElement('div');
+    return function(text) {
+        div.innerHTML = text;
+        return $sce.trustAsHtml(div.textContent);
+    };
+}]);
+login.controller('LoginController', function($scope, $http, $timeout, $sce, $window,$interval){
+    
+    $scope.loginsession='0';
+    
+    $scope.initAllSocial = function (arrName1, arrVal1, arrName2, arrVal2, arrName3, arrVal3) { 		
+		$scope[arrName1] = arrVal1; 
+		$scope[arrName2] = arrVal2;	
+		$scope[arrName3] = arrVal3;			
+		}
+                
+    $scope.showpageError=function(modelname,value){ //alert(modelname)
+	$scope[modelname]=value;	
+	};
+    $scope.loginSignupMsgHide = function () {
+		$scope.showpageError('signupNameError',1);
+		$scope.showpageError('UsernameError',1);
+		$scope.showpageError('PasswordError',1);
+		}
+    //login-registor function
+
+    $scope.typechecked='withoutpassword';
+    $scope.userFirstname = '';
+    $scope.signupnamemsg = '';
+    $scope.usernamemsg = '';
+    $scope.passwordmsg = '';
+    $scope.loginImageLoader = false;
+    $scope.signupImageLoader = false;
+    
+	
+	$scope.checklogin = function(name, Username, password, form_type, clicktype, editMode,newslaterVal,mobile) 
+	{ 
+		$scope.loginSignupMsgHide();  // Hide all error message.
+		var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{1,20}$/i);
+				if (form_type == 'signup') 
+		{
+			if(Username === null || Username === undefined || Username.trim() == '')
+			{
+				$scope.usernamemsg='Please enter a email';
+				$scope.showpageError('UsernameError',2);
+				return false;
+			}
+			else if(!pattern.test(Username)) 
+			{
+				$scope.usernamemsg='Please enter valid email';
+				$scope.showpageError('UsernameError',2);
+				return false;  
+			}
+		}
+		else if((Username === null || Username === undefined || Username.trim() == '') && form_type == 'login')
+		{
+			$scope.usernamemsg='Please enter a email';
+			$scope.showpageError('UsernameError',2);
+			return false;
+		} 
+		else if(Username.indexOf('@') < 0)
+		{
+			$scope.usernamemsg='Please enter valid email';
+			$scope.showpageError('UsernameError',2);
+			return false;
+		}
+				
+
+		   
+			if(!mobile && form_type == 'signup')
+			{
+				$scope.signupmobilemsg='Please enter mobile number ';
+				$scope.showpageError('signupMobileError',2);
+				return false;
+			}
+			phonePattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,8}$/im;
+			if(mobile && !phonePattern.test(mobile))
+			{
+				$scope.signupmobilemsg='Please enter valid mobile no. ';
+				$scope.showpageError('signupMobileError',2);
+				return false;
+			}
+		 
+		
+		if(password != undefined && password != null)
+		{ 
+			password = password.trim(); 
+		};
+		if( !password || password.length < 8 && form_type == 'signup')
+		{
+			if(password != undefined && password.length != 0 && password.length < 8)
+			{
+				$scope.passwordmsg='Password length should be min. 8 characters';
+			}
+			else
+			{ 
+				$scope.passwordmsg='Enter Password';
+			}
+			$scope.showpageError('PasswordError',2);
+			return false;
+		}
+		else if((password == '' || password == null || password == undefined) && form_type == 'login') 
+		{ 
+			$scope.passwordmsg='Enter Password';
+			$scope.showpageError('PasswordError',2);				
+			return false;
+		}
+		$scope.showpageError('PasswordError',1);	
+		if (Username != "" && password != "" && form_type == 'login') 
+		{
+			$scope.loginImageLoader = true;
+			var appTypeUrl = "/app/login-submit"
+			$http.post(appTypeUrl, 
+			{
+				email: Username,
+				password: password
+			}).success(function(response) 
+			{
+				$scope.loginImageLoader = false;		
+				if (response[0] == 'invalid') 
+				{
+					$scope.usernamemsg="<p>The Email and password you entered don&#039;t match</p>";
+					$scope.showpageError('UsernameError',2);
+					return false;
+				}
+				else if (response[0] == 'inactive') 
+				{
+					var msg= response[1] ? response[1] :"<p>Your account has been blocked.</p>";
+					$('#blocked_message').html(msg).show();
+					setTimeout(function(){ $('#blocked_message').html('').hide();},10000);
+					return false;
+				}                
+				else if(response[0] != 'valid' && response[0] != 'appsave')
+				{
+					$window.location.href = base_url + response;
+				}
+				else if(response[0] == 'valid'  ) 
+				{
+					var str = '';
+					var n = str.search('/billing-info/');
+					if(str.search('/billing-info/')>0 || str.search('subscriptionpayment')>0) 
+					{
+						$window.location.href = str;
+					}
+					else 
+					{
+						$window.location.href = base_url+ '/user';
+					}
+				}  
+				else if(response[0] == 'reseller'  ) 
+				{
+					var str = $window.location.hash;
+					var n = str.search('/creator-software/');
+					if(n>0) 
+					{
+						$window.location.href = base_url +'/app/creator-software/';
+					}
+					else 
+					{ 
+						$window.location.href = base_url +'/reseller/index';
+					}
+				}                
+				else if(response[0] == 'appsave' ) 
+				{ 
+					$window.location.href = base_url+'/app/creator-software';					  
+				}               
+			});
+
+		} 
+		else if (Username != "" && form_type == 'signup') 
+		{
+			$scope.signupImageLoader = true;
+			mobile = $("#mobile-number").val();
+			$scope.showpageError('signupMobileError',1);
+			var appTypeUrl = "/app/login-register"
+			$http.post(appTypeUrl, 
+			{
+				email: Username,
+				name: name,
+				password: password,
+				subscribeUser:newslaterVal,
+				referral:clicktype,
+				mobile:mobile
+			}).success(function(response) 
+			{
+				$scope.signupImageLoader = false;
+				if(editMode == 'referral' && (response[0] == 'valid' || response[0] == 'appsave')) 
+				{ 
+					$window.location.href = base_url+'/user/';					  
+				}
+				else if(response[0] == 'valid') 
+				{ 
+					$window.location.href = base_url+'/user';					  
+				}    
+				else if(response[0] == 'appsave' ) 
+				{ 
+					$window.location.href = base_url+'/app/creator-software';					  
+				}
+
+				else if (response[0] == 'exist') 
+				{
+					$scope.usernamemsg="<p>Email id already exists</p>";
+					$scope.showpageError('UsernameError',2);
+					return false;
+				}
+			});
+		} 
+	};
+
+         
+    $scope.clickOnUpload = function (loginType) { // Login Popup Loading here
+				if(typeof(loginType) != 'undefined' && loginType !='') {
+					if(loginType == 'login') $scope.loginSignup ='login';
+					if(loginType == 'sinup') $scope.loginSignup ='signup';
+				}
+                $timeout( function() {                  
+                  angular.element('#showLoginPopup').trigger('click');                      
+                    $timeout( function() {  
+                        if($scope.loginpop != 'yes'){
+                           $window.location.href = '/app/creator-software';  
+                        }
+                    }, 50);
+                }, 0);
+                  
+        }
+        
+    $scope.redirectPage = function() {
+            $window.location.href = '/app/creator-software';
+        }
+        
+     //reset password function
+    $scope.successforgoterror='';  
+    $scope.fogPassImageLoader = false;
+    
+    $scope.forgotpass = function(Username) {
+        var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{1,20}$/i);
+        // alert( pattern.test(emailAddress) );
+
+        if (!pattern.test(Username)) {
+			$scope.forgoterror="<p>Please enter valid email</p>";
+			$scope.showpageError('forgoterrormsg',2);
+			return false;
+            
+        }
+        var appTypeUrl = "/app/forgot-password"
+        $scope.fogPassImageLoader = true;
+        $http.post(appTypeUrl, {
+            email: Username
+        }).success(function(response) {
+            $scope.fogPassImageLoader = false;
+            if (response == "valid") {
+		    $scope.successforgoterror="<p>Please check your registered email id for the password.</p>";
+			
+            } else {
+		    $scope.forgoterror="<p>Email id not found.</p>";
+		    $scope.showpageError('forgoterrormsg',2);
+            }
+        });
+
+    };   
+    
+   $scope.successSubscribeMsg='';
+   $scope.unsubscribeErrorMsg='';
+  $scope.unsubscribeuser=function(userEmail){
+	  
+	if(userEmail!=''){
+	  var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{1,20}$/i);
+      if (!pattern.test(userEmail)) {
+		$scope.unsubscribeErrorMsg="<p>Please enter valid email</p>";
+		return false;
+       }
+        var appTypeUrl = base_url+"/login/save-unsubscribe-user"
+        $http.post(appTypeUrl, {
+            email: userEmail
+        }).success(function(response) {
+            if (response == "valid") {
+		    $scope.successSubscribeMsg="<p>You have been successfully unsubscribed from the mailing list.</p>";
+		    $scope.unsubscribeErrorMsg='';
+            } else {
+		    $scope.unsubscribeErrorMsg="<p>Email id not found.</p>";
+            }
+        });
+   }else{
+	 $scope.unsubscribeErrorMsg="<p>Please enter valid email</p>";
+	 return false;  
+	}  
+ } 
+    
+	$scope.flushpage = function () {
+	var appTypeUrl = base_url+'/app/flush-page';
+		$http.post(appTypeUrl).success(function (response) {
+			$window.location=base_url+'/app/creator-software/';
+			
+		  });
+	};
+	
+	
+  $scope.loginWithEnter = function($event,id) {
+	if($event.keyCode == 13) {
+	  $timeout(function() {
+            var el = document.getElementById(id);
+            ang(el).triggerHandler('click');
+
+        }, 0);
+       } 
+
+    };
+
+ // Referal program scripts
+  $scope.validEmail='';
+  var checkvalid=true;
+  $scope.totalInvitation=0;
+  $scope.totalInvitationSuccess=0;
+  $scope.gmailListArr=new Array();
+  $scope.yahooListArr=new Array();
+  $scope.hotmailListArr=new Array();
+  $scope.importgmailArrList=new Array();
+  $scope.importyahooArrList=new Array();
+  $scope.importhotmailArrList=new Array();
+  $scope.userEmailErrorMessage = false;
+  
+  $scope.checkInvite = function(){
+   var appTypeUrl = base_url+'/utility/count-invitation';
+		$http.post(appTypeUrl).success(function(response) {
+		 $scope.totalInvitation=response;
+	   });
+    }
+  $scope.showLoaderInvite=false;
+  $scope.sendMail = function(){
+	  checkvalid=true;
+	  $scope.showLoaderInvite=true;
+	  var btnText='';
+	 var emailList= $scope[$scope.innerTab+'ListArr'].toString();  
+	 if(emailList){
+		
+		var result = emailList.split(',');
+			for (var i = 0; i < result.length; i++) {
+				if (result[i] != '') {
+					if(!$scope.validateEmail(result[i].trim())) {
+						  $scope.alertFailureMessage='Please check, `' + result[i] + '` email addresses not valid!';
+						  checkvalid=false;
+						   $timeout(function(){
+				             $scope.alertFailureMessage='';
+				             $scope.showLoaderInvite=false;
+		                    },2000);
+						  return false;
+					}
+				}
+			}	
+	 if(checkvalid==true){	 
+	  var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{1,20}$/i);
+      if (!pattern.test(emailList) &&  emailList.search(",")==-1) {
+		 $scope.alertFailureMessage='Please enter valid email';
+		 $timeout(function(){
+				             $scope.alertFailureMessage='';
+				             $scope.showLoaderInvite=false;
+		                    },2000);
+		 return false;
+      }
+     $('.inviteLoader').html('<img src="/images/loader-newui.gif">');     
+	 var appTypeUrl = base_url+'/utility/send-invitation';
+		$http.post(appTypeUrl,{email:emailList}).success(function (response) {
+			$scope.showLoaderInvite=false;
+			$('#txtTags').val('');
+			if(response.msg!='warning') {
+			   $scope.alertSuccessMessage='Invitation has been sent successfully.';
+			   if($scope.innerTab=='manual'){
+				 $scope.manualListArr=new Array();
+				 $scope.activeTab.tab = $scope.innerTab = '';	
+				 $scope.activeTab.tab = $scope.innerTab = 'gmail';
+				 
+				}
+				else if($scope.innerTab=='gmail'){
+					 $scope.activeTab.tab = $scope.innerTab = '';	
+					 $scope.activeTab.tab = $scope.innerTab = 'yahoo';
+				}
+				else if($scope.innerTab=='yahoo'){
+					 $scope.activeTab.tab = $scope.innerTab = '';	
+					 $scope.activeTab.tab = $scope.innerTab = 'hotmail';
+				}
+				else if($scope.innerTab=='hotmail'){
+					 $scope.activeTab.tab = $scope.innerTab = '';	
+					 $scope.activeTab.tab = $scope.innerTab = 'manual';
+				}
+				
+				$timeout(function(){
+						$scope.alertSuccessMessage='';
+					},2000);
+			 
+			  $timeout(function(){
+				 $scope.totalInvitationSuccess=response.totalCount;
+			     $scope.totalInvitation=response.totalCount;
+		        },2000);		
+		     }
+			
+			if(response.msg=='warning') {
+			   $scope.alertFailureMessage='Invitation has already been sent.';
+			   $timeout(function(){
+				      $scope.alertFailureMessage='';
+		        },2000);
+		       if($scope.innerTab=='manual'){ 
+		         $scope.manualListArr=new Array(); 
+			     }
+			}
+	   });
+	   
+    }else{
+		 $scope.alertFailureMessage='Please enter valid email';
+		 $timeout(function(){
+				            $scope.alertFailureMessage='';
+		        },2000);
+	    return false;
+		
+	 }
+    }
+    
+   } 
+   
+   
+   $scope.getgooglelist=function(type){
+ 
+     var config = {
+       'client_id': '366671830182-6ecc3pgb9334gg1uun5eiij9vmk56g18.apps.googleusercontent.com',
+       'scope': 'https://www.google.com/m8/feeds'
+     };
+     gapi.auth.authorize(config, function() {
+       $scope.fetch(gapi.auth.getToken(),type);  
+      
+     });
+  } 
+  $scope.placeHolderVal="Enter email";
+  $scope.fetch=function(token,type) {
+    $scope.emailList='';
+	$scope.activeTab.tab='gmail';
+    $scope.importArrList=new Array();
+   if(type=='default'){
+	$scope.userDataSelection=new Array();
+	 }
+    $.ajax({
+     url: "https://www.google.com/m8/feeds/contacts/default/full?max-results=500&access_token=" + token.access_token + "&alt=json",
+     dataType: "jsonp",
+     success:function(data) {
+		 if(data.feed.entry){
+			 angular.forEach(data.feed.entry, function(value, key) {
+				 if(value.gd$email){
+					$scope.importgmailArrList.push(value.gd$email[0].address); 
+			   }
+			  
+			});
+			
+			 $timeout(function(){
+				     $scope.importgmailArrList=$scope.importgmailArrList;
+		        },200);
+			
+	    }else{
+		 $timeout(function(){
+				      $scope.alertFailureMessage='No contact(s) available.';
+		        },200);
+		  $timeout(function(){
+				      $scope.alertFailureMessage='';
+		        },3000);	
+		}
+		
+     }
+ });
+ } 
+ 
+  $scope.shareFacebookPage = function() {
+	FB.ui(
+	  {
+		method: 'feed',
+		name: "Get $5 off when you create an app with Appy Pie",
+		link: base_url+'/utility/referrer?rf=JmZhY2Vib29r',
+		picture: base_url+'/newui/images/logo.png',
+		description: "Hey guys, simply click on this link https://goo.gl/KsBtx6 to get $5 off when you create an #app with #AppyPie."
+	 },
+	function(response){
+		if (response && !response.error_code) {
+		console.log("OK: "+JSON.stringify(response));
+		if(JSON.stringify(response).post_id!=''){
+
+		}
+		} else {
+		console.log("Not OK: "+JSON.stringify(response));
+		$scope.myAppMSGFB='Facebook sharing error';
+	  }
+	});
+  };
+  
+ 
+  
+  $scope.showpageError=function(errVar,value){
+		$scope[errVar]=value;
+  } 
+
+$scope.user={};
+
+$scope.closeInviteModal=function(){
+	$scope.inviteStep2=false;
+	$scope.inviteStep1=true; 
+	$scope.inviteStep3=false;
+	$scope.user.emailList='';
+	$scope.user.addMoreEmail='';
+	$scope.importArrList=new Array();
+	$scope.importhotmailArrList=new Array();
+	$scope.importyahooArrList=new Array();
+	$scope.userDataSelection=new Array();
+	
+}
+  
+  $scope.shareTwitter= function () {
+		var appTypeUrl = base_url+"/utility/twitter-app-response/appName/null/type/invite";
+		$.oauthpopup({
+            path: appTypeUrl,
+            callback: function(){
+				$http.post("http://angularml.pbodev.info/utility/twitter-app-response-check").success(function(response) {
+			 if(response==true)	{
+		      }
+			 });
+            }
+        });
+	};
+	
+	 $scope.userDataSelection=new Array();
+ 	$scope.toggleSelection = function (id,ArrName) { // select single user
+		var idx = $scope[ArrName].indexOf(id);
+		if (idx > -1) {
+			$scope[ArrName].splice(idx, 1);
+		}else {
+			$scope[ArrName].push(id);
+		}
+	};	
+		
+	$scope.AllSelection = function (ArrName,valArr,$event) {
+		if($event.target.checked){
+			angular.forEach(valArr, function(value, key) {
+                  if(value){ 
+					var idx = $scope[ArrName].indexOf(value);
+					if (idx == -1) {
+					$scope[ArrName].push(value);
+					}
+					
+				}
+			}); 
+						
+		}else{
+			$scope[ArrName]=[];
+		}
+		
+	};
+	
+	
+ $scope.validateEmail=function(field) {
+    var regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,5}$/;
+    return (regex.test(field)) ? true : false;
+  }
+  $scope.socialImporterArr=['gmail','hotmail','yahoo']; //icon array
+  $scope.importyahooArrList =new Array();
+  $scope.getYahooContact=function(type){
+	 $scope.emailList='';
+	 $scope.importyahooArrList = new Array();
+	var appTypeUrl = base_url+'/utility/get-yahoo-contacts';
+	var checkStatus= $window.open(appTypeUrl, '_blank', 'width=500,height=400');
+	var promise = $interval(function(){
+	 if(checkStatus.closed){
+		 var appTypeUrl = base_url+'/utility/list-yahoo-contact';	
+		 $http.post(appTypeUrl).success(function (response) {
+			 if(response!=null && response!='null'){
+			 $scope.importyahooArrList=response;
+			 $scope.activeTab.tab='yahoo';
+			 $interval.cancel(promise);
+		     }else{
+				$interval.cancel(promise); 
+				$timeout(function(){
+				      $scope.alertFailureMessage='No contact(s) available.';
+		        },200);
+		        $timeout(function(){
+				      $scope.alertFailureMessage='';
+		        },3000);
+			  }
+		   });
+		 } 
+	 },2000);
+  }
+ $scope.inviteStep1=true;  
+ $scope.validateMultipleEmailsCommaSeparated=function(emailcntl, seperator) {
+			var value = emailcntl;
+			if (value != '') {
+				var result = value.split(seperator);
+				for (var i = 0; i < result.length; i++) {
+					if (result[i] != '') {
+						if (!$scope.validateEmail(result[i])) {
+							  $scope.alertFailureMessage='Please check, `' + result[i] + '` email addresses not valid!';
+							  $timeout(function(){
+								$('#dataMsgModal').modal('show');
+								return false;
+							  },100);
+							
+						}
+					}
+				}
+			}
+			return true;
+		}
+  $scope.hotmailContacts=function(type){
+	  $scope.importHotmailArrList=new Array();
+	  
+	 if(type=='default'){
+		//$scope.importArrList=new Array();
+		$scope.userDataSelection=new Array(); 
+	 }
+	 
+     WL.login({
+         scope: ["wl.basic", "wl.contacts_emails"]
+     }).then(function (response) 
+     {
+       WL.api({
+             path: "me/contacts",
+             method: "GET"
+         }).then(
+             function (response) {
+				console.log(response.data);
+					console.log(response);
+			if(response.data){	
+				angular.forEach(response.data, function(value, key) {
+				 if(value.emails.personal){
+					$scope.importhotmailArrList.push(value.emails.personal); 
+					if($('#emailListSelection').is(':checked')){
+						$scope.userDataSelection.push(value.emails.personal); 
+					}
+					$scope.activeTab.tab='hotmail';
+			   } 
+			 });
+			 $timeout(function(){
+				     $scope.importhotmailArrList=$scope.importhotmailArrList;
+		        },200);
+			 
+		  }else{
+			   $timeout(function(){
+				      $scope.alertFailureMessage='No contact(s) available.';
+		        },200);
+		      $timeout(function(){
+				      $scope.alertFailureMessage='';
+		        },3000);
+			  
+			  }
+		
+             },
+             function (responseFailed) {
+              //console.log(responseFailed);
+             }
+         );
+         
+     },
+     function (responseFailed) 
+     {
+         //console.log("Error signing in: " + responseFailed.error_description);
+     });
+  
+ 
+
+	  
+	  
+	  
+	
+	 }		
+	$scope.user={};
+	$scope.user.addMoreEmail='';
+	$scope.manualListArr=new Array();
+	var unique = new Array();
+    $scope.addToList=function(email,$event){
+	 if(email){
+		 var result = email.split(',');
+		 for(var i = 0; i < result.length; i++) {
+			if (result[i] != '') {
+				  if( typeof(unique[result[i]]) == "undefined"){ 
+					if ($scope.validateEmail(result[i].trim())) {
+						  $scope.manualListArr.push(result[i]); 	
+				  }
+			    }
+			}
+		  unique[result[i]] = 0;	
+		} 
+		 $scope.user.addMoreEmail=''
+      }
+	
+	}	
+	
+	$scope.addListWithEnter = function($event,email) {
+	if($event.keyCode == 13) {
+	  $timeout(function() {
+           $scope.addToList(email);
+        }, 0);
+       } 
+    };
+		
+	$scope.removeFromList=function(index){
+	  $scope.manualListArr.splice(index,1);
+	   unique=new Array();
+	   for(var i = 0; i < $scope.manualListArr.length; i++) {
+	     unique[$scope.manualListArr[i]] = 0;
+       }
+	}	
+	$scope.AnyModelHide = function(ID){  // ID should be model id
+			$("#"+ID).modal("hide");
+            $('body').addClass('modal-open');      
+		}
+		$scope.hideOuterModel = function(ID){  // ID should be model id
+			$("#"+ID).modal("hide");
+            $('body').removeClass('modal-open');      
+		}
+		
+  $scope.closeReferralPopUp=function(){
+	 if($scope.currentPage=='referral'){
+    	location.reload(true);
+     }
+	  
+ }		
+	
+});
+function isNumber(evt,id){		
+	var charCode = (evt.which) ? evt.which : evt.keyCode;
+	charCode = parseInt(charCode);	
+	if( ( charCode >= 48 && charCode <= 57 ) || charCode == 8 )
+	{		
+	return true;
+	}
+	
+	return false;
+}
+</script>
+<script type=text/javascript>
+window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
+d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+_.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute('charset','utf-8');
+$.src='//cdn.zopim.com/?39g9USezGZlD8jweOcSAmnb8dSWumVz7';z.t=+new Date;$.
+type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
+</script><!-- Google Code for Remarketing Tag --> 
+<!--
+Remarketing tags may not be associated with personally identifiable information or placed on pages related to sensitive categories. See more information and instructions on how to setup the tag on: http://google.com/ads/remarketingsetup
+--> 
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 966112351;
+var google_custom_params = window.google_tag_params;
+var google_remarketing_only = true;
+/* ]]> */
+</script> 
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;"> <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/966112351/?value=0&amp;guid=ON&amp;script=0"/> </div>
+</noscript>
+<script type="text/javascript">var ssaUrl = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'centro.pixel.ad/iap/86d5ec2a95c7099f';new Image().src = ssaUrl;</script>
+<script>(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"5188731"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script><noscript><img src="//bat.bing.com/action/0?ti=5188731&Ver=2" height="0" width="0" style="display:none; visibility: hidden;" /></noscript>
+<!-- Facebook Pixel Code -->
+<script> !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n; n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0; t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js'); fbq('init', '597634130403087'); fbq('track', "PageView");</script> <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=597634130403087&ev=PageView&noscript=1" /></noscript>
+<!-- End Facebook Pixel Code -->
+<!-- Twitter universal website tag code -->
+<script>
+!function(e,n,u,a){e.twq||(a=e.twq=function(){a.exe?a.exe.apply(a,arguments):
+a.queue.push(arguments);},a.version='1',a.queue=[],t=n.createElement(u),
+t.async=!0,t.src='//static.ads-twitter.com/uwt.js',s=n.getElementsByTagName(u)[0],
+s.parentNode.insertBefore(t,s))}(window,document,'script');
+twq('init','nvhh0');
+twq('track','PageView');
+</script>
+<!-- End Twitter universal website tag code -->
+<script src="//connect.facebook.net/en_US/all.js"></script> 
+<script>
+$(document).ready(function(){
+document.cookie ="breadCrumbArr=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/";
+document.cookie ="breadCrumbArr=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/user/app/";
+});
+ window.fbAsyncInit = function()
+  	{
+     FB._https = true; 		
+	 FB.init
+	 (
+	 	{
+				appId   : "124946104806317",
+				status  : true,
+				cookie  : true,
+				xfbml	: true,
+			   
+			}
+		);
+	};
+
+	function login()
+	{
+		var email='';
+		var name = '';
+		var fbid = '';
+		FB.login
+		(
+			function( response )
+			{
+				if ( response.authResponse )
+				{
+					FB.api
+					(
+						"/me?fields=email,name",
+						function( response )
+						{
+							email = response.email;
+							name = response.name;
+							fbid = response.id;
+							checkUser(fbid,name,email,'FB');
+						}
+					)
+				}
+			}, {scope:'email,user_birthday,status_update,publish_stream'}
+		);
+		
+	}
+	
+	function checkUser(fbid,name,email,socialnetwork)
+	{	
+		var chechRedirection = '';
+		var id = '';
+		$.post('/app/facebook-login',{fbid:fbid,username:name,email:email,socialnet:socialnetwork},
+			function(result)
+			{	
+				if(result == 'valid'){
+                                        window.location = "/user";
+                                       return true;
+					if(id != "")
+					{
+						
+						if(chechRedirection == 'game') {
+							window.location = "/user/publish";
+						} else {
+							checkApplicationCreateEditMode();
+						}
+						
+					}else{
+						
+						if(chechRedirection == 'game') {
+							window.location = "/game/publish";
+						} else {
+						setTimeout(function(){ angular.element(document.getElementById('newMainController')).scope().checkredirection(result); }, 200);
+							
+						}						
+					}
+				}
+				else if(result=='appsave'){
+					
+					setTimeout(function(){ angular.element(document.getElementById('newMainController')).scope().checkredirection(result); }, 200);
+
+					}				
+				else{
+					window.location = '';//newHash;
+				}
+				
+			}
+		);
+	}
+$('.logo').affix({
+        offset: {
+            top: 35
+        }
+    });
+	$('#app_phone').affix({
+        offset: {
+            top: 100
+        }
+    });
+    </script>
+</body>
+</html>
