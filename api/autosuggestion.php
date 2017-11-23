@@ -47,6 +47,39 @@ if(!empty($arrValues))
 			$suggestionResult = array_values($uniquePids);
 		}
 	}
+	else if($type=='location')
+	{
+		$where = array(
+						'$or' => array(
+						array(
+						'area' => new MongoRegex("/strtolower($typeSearch)/i"),
+						),
+						array(
+						'area' => new MongoRegex("/$typeSearch/i"),
+						),
+						)
+					);
+		$cursor = $collection->find($where,array('area'=>1));
+		$searchResult =  iterator_to_array($cursor);
+		$suggestionResult2 = array();
+		if(!empty($searchResult))
+		{
+			$suggestionResult = array();
+			foreach($searchResult  as $data)
+			{
+				if($data['area']!='')
+				{
+					$suggestionResult[] = array('area'=>$data['area']);
+				}
+				
+			}
+		}
+		if(!empty($suggestionResult))
+		{
+			$uniquePids = array_unique($suggestionResult, SORT_REGULAR);
+			$suggestionResult = array_values($uniquePids);
+		}
+	}
 	else
 	{
 		$where = array(

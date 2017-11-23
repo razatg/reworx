@@ -8,6 +8,7 @@ $where = array();
 $position = isset($arrValues['position'])?trim($arrValues['position']):"";
 $position = $orignalPos = preg_replace('/\s+/', ' ', $position);
 $company = isset($arrValues['company'])?$arrValues['company']:"";
+$location = isset($arrValues['location'])?$arrValues['location']:"";
 if($_SERVER['HTTP_HOST']=='localhost')
 {
 	$m = new MongoClient("mongodb://192.168.3.2:27017");
@@ -39,6 +40,10 @@ if(!empty($_SESSION['member']['cId']))
 if(!empty($company))
 {
   $where['company']	 = new MongoRegex("/$company/i");
+}
+if(!empty($location))
+{
+  $where['area']	 = new MongoRegex("/$location/i");
 }
 //print_r(json_encode($where));
 if(!empty($where))

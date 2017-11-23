@@ -27,7 +27,7 @@ include_once('../config-ini.php');
 			<li class="active"><a href="#">Home</a></li>
 			<li><a href="#">Analytics</a></li>
 			<li><a href="#">Tracking</a></li>
-			<li class="network_btn"><a href="<?php echo ANGULAR_ROUTE; ?>/request">{{addtolistdata}} Users Added To List</a></li>
+			<li ng-if="addtolistdata>0" class="network_btn"><a href="<?php echo ANGULAR_ROUTE; ?>/request">{{addtolistdata}} &nbsp; Shortlisted </a></li>
 		</ul>
 	</nav>
 	<!-- Nav Desktop -->
@@ -35,30 +35,128 @@ include_once('../config-ini.php');
 <div class="bodypan" ng-style="{'min-height':divHeight()}">
 	<div class="search_container">
 		<div class="grid-center">
+			<style>.customCatComplete{
+							background: none !important;
+							width: 288px !important;
+							margin: 0 !important;
+							border: none !important;
+							outline: 0 !important;
+							padding: 0px 0 2px !important;
+												}
+						.rnz_new_fld span{    width: 100px;
+							font-weight: bold;
+							float: left;
+							display: inline-block;
+							padding: 12px 0;}
+						.rnz_new_fld select{    width: calc(100% - 100px);
+							float: left;
+							height: 45px;}
+							.rnz_new_fld_btn{    height: 45px;
+							float: left;
+							background: #000;
+							color: #fff5f5;
+							width: 115px;
+							font-weight: bold;
+							padding: 11px 0;
+						}
+						.rnz_new_fld_btn:hover{color:#fff;}
+						.autocomplete-options-dropdown {
+							position: absolute;
+							top: 10px;
+							left: -9.5px;
+							border: 1px solid #ccc;
+							border-top-color: #d9d9d9;
+							box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+							-webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+							cursor: default;
+							z-index: 1001;
+							background: white;
+							WIDTH: 104%;
+						}
+					</style>
 			<div class="field_row">
+				
 				<div class="fld_col">
-				<autocomplete name="position" ng-keypress="searchEnter($event);"  ng-keyup="fetchData('position')" ng-model="position" options="datas" 
+					<ul class="search_list_container">
+					<li class="search_list" ng-repeat="data in multipleArrList track by $index">
+                      <a ng-click="removeFromSearchList($index,'position')" class="glyphicon glyphicon-remove search_list_remove"></a>
+					{{data}}
+					</li>
+					<li><autocomplete name="position" ng-keypress="searchEnter($event);"  ng-keyup="fetchData('position')" ng-model="position" options="datas" 
 						place-holder="Enter a Position (e.g Java Developer) or Skill (eg Java).."
 						on-select="onSelect" 
 						display-property="title"
-						input-class="form-control"
+						input-class="form-control customCatComplete"
 						clear-input="false">
-				</autocomplete>
-						</div>
-						<div class="fld_col">
-				<autocomplete name="company" ng-keypress="searchEnter($event);"  ng-keyup="fetchData('company')" ng-model="company" options="companyList" 
+				</autocomplete></li>
+			 
+					</ul>
+				</div>
+				<div class="fld_col">
+				<ul class="search_list_container">
+					<li class="search_list" ng-repeat="data in multipleCompanyArrList track by $index">
+                      <a ng-click="removeFromSearchList($index,'company')" class="glyphicon glyphicon-remove search_list_remove"></a>
+					{{data}}
+					</li>
+					
+					<li><autocomplete name="company" ng-keypress="searchEnter($event);"  ng-keyup="fetchData('company')" ng-model="company" options="companyList" 
 						place-holder="Company"
-						on-select="onSelect" 
+						on-select="onSelectComp" 
 						display-property="title_comp"
-						input-class="form-control"
+						input-class="form-control customCatComplete"
 						clear-input="false">
-				</autocomplete>	 
+				</autocomplete></li>
+					</ul>	
 				</div>
 			</div>
 			<a class="search_btn" data-ng-click="searchData();"></a>
-			<a class="filter_btn"></a>
+			<a data-ng-click="showFilter()" class="filter_btn"></a>
 		</div>
 	</div>			
+		
+ 
+		<div class="search_container" ng-show="showAdvancedFilter" style="padding: 0;">
+ 
+		<div class="grid-center">
+			<div class="field_row">
+				<div class="fld_col">
+					
+					 <autocomplete name="location" ng-keypress="searchEnter($event);"  ng-keyup="fetchData('location')" ng-model="location" options="locationData" 
+						place-holder="Search Geo Location"
+						on-select="onSelectArea" 
+						display-property="area"
+						input-class="form-control"
+						clear-input="false">
+				</autocomplete> 
+			 
+				 
+					 
+					<style>
+					
+			 
+					</style>
+				
+				</div>
+				
+				<div class="fld_col rnz_new_fld">
+				<span>Experience</span>
+				
+				<select name="year_of_experience" class="form-control">
+				<option> 1 </option>
+				<option> 2 </option>
+				<option> 3 </option>
+				<option> 4 </option>
+				<option> 5 </option>
+				<option> 6 </option>
+				<option> 7 </option>
+				</select>
+			</div>
+			</div>
+			<a class="btn rnz_new_fld_btn" data-ng-click="searchData();">Search</a>
+		</div>
+	</div>			
+		
+		
 		<div class="grid-center">
 			<center  ng-if="showLoder"><img width="80" src="newui/images/widget-loader-lg-en.gif" alt=""></center>
 			 <ul ng-if="!showLoder" class="list-item">
@@ -78,7 +176,7 @@ include_once('../config-ini.php');
 							<div class="detail_action">
 								<a  class="" target="_blank" href="{{data.profile_url}}"><img src="newui/images/linkden.png"></a>
 								<a href="mailto:{{data.email}}" class=""><img src="newui/images/mail.png"></a>
-								<a class="btn-res" data-ng-click="addtolist(data.UID,data);">{{data.IsEdit==true?'Remove from list':'Add to List'}}</a>
+								<a style="background:{{data.IsEdit==true?'#93ABA4':''}}" class="{{data.IsEdit==true?'btn-res':'btn-res'}}" data-ng-click="addtolist(data.UID,data);">{{data.IsEdit==true?'Remove from list':'Shortlist'}}</a>
 						</div>
 					</div>
 				</li>
@@ -100,6 +198,30 @@ include_once('../config-ini.php');
 trackingApp.registerCtrl('searchController',function($scope,$http, $location, $timeout, $element)
 {
 	$scope.resultList = {};
+	$scope.removeFromSearchList = function(index,type)
+	{
+		if(type=='company')
+		{
+			$scope.multipleCompanyArrList.splice(index,1);
+		}
+		else
+		{
+			$scope.multipleArrList.splice(index,1);
+		}
+		
+	}   
+	$scope.showAdvancedFilter = false;
+	$scope.showFilter = function()
+	{
+		if($scope.showAdvancedFilter)
+		{
+			$scope.showAdvancedFilter = false;
+		}
+		else
+		{
+			$scope.showAdvancedFilter = true;
+		}
+	}
 	$scope.currentPage = 0;
 	$scope.totalPageLength = 0;
     $scope.pageSize = 10;
@@ -109,7 +231,7 @@ trackingApp.registerCtrl('searchController',function($scope,$http, $location, $t
 	{
 		$scope.showLoder = true;
 		var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/get-data.php';
-		$http.post(absUrl,{position:$scope.position,company:$scope.company,page:$scope.currentPage}).success(function(response)
+		$http.post(absUrl,{position:$scope.position,company:$scope.company,page:$scope.currentPage,location:$scope.location}).success(function(response)
 		{
 			$scope.resultList = response;
 			$scope.resultStatus = response.status;
@@ -125,10 +247,59 @@ trackingApp.registerCtrl('searchController',function($scope,$http, $location, $t
 			$scope.searchData();
 		}
 	};
+	$scope.multipleArrList = [];
+	$scope.multipleCompanyArrList = [];
 	$scope.onSelect = function(selection) 
 	{
 		$scope.selectedData = selection;
+		if($scope.multipleArrList.length>0)
+		{
+			for(var i=0;i<$scope.multipleArrList.length;i++)
+			{
+				if($scope.multipleArrList[i].title!=selection.title)
+				{
+					var movetoList = selection.title;
+				}
+			}
+			
+			$scope.multipleArrList.push(movetoList);
+		}
+		else
+		{
+			$scope.multipleArrList.push(selection.title);	
+		}
+		
+		$scope.position  = '';
 	};
+	
+	$scope.onSelectComp = function(company)
+	{
+		$scope.selectedData = company;
+		if($scope.multipleCompanyArrList.length>0)
+		{
+				for(var i=0;i<$scope.multipleCompanyArrList.length;i++)
+				{
+					if($scope.multipleCompanyArrList[i].title_comp!=company.title_comp)
+					{
+						var movetoList = company.title_comp;
+					}
+				}
+				
+				$scope.multipleCompanyArrList.push(movetoList);
+			}
+			else
+			{
+				
+				$scope.multipleCompanyArrList.push(company.title_comp);	
+			}
+			
+			$scope.company  = '';	
+	}
+	
+	$scope.onSelectArea = function(area)
+	{
+		$scope.locationData = area;
+	}
 	
 	$scope.selectedData = null;
 	$scope.resultStatus = '';
@@ -148,9 +319,14 @@ trackingApp.registerCtrl('searchController',function($scope,$http, $location, $t
 					{
 						$scope.companyList = angular.copy(response.data);
 					}
+					else if(type== 'location')
+					{
+						$scope.locationData = angular.copy(response.data);
+					}
 					else
 					{
 						$scope.datas = angular.copy(response.data);
+					//	$scope.skillsList = angular.copy(response.data);
 					}
 					
 				}

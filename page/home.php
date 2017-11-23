@@ -28,17 +28,20 @@ include_once('../config-ini.php');
     <div class="banner">
     <div class="container grid-center">
 	<div class="freetrailForm">
-			<span ng-if="errorMsg" style="color:red;" ng-bind-html="errorMsg"></span>
+			<span ng-if="errorMsg" class="warning-error" ng-bind-html="errorMsg"></span>
 		<h2>Hire the best talent from your Employees' Network</h2>
 		<form>
 			<input type="text" ng-model="register.company_name" placeholder="Name"/>
+			<span ng-if="errorNameMsg" class="warning-error"  ng-bind-html="errorNameMsg"></span>
 			<input type="text" ng-model="register.email" placeholder="Work Email"/>
+			<span ng-if="errorEmailMsg" class="warning-error" ng-bind-html="errorEmailMsg"></span>
 			<input type="text" ng-model="register.mobile_number" placeholder="Mobile No"/>
-			<h2  ng-if="successMsg" style="color:#fff;font-size:21px;" ng-bind-html="successMsg"></h2>
-
+			<span ng-if="errorMobileMsg" class="warning-error" ng-bind-html="errorMobileMsg"></span>
+			<h2  ng-if="successMsg"  style="color:#fff;font-size:21px;" ng-bind-html="successMsg"></h2>
+              <div style="margin-top:20px;">
 			<button ng-if="!showLodermail && !successMsg" data-ng-click="userRegister();" class="trailBtn" href="#">
 				Start Free Trial
-				</button>
+				</button></div>
 			<center  ng-if="showLodermail"><img width="80" src="newui/images/widget-loader-lg-en.gif" alt=""></center>
 		</form>
 	</div>
@@ -170,20 +173,29 @@ trackingApp.registerCtrl('homeController',function($scope,$http, $location, $tim
 	$scope.userRegister = function()
 	{
 		$scope.errorMsg = '';
+		$scope.errorEmailMsg = '';
+		$scope.errorMobileMsg = '';
+		$scope.errorNameMsg = '';
 		$scope.successMsg = '';
 		if($scope.register.email && $scope.register.company_name && $scope.register.mobile_number)
 		{
 			var pattern = new RegExp(/^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{1,20}$/i);
 			var phonePattern = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,8}$/im;
 			
-			if($scope.register.mobile_number && !phonePattern.test($scope.register.mobile_number))
-			{
-				$scope.errorMsg = 'Please enter valid mobile number.';
-				return false;
-			}
+			
 		    if($scope.register.email && !pattern.test($scope.register.email))
 			{
-				$scope.errorMsg = 'Please enter valid email address.';
+				$scope.errorEmailMsg = 'Please enter valid company email address.';
+				return false;
+			}
+			else if($scope.register.email && ($scope.register.email.match(/yahoo/i) || $scope.register.email.match(/gmail/i) || $scope.register.email.match(/rediff/i) || $scope.register.email.match(/aol/i) || $scope.register.email.match(/msn/i) || $scope.register.email.match(/live/i) || $scope.register.email.match(/hotmail/i)))
+			{
+				$scope.errorEmailMsg =  'Company email not valid.';
+				return false;
+			}
+			if($scope.register.mobile_number && !phonePattern.test($scope.register.mobile_number))
+			{
+				$scope.errorMobileMsg = 'Please enter valid mobile number.';
 				return false;
 			}
 			$scope.showLodermail = true;
@@ -206,15 +218,15 @@ trackingApp.registerCtrl('homeController',function($scope,$http, $location, $tim
 		{
 			if(!$scope.register.email)
 			{
-				$scope.errorMsg = 'Please enter work email address.';
+				$scope.errorEmailMsg = 'Please enter company email address.';
 			}
-			else if(!$scope.register.company_name)
+			if(!$scope.register.company_name)
 			{
-				$scope.errorMsg = 'Please enter company name.';
+				$scope.errorNameMsg = 'Please enter company name.';
 			}
-			else if(!$scope.register.mobile_number)
+			if(!$scope.register.mobile_number)
 			{
-				$scope.errorMsg = 'Please enter mobile number.';
+				$scope.errorMobileMsg = 'Please enter mobile number.';
 			}
 			return false;
 			

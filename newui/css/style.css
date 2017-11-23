@@ -1142,7 +1142,7 @@ background: url(../images/form_bg.jpg) repeat-y 0 0;
 padding: 25px;
 border-radius: 5px;
 max-width: 476px;
-margin: 65px 0;
+margin: 40px 0;
 box-sizing: border-box;
 overflow: hidden;
 }
@@ -1155,7 +1155,7 @@ text-shadow: 1px 2px 1px #646464;
 }
 .freetrailForm input {
 width: 100%;
-margin-bottom: 20px;
+margin-top: 20px;
 border: 2px solid #fff;
 background: transparent;
 height: 45px;
@@ -1178,7 +1178,7 @@ box-sizing: border-box;
     border-radius: 5px;
     border: 0;
     cursor: pointer;
-    margin-bottom: 20px;
+    margin-bottom:0px;
 }
 .banner{position:absolute; top:0px; left:0px; right:0px; bottom:0px;}
 .testimonial-second{background: url(../images/testimonial_bg.jpg) repeat 0 0;
@@ -1470,3 +1470,58 @@ padding-top: 10px;
 display: inline-block;
 }
 .bgHome{    background: url(../images/home-slider2.jpg) no-repeat;     background-size: cover;}
+
+.warning-error{    color: yellow;
+    font-size: 14px;}
+    .freetrailForm  form{margin:0px;}
+    
+ .search_list_container{padding: 4px 5px 0;
+				display: inline-flex;
+				background: #fff;
+				border: 0 none;
+				box-sizing: border-box;
+				color: #b4b4b4;
+				font-size: 15px;
+				margin: 0;
+				margin-right: 0px;
+				padding: 10px;
+				width: 100%;
+				border: 1px solid #c4d2d2;
+				box-shadow: inherit; display:inline-block}
+.search_list{border-radius: 6px;
+    border: 1px solid #CAD8F3;
+    background: #DEE7F8;
+    padding: 0px 6px;
+    width: 116px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    float: left;
+    padding-right: 20px;
+    margin-right: 10px; 
+    position: relative;
+    font-size: 13px;
+    min-width: 116px;
+    margin-top:2px;
+    }
+   .search_list_remove {    position: absolute;
+    right: 0;
+    top: 0px;
+    font-size: 12px;
+    padding: 4px;"}
+ .search_list_remove:hover{text-decoration:none;}
+
+.autocomplete-options-dropdown {
+    position: absolute;
+    top: 8px;
+    left: -10px;
+    border: 1px solid #ccc;
+    border-top-color: #d9d9d9;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    -webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    cursor: default;
+    z-index: 1001;
+    background: white;
+    width: calc(100% + 20px);
+}
+
