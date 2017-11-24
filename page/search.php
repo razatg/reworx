@@ -60,6 +60,7 @@ include_once('../config-ini.php');
 							padding: 11px 0;
 						}
 						.rnz_new_fld_btn:hover{color:#fff;}
+						
 						.autocomplete-options-dropdown {
 							position: absolute;
 							top: 10px;
@@ -72,6 +73,11 @@ include_once('../config-ini.php');
 							z-index: 1001;
 							background: white;
 							WIDTH: 104%;
+						}
+						.customLocation .autocomplete-options-container .autocomplete-options-dropdown{
+							top: 0;
+							left: 0;
+							WIDTH: 100%;
 						}
 					</style>
 			<div class="field_row">
@@ -98,7 +104,6 @@ include_once('../config-ini.php');
                       <a ng-click="removeFromSearchList($index,'company')" class="glyphicon glyphicon-remove search_list_remove"></a>
 					{{data}}
 					</li>
-					
 					<li><autocomplete name="company" ng-keypress="searchEnter($event);"  ng-keyup="fetchData('company')" ng-model="company" options="companyList" 
 						place-holder="Company"
 						on-select="onSelectComp" 
@@ -113,14 +118,10 @@ include_once('../config-ini.php');
 			<a data-ng-click="showFilter()" class="filter_btn"></a>
 		</div>
 	</div>			
-		
- 
-		<div class="search_container" ng-show="showAdvancedFilter" style="padding: 0;">
- 
+	<div class="search_container" ng-show="showAdvancedFilter" style="padding:0;">
 		<div class="grid-center">
 			<div class="field_row">
-				<div class="fld_col">
-					
+				<div class="fld_col customLocation">
 					 <autocomplete name="location" ng-keypress="searchEnter($event);"  ng-keyup="fetchData('location')" ng-model="location" options="locationData" 
 						place-holder="Search Geo Location"
 						on-select="onSelectArea" 
@@ -128,35 +129,15 @@ include_once('../config-ini.php');
 						input-class="form-control"
 						clear-input="false">
 				</autocomplete> 
-			 
-				 
-					 
-					<style>
-					
-			 
-					</style>
-				
 				</div>
-				
 				<div class="fld_col rnz_new_fld">
 				<span>Experience</span>
-				
-				<select name="year_of_experience" class="form-control">
-				<option> 1 </option>
-				<option> 2 </option>
-				<option> 3 </option>
-				<option> 4 </option>
-				<option> 5 </option>
-				<option> 6 </option>
-				<option> 7 </option>
-				</select>
+				<select ng-init="total_experience=yearOfExp[0]" ng-model="total_experience" class="form-control" ng-options="item for item in yearOfExp"></select>
 			</div>
 			</div>
 			<a class="btn rnz_new_fld_btn" data-ng-click="searchData();">Search</a>
 		</div>
-	</div>			
-		
-		
+	  </div>			
 		<div class="grid-center">
 			<center  ng-if="showLoder"><img width="80" src="newui/images/widget-loader-lg-en.gif" alt=""></center>
 			 <ul ng-if="!showLoder" class="list-item">
@@ -168,13 +149,12 @@ include_once('../config-ini.php');
 								<h3 ng-if="data.experience[0].designation && data.experience[0].company" ng-bind-html="data.experience[0].designation+' at '+ data.experience[0].company"></h3> 
 								<h3 ng-bind-html="data.designation"></h3>
 								<p class="location" ng-bind-html="data.area"></p>
-								<!--<img src="newui/images/1X1.png" style="background:url({{data.pic_phy}})" class="profile">-->
 								<div ng-repeat="item in data.connectedUsers">
 								<img  src="newui/images/1X1.png" style="background:url({{item.pic_phy}})" class="profile">
 								</div>
 						   </div>
 							<div class="detail_action">
-								<a  class="" target="_blank" href="{{data.profile_url}}"><img src="newui/images/linkden.png"></a>
+								<a target="_blank" href="{{data.profile_url}}"><img src="newui/images/linkden.png"></a>
 								<a href="mailto:{{data.email}}" class=""><img src="newui/images/mail.png"></a>
 								<a style="background:{{data.IsEdit==true?'#93ABA4':''}}" class="{{data.IsEdit==true?'btn-res':'btn-res'}}" data-ng-click="addtolist(data.UID,data);">{{data.IsEdit==true?'Remove from list':'Shortlist'}}</a>
 						</div>
@@ -198,6 +178,11 @@ include_once('../config-ini.php');
 trackingApp.registerCtrl('searchController',function($scope,$http, $location, $timeout, $element)
 {
 	$scope.resultList = {};
+	$scope.yearOfExp = [];
+	for(var i = 1;i<=50;i++)
+	{
+		$scope.yearOfExp.push(i);
+	}
 	$scope.removeFromSearchList = function(index,type)
 	{
 		if(type=='company')
@@ -231,7 +216,7 @@ trackingApp.registerCtrl('searchController',function($scope,$http, $location, $t
 	{
 		$scope.showLoder = true;
 		var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/get-data.php';
-		$http.post(absUrl,{position:$scope.position,company:$scope.company,page:$scope.currentPage,location:$scope.location}).success(function(response)
+		$http.post(absUrl,{total_experience:$scope.total_experience,position:$scope.multipleArrList,company:$scope.multipleCompanyArrList,page:$scope.currentPage,location:$scope.location}).success(function(response)
 		{
 			$scope.resultList = response;
 			$scope.resultStatus = response.status;

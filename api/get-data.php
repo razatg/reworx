@@ -9,6 +9,7 @@ $position = isset($arrValues['position'])?trim($arrValues['position']):"";
 $position = $orignalPos = preg_replace('/\s+/', ' ', $position);
 $company = isset($arrValues['company'])?$arrValues['company']:"";
 $location = isset($arrValues['location'])?$arrValues['location']:"";
+$total_experience = isset($arrValues['total_experience'])?$arrValues['total_experience']:"";
 if($_SERVER['HTTP_HOST']=='localhost')
 {
 	$m = new MongoClient("mongodb://192.168.3.2:27017");
@@ -44,6 +45,10 @@ if(!empty($company))
 if(!empty($location))
 {
   $where['area']	 = new MongoRegex("/$location/i");
+}
+if(!empty($total_experience))
+{
+  $where['total_experience']	 = $total_experience;
 }
 //print_r(json_encode($where));
 if(!empty($where))
