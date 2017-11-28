@@ -81,11 +81,11 @@ trackingApp.run(['$routeParams','$rootScope','$timeout','$location','$templateCa
 				{
 					window.location.href =  angRoute+'/search';
 				}
-				if(response.status=='csvnotuploaded')
+				else if(response.status=='csvnotuploaded')
 				{
-					window.location.href =  aangRoute+'/uploadcsv';
+					window.location.href =  angRoute+'/uploadcsv';
 				}
-				if(response.status=='csvuploaded')
+				else if(response.status=='csvuploaded')
 				{
 					window.location.href =  angRoute+'/employee-dashboard';
 				}

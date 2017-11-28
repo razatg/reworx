@@ -10,11 +10,13 @@ include_once('../config-ini.php');
 <div class="banner-container">
 	<h1><span class="light_green">Get Rewards,</span><span class="green"> by referring your Contacts and Friends.</span><br>
 	Upload your LinkedIn Contacts to get started</h1>
-	<div ng-if="!showLoder" class="linkden_container">
+	<div  class="linkden_container">
+		<p ng-if="errorCsvMsg" style="color:red;" class="warning-error" ng-bind-html="errorCsvMsg"></p>
 		<img src="newui/images/linkdenlogo.jpg" alt="">
 		<h1>Upload your LinkedIn CSV </h1>
 		<?php if(!empty($_SESSION['member']['email'])){?>
-		<input class="application-btn" type="file" onchange="angular.element(this).scope().setFile(this)">
+		<input ng-if="!showLoder" class="application-btn" type="file" onchange="angular.element(this).scope().setFile(this)">
+		<center  ng-if="showLoder"><img width="80" src="newui/images/widget-loader-lg-en.gif" alt=""></center>
 		<?php } 
 		else
 		 {?>
@@ -22,7 +24,6 @@ include_once('../config-ini.php');
 		<?php }?>
 		<a class="more_btn">Learn how..</a>
 	</div>
-	<div ng-if="showLoder"><img src="newui/images/fancybox_loading.gif" alt=""></div>
 	<h2>You will be providing publically accessible information Only.<br>
 	 We will never contact anyone on your behalf</h2>
 </div>
@@ -34,35 +35,44 @@ trackingApp.registerCtrl('homeController',function($scope,$http, $location, $tim
 	   $scope.showLoder = false;
 	   $scope.setFile = function(element) 
 	   {
-	    $scope.showLoder = true;
-        $scope.$apply(function($scope) 
-        {
-			$scope.files = element.files[0];
-			var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/csvupload.php';
-			var fd = new FormData()
-			fd.append("imageName", element.files[0]);
-			
-			$http.post(absUrl, fd, 
+			$scope.errorCsvMsg = '';
+			$scope.showLoder = true;
+			$scope.$apply(function($scope) 
 			{
-				transformRequest: angular.identity,
-				headers: {
-				'Content-Type': undefined
-				}
-			})
-			.success(function(response) 
-			{
-				 $scope.showLoder = false;
-				if(response.status=='success')
+				$scope.files = element.files[0];
+				var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/csvupload.php';
+				var fd = new FormData()
+				fd.append("imageName", element.files[0]);
+				$http.post(absUrl, fd, 
 				{
-					window.location.href =  angRoute+'/employee-dashboard';
-				}
-				else
+					transformRequest: angular.identity,
+					headers: {
+					'Content-Type': undefined
+					}
+				})
+				.success(function(response) 
 				{
-					window.location.href =  angRoute;
-				}
+					 $scope.showLoder = false;
+					if(response.status=='success')
+					{
+						window.location.href =  '<?php echo ANGULAR_ROUTE; ?>/employee-dashboard';
+					}
+					else if(response.status=='alredyuploaded')
+					{
+						$scope.errorCsvMsg = 'You have already uploaded your CSV file.'
+						window.location.href =  '<?php echo ANGULAR_ROUTE; ?>/employee-dashboard';
+					}
+					else if(response.status=='not valid')
+					{
+						$scope.errorCsvMsg = 'Please upload valid CSV file.'
+					}
+					else
+					{
+						$scope.errorCsvMsg = 'Please upload valid CSV file.'
+					}
 
+				});
 			});
-        });
     };
     
     $scope.togglePopup = function(tmp)

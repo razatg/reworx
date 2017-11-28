@@ -5,9 +5,8 @@ if(!empty($_FILES))
 {
 	include_once('../config-ini.php');
 	$imgName = $_FILES['imageName']['name']; 
-	$type = mime_content_type($imgName);
 	$pathInfo  = pathinfo($imgName);
-	if($type=='text/plain' && $pathInfo['extension']=='csv')
+	if($pathInfo['extension']=='csv')
 	{
 		$fileName = $_FILES['imageName']['tmp_name'];
 		$row = 1;
@@ -21,55 +20,59 @@ if(!empty($_FILES))
 			$m = new MongoClient("mongodb://dheeraj:dheeraj@ds117485.mlab.com:17485/pradip");
 			$db = $m->pradip;
 		}
-		$checkCurrentUploading =  $db->contact->count();
-		$array = array();
-		$row = 1;
-		$finalArr = array();
-		$UIDarray = array();
-		if(($handle = fopen($fileName, "r")) !== FALSE) 
+		$UID = $_SESSION['member']['UID'];
+		$checkUploadedCsv = $db->employee_contacts->findOne(array("UID"=>$UID),array("connections"));
+		if(!empty($checkUploadedCsv['connections']))
 		{
-			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) 
-			{
-			  // if(count($data)==6)
-			   //{
-				if($row == 1){ $row++; continue; }	
-				  $checkDuplicateAccount =  $db->contact->findOne(array("email"=>trim($data[2])));
-				  if(empty($checkDuplicateAccount) )
-				  {
-					  $array['UID'] =  $checkCurrentUploading+1;
-					  $array['first_name'] =  $data[0];
-					  $array['last_name'] =  $data[1];
-					  $array['email'] =      $data[2];
-					  $array['company'] =   $data[3];
-					  $array['position'] =   $data[4];
-					  $array['linkedinURL'] = '';
-					  $finalArr[] = $array;	  
-					  $UIDarray[] = $array['UID']; 
-					 $checkCurrentUploading++; 
-				 }
-				 else
-				 {
-					 $UIDarray[] = $checkDuplicateAccount['UID'];
-				 }
-			  //}
-			}
-			fclose($handle);
-			print_r($finalArr);exit;
-			$db->contact->batchInsert($finalArr);
-			$UID = $_SESSION['member']['UID'];
-			if($db->employee_contacts->update(array("UID"=>$UID),array('$set'=>array("connections"=>$UIDarray))))
-			{
-				$returnArr['status'] = 'success';
-			}
+			$returnArr['status'] = 'alredyuploaded';
 		}
 		else
 		{
-			
-		}
+			$checkCurrentUploading =  $db->contact->count();
+			$array = array();
+			$row = 1;
+			$finalArr = array();
+			$UIDarray = array();
+			if(($handle = fopen($fileName, "r")) !== FALSE) 
+			{
+				while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) 
+				{
+					if($row == 1){ $row++; continue; }	
+					  $checkDuplicateAccount =  $db->contact->findOne(array("email"=>trim($data[2])));
+					  if(empty($checkDuplicateAccount) )
+					  {
+						  $array['UID'] =  $checkCurrentUploading+1;
+						  $array['First Name'] =  $data[0];
+						  $array['Last Name'] =  $data[1];
+						  $array['Email Address'] =      $data[2];
+						  $array['Company'] =   $data[3];
+						  $array['Position'] =   $data[4];
+						  $array['linkedinURL'] = '';
+						  $finalArr[] = $array;	  
+						  $UIDarray[] = $array['UID']; 
+						 $checkCurrentUploading++; 
+					 }
+					 else
+					 {
+						 $UIDarray[] = $checkDuplicateAccount['UID'];
+					 }
+				}
+				fclose($handle);
+				$db->contact->batchInsert($finalArr);
+				if($db->employee_contacts->update(array("UID"=>$UID),array('$set'=>array("connections"=>$UIDarray))))
+				{
+					$returnArr['status'] = 'success';
+				}
+			}
+		else
+		 {
+			$returnArr['status'] = 'not valid';
+		 }
+	    }	
 	}
 	else
 	{
-		$returnArr['status'] = 'failure';
+		$returnArr['status'] = 'not valid';
 	}
 }
 echo json_encode($returnArr);exit;	
