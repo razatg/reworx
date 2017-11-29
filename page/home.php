@@ -6,9 +6,7 @@ include_once('../config-ini.php');
 	<div class="container  grid-center">
 	<nav id="navdektop" class="mainMenu">
 	<ul id="idmenu">
-	<li><a href="#">How it Works</a></li>
-    <li><a href="#">Blog</a></li>
-    <li><a href="#">About us</a></li>
+    <?php include('menu.php');?>
     <li><?php 
 			if(!empty($_SESSION['member']['email'])){?>
 				<a ng-click="logout()">Logout</a>
@@ -185,12 +183,12 @@ trackingApp.registerCtrl('homeController',function($scope,$http, $location, $tim
 			
 		    if($scope.register.email && !pattern.test($scope.register.email))
 			{
-				$scope.errorEmailMsg = 'Please enter valid company email address.';
+				$scope.errorEmailMsg = 'Please enter your valid Work Email.';
 				return false;
 			}
 			else if($scope.register.email && ($scope.register.email.match(/yahoo/i) || $scope.register.email.match(/gmail/i) || $scope.register.email.match(/rediff/i) || $scope.register.email.match(/aol/i) || $scope.register.email.match(/msn/i) || $scope.register.email.match(/live/i) || $scope.register.email.match(/hotmail/i)))
 			{
-				$scope.errorEmailMsg =  'Company email not valid.';
+				$scope.errorEmailMsg =  'Please enter your Work Email instead of Company email not valid.';
 				return false;
 			}
 			if($scope.register.mobile_number && !phonePattern.test($scope.register.mobile_number))
@@ -218,7 +216,7 @@ trackingApp.registerCtrl('homeController',function($scope,$http, $location, $tim
 		{
 			if(!$scope.register.email)
 			{
-				$scope.errorEmailMsg = 'Please enter company email address.';
+				$scope.errorEmailMsg = 'Please enter your Work Email.';
 			}
 			if(!$scope.register.company_name)
 			{

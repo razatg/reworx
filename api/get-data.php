@@ -1,15 +1,16 @@
 <?php
-ini_set('display_errors',0);
+ini_set('display_errors',1);
 include_once('../config-ini.php');
 $returnArr = array('status'=>'failure','data'=>'','totalCount'=>0);
 $arrValues = json_decode(file_get_contents('php://input'), true);
 $page = isset($arrValues['page'])?trim($arrValues['page']):"1";
 $where = array();
-$position = isset($arrValues['position'])?trim($arrValues['position']):"";
-$position = $orignalPos = preg_replace('/\s+/', ' ', $position);
+
+$position = isset($arrValues['position'])?$arrValues['position']:"";
 $company = isset($arrValues['company'])?$arrValues['company']:"";
 $location = isset($arrValues['location'])?$arrValues['location']:"";
 $total_experience = isset($arrValues['total_experience'])?$arrValues['total_experience']:"";
+
 if($_SERVER['HTTP_HOST']=='localhost')
 {
 	$m = new MongoClient("mongodb://192.168.3.2:27017");
@@ -20,18 +21,19 @@ else if($_SERVER['HTTP_HOST']=='demo.onsisdev.info')
 	$m = new MongoClient("mongodb://dheeraj:dheeraj@ds117485.mlab.com:17485/pradip");
 	$db = $m->pradip;
 }
+
 $collection = $db->profile;
 $offset = ($page*10);
 if(!empty($position))
 {
-	$position = explode(" ",$position);
-	$str = '';
-	foreach($position as $item)
-	{
-		$str.=	'"'.$item.'" ';
+	$tmpTitle = array();
+	$tmpFeature = array();
+	foreach($position as $q) {
+	   $tmpTitle[] = array('title'=>array('$regex'=>$q,'$options'=>'i'));
+	   $tmpFeature[] = array('featured_skiils'=>array('$regex'=>$q,'$options'=>'i'));
 	}
-	$str = trim($str);
-	$where['$text'] = array('$search' => $str);
+	$where['$or'] = array(array('$or'=>$tmpTitle),array('$or'=>$tmpFeature));
+	//$where['$or'] = $tmpFeature;
 }
 if(!empty($_SESSION['member']['cId']))
 {
@@ -40,17 +42,21 @@ if(!empty($_SESSION['member']['cId']))
 }
 if(!empty($company))
 {
-  $where['company']	 = new MongoRegex("/$company/i");
+		$tmp = array();
+		foreach ($company as $q) 
+		{
+			$tmp[] = array('company'=>array('$regex'=>$q,'$options'=>'i'));
+		}
+		$where['$or'] = $tmp;
 }
 if(!empty($location))
 {
   $where['area']	 = new MongoRegex("/$location/i");
 }
-if(!empty($total_experience))
+if(!empty($total_experience) && $total_experience!='Select Experience')
 {
   $where['total_experience']	 = $total_experience;
 }
-//print_r(json_encode($where));
 if(!empty($where))
 {
 	$cursorCount = $collection->count($where);

@@ -7,9 +7,7 @@ include_once('../config-ini.php');
 	<div id="navmobile">
 		<nav>
 			<ul>
-				<li><a href="#">Analytics</a></li>
-				<li><a href="#">Tracking</a></li>
-				<li><a href="#">Connect Your Networks</a></li>
+				<?php include('menu.php');?>
 			</ul>
 		</nav>
 	</div>
@@ -24,9 +22,7 @@ include_once('../config-ini.php');
 	<!-- Nav Desktop -->
 	<nav id="navdektop" class="main_menu">
 		<ul id="idmenu">
-			<li class="active"><a href="#">Home</a></li>
-			<li><a href="#">Analytics</a></li>
-			<li><a href="#">Tracking</a></li>
+			<?php include('menu.php');?>
 			<li class="network_btn"><a href="#"  data-toggle="modal" data-target="#myModal">Compose and Send Email</a>
 		</ul>
 	</nav>

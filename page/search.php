@@ -1,4 +1,5 @@
 <?php 
+ini_set('display_errors', 1);
 include_once('../config-ini.php');
 ?>
 <div data-ng-controller="searchController">
@@ -7,9 +8,7 @@ include_once('../config-ini.php');
 	<div id="navmobile">
 		<nav>
 			<ul>
-				<li><a href="#">Analytics</a></li>
-				<li><a href="#">Tracking</a></li>
-				<li><a href="#">Connect Your Networks</a></li>
+				<?php include('menu.php');?>
 			</ul>
 		</nav>
 	</div>
@@ -24,9 +23,7 @@ include_once('../config-ini.php');
 	<!-- Nav Desktop -->
 	<nav id="navdektop" class="main_menu">
 		<ul id="idmenu">
-			<li class="active"><a href="#">Home</a></li>
-			<li><a href="#">Analytics</a></li>
-			<li><a href="#">Tracking</a></li>
+			<?php include('menu.php');?>
 			<li ng-if="addtolistdata>0" class="network_btn"><a href="<?php echo ANGULAR_ROUTE; ?>/request">{{addtolistdata}} &nbsp; Shortlisted </a></li>
 		</ul>
 	</nav>
@@ -42,7 +39,16 @@ include_once('../config-ini.php');
 							border: none !important;
 							outline: 0 !important;
 							padding: 0px 0 2px !important;
-												}
+					}
+					
+					.customCatComplete1{
+							background: none !important;
+							width: 90px !important;
+							margin: 0 !important;
+							border: none !important;
+							outline: 0 !important;
+							padding: 0px 0 2px !important;
+					}
 						.rnz_new_fld span{    width: 100px;
 							font-weight: bold;
 							float: left;
@@ -88,7 +94,7 @@ include_once('../config-ini.php');
                       <a ng-click="removeFromSearchList($index,'position')" class="glyphicon glyphicon-remove search_list_remove"></a>
 					{{data}}
 					</li>
-					<li><autocomplete name="position" ng-keypress="searchEnter($event);"  ng-keyup="fetchData('position')" ng-model="position" options="datas" 
+					<li><autocomplete name="position" ng-blur="onSelect(position)" ng-keypress="searchEnter($event);"  ng-keyup="fetchData('position')" ng-model="position" options="datas" 
 						place-holder="Enter a Position (e.g Java Developer) or Skill (eg Java).."
 						on-select="onSelect" 
 						display-property="title"
@@ -108,7 +114,7 @@ include_once('../config-ini.php');
 						place-holder="Company"
 						on-select="onSelectComp" 
 						display-property="title_comp"
-						input-class="form-control customCatComplete"
+						input-class="form-control customCatComplete1"
 						clear-input="false">
 				</autocomplete></li>
 					</ul>	
@@ -178,7 +184,9 @@ include_once('../config-ini.php');
 trackingApp.registerCtrl('searchController',function($scope,$http, $location, $timeout, $element)
 {
 	$scope.resultList = {};
-	$scope.yearOfExp = [];
+	$scope.multipleArrList = [];
+	$scope.multipleCompanyArrList = [];
+	$scope.yearOfExp = ['Select Experience'];
 	for(var i = 1;i<=50;i++)
 	{
 		$scope.yearOfExp.push(i);
@@ -214,13 +222,24 @@ trackingApp.registerCtrl('searchController',function($scope,$http, $location, $t
     $scope.showLoder = false;
 	$scope.searchData = function()
 	{
-		$scope.showLoder = true;
+        $scope.showLoder = true;
+        if($scope.multipleArrList.length==0 && $scope.position)
+        {
+			$scope.multipleArrList.push($scope.position);
+			$scope.position  = '';	
+		}
+		if($scope.multipleCompanyArrList.length==0 && $scope.company)
+        {
+			$scope.multipleCompanyArrList.push($scope.company);
+			$scope.company  = '';	
+		}
+       
 		var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/get-data.php';
 		$http.post(absUrl,{total_experience:$scope.total_experience,position:$scope.multipleArrList,company:$scope.multipleCompanyArrList,page:$scope.currentPage,location:$scope.location}).success(function(response)
 		{
 			$scope.resultList = response;
 			$scope.resultStatus = response.status;
-			 $scope.showLoder = false;
+			$scope.showLoder = false;
 			$scope.totalPageLength = response.totalCount;
 		})
 	}
@@ -232,8 +251,7 @@ trackingApp.registerCtrl('searchController',function($scope,$http, $location, $t
 			$scope.searchData();
 		}
 	};
-	$scope.multipleArrList = [];
-	$scope.multipleCompanyArrList = [];
+	
 	$scope.onSelect = function(selection) 
 	{
 		$scope.selectedData = selection;

@@ -7,15 +7,7 @@ include_once('../config-ini.php');
 	<div id="navmobile">
 		<nav>
 			<ul>
-			    <li class="active"><a href="#">Home</a></li>
-				<li><a href="#">Analytics</a></li>
-				<li><a href="#">Tracking</a></li>
-				<?php
-				 if($_SESSION['member']['userType']==='employee')
-				{?>
-				   <li><a href="refer/<?php echo $_SESSION['member']['UID'];?>">Refer</a></li>
-			  <?php }
-			  ?>
+			  <?php include('menu.php');?>
 			</ul>
 		</nav>
 	</div>
@@ -30,15 +22,7 @@ include_once('../config-ini.php');
 	<!-- Nav Desktop -->
 	<nav id="navdektop" class="main_menu">
 		<ul id="idmenu">
-			<li class="active"><a href="#">Home</a></li>
-			<li><a href="#">Analytics</a></li>
-			<li><a href="#">Tracking</a></li>
-			<?php
-				 if($_SESSION['member']['userType']==='employee')
-				{?>
-				   <li><a href="refer/<?php echo $_SESSION['member']['UID'];?>">Refer</a></li>
-			  <?php }
-			  ?>
+			<?php include('menu.php');?>
 		</ul>
 	</nav>
 	<!-- Nav Desktop -->

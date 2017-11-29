@@ -7,15 +7,7 @@ include_once('../config-ini.php');
 	<div id="navmobile">
 		<nav>
 			<ul>
-				<li><a href="#">Analytics</a></li>
-				<li><a href="#">Tracking</a></li>
-				<li><a href="#">Connect Your Networks</a></li>
-				<?php
-				 if($_SESSION['member']['userType']==='employee')
-				{?>
-				   <li><a href="refer/<?php echo $_SESSION['member']['UID'];?>">Refer</a></li>
-			  <?php }
-			  ?>
+			<?php include('menu.php');?>
 			</ul>
 		</nav>
 	</div>
@@ -30,15 +22,7 @@ include_once('../config-ini.php');
 	<!-- Nav Desktop -->
 	<nav id="navdektop" class="main_menu">
 		<ul id="idmenu">
-			<li class="active"><a href="#">Home</a></li>
-			<li><a href="#">Analytics</a></li>
-			<li><a href="#">Tracking</a></li>
-			<?php
-				 if($_SESSION['member']['userType']==='employee')
-				{?>
-				   <li><a href="refer/<?php echo $_SESSION['member']['UID'];?>">Refer</a></li>
-			  <?php }
-			  ?>
+			<?php include('menu.php');?>
 		</ul>
 	</nav>
 	<!-- Nav Desktop -->
@@ -47,9 +31,9 @@ include_once('../config-ini.php');
 	 <center ng-if="showLoder"><img width="80" src="newui/images/widget-loader-lg-en.gif" alt=""></center>
 		<div ng-if="!showLoder" class="grid-center">
 			 <h1 class="pageheding">Please review shortlisted for the positions below:</h1>
-			 <h6 ng-bind-html="recruiterList.job_title"></h6>
-			 <p class="par">{{recruiterList.message_employee}},</p>
-			 <p class="par"><strong>Bonus ${{recruiterList.referral_amount}}</strong></p>
+			 <h6  ng-if="recruiterList.job_title" ng-bind-html="recruiterList.job_title"></h6>
+			 <p  ng-if="recruiterList.job_url" class="par">{{recruiterList.job_url}},</p>
+			 <p ng-if="recruiterList.referral_amount" class="par"><strong>Bonus ${{recruiterList.referral_amount}}</strong></p>
 		</div>
 	<!--Section: Testimonials v.2-->
 	<section ng-show="!showLoder" class="text-center grid-center">
