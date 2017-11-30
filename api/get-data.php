@@ -55,7 +55,7 @@ if(!empty($location))
 }
 if(!empty($total_experience) && $total_experience!='Select Experience')
 {
-  $where['total_experience']	 = $total_experience;
+  $where['total_experience']	 = array('$gt'=>$total_experience);
 }
 if(!empty($where))
 {
@@ -69,7 +69,7 @@ if(!empty($where))
 		foreach($searchResult  as $data)
 		{
 			$parentUidList = $data['parentUID'];
-			$connectedProfiles = $collection->find(array('UID'=>array('$in' =>$parentUidList)),array('UID','pic_phy'));
+			$connectedProfiles = $collection->find(array('UID'=>array('$in' =>$parentUidList)),array('UID','pic_phy','name','designation','company'));
 			if(!empty($connectedProfiles))
 			{
 				$data['connectedUsers'] = array_values(iterator_to_array($connectedProfiles));

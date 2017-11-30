@@ -32,7 +32,7 @@ include_once('../config-ini.php');
 		<div ng-if="!showLoder" class="grid-center">
 			 <h1 class="pageheding">Please review shortlisted for the positions below:</h1>
 			 <h6  ng-if="recruiterList.job_title" ng-bind-html="recruiterList.job_title"></h6>
-			 <p  ng-if="recruiterList.job_url" class="par">{{recruiterList.job_url}},</p>
+			 <p  ng-if="recruiterList.job_position_url" class="par">{{recruiterList.job_position_url}},</p>
 			 <p ng-if="recruiterList.referral_amount" class="par"><strong>Bonus ${{recruiterList.referral_amount}}</strong></p>
 		</div>
 	<!--Section: Testimonials v.2-->
@@ -60,8 +60,8 @@ include_once('../config-ini.php');
 						</div>
 						<div class="btn-container">
 							<a href="#" ng-click="getEmpDetail(data)"  class="btn btn-success">REFER</a>
-							<a href="#" class="btn btn-success">NOT A FIT</a>
-							<a href="#" class="btn btn-success">DON'T KNOW</a>
+							<a href="#" ng-click="notInterested(data,'notfit')" class="btn btn-success">NOT A FIT</a>
+							<a href="#" ng-click="notInterested(data,'donotknow')" class="btn btn-success">DON'T KNOW</a>
 						</div>
 						<small class="text-center">{{$index+1}} out of {{totalCount}} reviewed</small>
 					</div>
@@ -120,6 +120,26 @@ include_once('../config-ini.php');
 		   </div>
 		</div>
 	
+	<div class="modal fade moldelRnz" id="myModalRefuse" role="dialog">
+		   <div class="modal-dialog modal-md">
+			  <!-- Modal content-->
+			  <div class="modal-content">
+				 <div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title"><b>Confrim</b> </h4>
+					<span ng-if="errorMsg" style="color:red;" ng-bind-html="errorMsg"></span>
+				 </div>
+				 <div class="modal-body">
+					<span>You will not the Choice(in DB) and move on to the next Referral in list</span>
+				 </div>
+				 <div class="modal-footer">
+					<button ng-if="!showLoderRefuse" type="button" class="btn btn-lg btn-default" data-dismiss="modal">Close</button>
+					<center  ng-if="showLoderRefuse"><img width="80" src="newui/images/widget-loader-lg-en.gif" alt=""></center>
+					<button  ng-if="!showLoderRefuse" type="submit" ng-click="removeFromReferList(selectedUID)" class="btn btn-lg btn-success">Ok</button>
+				 </div>
+			  </div>
+		   </div>
+		</div>
 	
 </div>
 <script>
@@ -130,6 +150,25 @@ trackingApp.registerCtrl('referController',function($scope,$http, $location, $ti
 	if(!$scope.checkSession || $scope.checkSession!='employee')
 	{
 		window.location.href =  '<?php echo ANGULAR_ROUTE; ?>/search';
+	}
+	$scope.selectedUID = '';
+	$scope.notInterested = function(tmp)
+	{
+		$('#myModalRefuse').modal('show');
+		$scope.selectedUID  = tmp.UID;
+		
+	}
+	$scope.showLoderRefuse = false;
+	$scope.removeFromReferList = function(UID)
+	{
+		$scope.showLoderRefuse = true;
+		var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/remove-from-refer-list.php';
+		$http.post(absUrl,{UID:UID}).success(function(response)
+		{
+			$('#myModalRefuse').modal('hide');
+			$scope.showLoderRefuse = false;
+			$scope.getlist();
+		})
 	}
 	$scope.requestForm = {};
 	$scope.showLoder = false;

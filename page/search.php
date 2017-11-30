@@ -85,6 +85,56 @@ include_once('../config-ini.php');
 							left: 0;
 							WIDTH: 100%;
 						}
+						.custom-tooltip {
+       border: 1px solid #4dc8b2;
+    padding: 10px 13px;
+    border-radius: 10px;
+    font-size: 16px;
+    display: inline-block;
+    min-width: 150px;
+    background: #fff;
+    position: absolute;
+    /* display: none; */
+    bottom: 10px;
+    left: -10px;
+}
+.custom-tooltip:before {
+        background: #fff;
+    border: 1px solid #4dc8b2;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    border-right-color: rgb(214, 214, 214);
+    border-bottom-color: rgb(214, 214, 214);
+    content: "";
+    display: block;
+    position: absolute;
+        bottom: -21px;
+    left: 25px;
+    width: 12px;
+    height: 12px;
+    -webkit-transform: rotate(-137deg);
+    -ms-transform: rotate(-137deg);
+    transform: rotate(-137deg);
+    -webkit-transform-origin: 0% 0;
+    -ms-transform-origin: 0% 0;
+    transform-origin: 0% 0;
+    z-index: 1;
+    border-bottom: 0px;
+    border-right: 0px;
+}
+.custom-tooltip span {
+    display: block;
+}
+.custom-tooltip .name {
+    font-weight: bold;
+}
+.custom-tooltip .occupation {
+    color: #4dc8b2;
+}
+.relative-pos{position:relative;}
+
 					</style>
 			<div class="field_row">
 				
@@ -155,10 +205,16 @@ include_once('../config-ini.php');
 								<h3 ng-if="data.experience[0].designation && data.experience[0].company" ng-bind-html="data.experience[0].designation+' at '+ data.experience[0].company"></h3> 
 								<h3 ng-bind-html="data.designation"></h3>
 								<p class="location" ng-bind-html="data.area"></p>
-								<div ng-repeat="item in data.connectedUsers">
-								<img  src="newui/images/1X1.png" style="background:url({{item.pic_phy}})" class="profile">
+								<div ng-repeat="item in data.connectedUsers" class="relative-pos">
+									<div ng-show="$parent.$index==parentIndex && childIndex==$index" class="custom-tooltip">
+									<span class="name" ng-bind-html="item.name"></span>
+									<span class="occupation" ng-if="item.company" ng-bind-html="item.company"></span>
+								    <span class="department" ng-if="item.designation" ng-bind-html="item.designation"></span>
 								</div>
-						   </div>
+								<img ng-mouseleave="showToolTips('-1')" ng-mouseover="showToolTips($index,$parent.$index)" src="newui/images/1X1.png" style="background:url({{item.pic_phy}})" class="profile">
+								
+								</div>
+						     </div>
 							<div class="detail_action">
 								<a target="_blank" href="{{data.profile_url}}"><img src="newui/images/linkden.png"></a>
 								<a href="mailto:{{data.email}}" class=""><img src="newui/images/mail.png"></a>
@@ -183,6 +239,13 @@ include_once('../config-ini.php');
 <script>
 trackingApp.registerCtrl('searchController',function($scope,$http, $location, $timeout, $element)
 {
+
+	$scope.showToolTips = function(index,parent)
+	{
+		$scope.childIndex = index;
+		$scope.parentIndex = parent;
+	}
+	
 	$scope.resultList = {};
 	$scope.multipleArrList = [];
 	$scope.multipleCompanyArrList = [];
@@ -209,6 +272,8 @@ trackingApp.registerCtrl('searchController',function($scope,$http, $location, $t
 		if($scope.showAdvancedFilter)
 		{
 			$scope.showAdvancedFilter = false;
+			$scope.location = '';
+			$scope.total_experience = 'Select Experience';
 		}
 		else
 		{
