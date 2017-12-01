@@ -23,6 +23,7 @@ if(!empty($userData['data']['email']) && !empty($userData['data']['password']))
 		$returnArr['data'] = $checkUser;
 		$checkUser['userType'] = 'recruiter';
 		$_SESSION['member'] = $checkUser;
+		$db->recruitershortlist->remove(array("cId"=>$checkUser['cId']));
     }
     else
     {

@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors',1);
+ini_set('display_errors',0);
 include_once('../config-ini.php');
 $returnArr = array('status'=>'failure','data'=>'','totalCount'=>0);
 $arrValues = json_decode(file_get_contents('php://input'), true);
@@ -28,11 +28,15 @@ if(!empty($position))
 {
 	$tmpTitle = array();
 	$tmpFeature = array();
+	$summaryArr = array();
+	$experienceArr = array();
 	foreach($position as $q) {
 	   $tmpTitle[] = array('title'=>array('$regex'=>$q,'$options'=>'i'));
 	   $tmpFeature[] = array('featured_skiils'=>array('$regex'=>$q,'$options'=>'i'));
+	   $summaryArr[] = array('summary'=>array('$regex'=>$q,'$options'=>'i'));
+	   $experienceArr[] = array('experience'=>array('designation'=>array('$regex'=>$q,'$options'=>'i')));
 	}
-	$where['$or'] = array(array('$or'=>$tmpTitle),array('$or'=>$tmpFeature));
+	$where['$or'] = array(array('$or'=>$tmpTitle),array('$or'=>$tmpFeature),array('$or'=>$summaryArr),array('$or'=>$experienceArr));
 	//$where['$or'] = $tmpFeature;
 }
 if(!empty($_SESSION['member']['cId']))
@@ -45,9 +49,9 @@ if(!empty($company))
 		$tmp = array();
 		foreach ($company as $q) 
 		{
-			$tmp[] = array('company'=>array('$regex'=>$q,'$options'=>'i'));
+			$tmp[] = new MongoRegex("/$q/i");
 		}
-		$where['$or'] = $tmp;
+		$where['company'] = array('$in'=>$tmp);
 }
 if(!empty($location))
 {
@@ -57,10 +61,12 @@ if(!empty($total_experience) && $total_experience!='Select Experience')
 {
   $where['total_experience']	 = array('$gt'=>$total_experience);
 }
+//print_r(json_encode($where));exit;
+
 if(!empty($where))
 {
 	$cursorCount = $collection->count($where);
-	$cursor = $collection->find($where)->skip($offset)->limit(10);
+	$cursor = $collection->find($where,array('summary','experience','UID','title','featured_skiils','pic_phy','name','designation','company','experience','parentUID','area'))->skip($offset)->limit(10);
 	$searchResult =  iterator_to_array($cursor);
 	if(!empty($searchResult))
 	{

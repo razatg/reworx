@@ -23,21 +23,26 @@ $offset = ($page*10);
 if(!empty($_SESSION['member']['UID']))
 {
 	$UID = $_SESSION['member']['UID'];
-	$dataListArr = $db->employeeReferData->findOne(array('UID'=>$UID));
-	$uIdList = $dataListArr['referalUIDList'];
-	$where['UID']	 = array('$in' =>$uIdList);
-}
-if(!empty($where))
-{
-	$cursorCount = $collection->count($where);
-	$cursor = $collection->find($where);
-	$searchResult =  array_values(iterator_to_array($cursor));
-	if(!empty($searchResult))
+	$dataReferListArr = array();
+	$dataListArr = $db->employeeReferData->find(array('UID'=>(int)$UID));
+	$dataListArr = iterator_to_array($dataListArr);
+	if(!empty($dataListArr))
 	{
-	   	$returnArr['data'] = $searchResult;
+		foreach($dataListArr as $data)
+		{
+			if(!empty($data['referalUIDList']))
+			{
+				foreach($data['referalUIDList'] as $item)
+				{
+					$selectedProfile = $collection->find(array("UID"=>(int)$item['UID']),array('UID','title','pic_phy','name','designation','company','experience','parentUID'));
+				    $dataReferListArr[] = array('profile'=>array_values(iterator_to_array($selectedProfile)),'recruiterMsg'=>$data['recruiterList']);
+				}
+			}
+		}
+		
+		$returnArr['data'] = $dataReferListArr;
 		$returnArr['status'] = 'success';
-		$returnArr['totalCount'] = $cursorCount;
-		$returnArr['recruiterList'] = $dataListArr['recruiterList'];
+		$returnArr['totalCount'] = count($dataReferListArr);
 	}
 }
 echo json_encode($returnArr,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);exit;
