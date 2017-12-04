@@ -2,7 +2,7 @@
 session_start();
 if($_SERVER['HTTP_HOST']=='localhost')
 {
-	$angRoute = "http://localhost/tracking";
+	$angRoute = "http://localhost/reworx";
 }
 else if($_SERVER['HTTP_HOST']=='demo.onsisdev.info')
 {

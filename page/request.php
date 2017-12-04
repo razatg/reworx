@@ -148,7 +148,7 @@ We have an open position, [OPENJOBPOSITIONTITLE].\n\
 Would you be interested?, for next steps reply to this email the company HR is CCed on this email, If you need any other information, do let me know.\n\
 Regards,\n\
 [EMPLOYEE]';
-	$scope.showPanel = true;
+	$scope.showPanel = false;
 	$scope.showLoder = false;
 	$scope.showLodermail = false;
 	$scope.submitForm = function()
@@ -167,7 +167,7 @@ Regards,\n\
 					{
 						$scope.showLodermail = false;
 						$('#myModal').modal('hide');
-						window.location.href =  '<?php echo ANGULAR_ROUTE; ?>/search';
+						//window.location.href =  '<?php echo ANGULAR_ROUTE; ?>/search';
 					},100)
 				}
 			})

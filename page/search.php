@@ -134,8 +134,11 @@ include_once('../config-ini.php');
     color: #4dc8b2;
 }
 .relative-pos{position:relative;}
-
+.highlightedText {
+    background: yellow;
+}
 					</style>
+					
 			<div class="field_row">
 				
 				<div class="fld_col">
@@ -203,17 +206,26 @@ include_once('../config-ini.php');
 						   <div class="detail_info">
 								<h1 style="text-align:left;" ng-bind-html="data.name"></h1>
 								<h3 ng-if="data.experience[0].designation && data.experience[0].company" ng-bind-html="data.experience[0].designation+' at '+ data.experience[0].company"></h3> 
-								<h3 ng-bind-html="data.designation"></h3>
-								<p class="location" ng-bind-html="data.area"></p>
-								<div ng-repeat="item in data.connectedUsers" class="relative-pos">
-									<div ng-show="$parent.$index==parentIndex && childIndex==$index" class="custom-tooltip">
-									<span class="name" ng-bind-html="item.name"></span>
-									<span class="occupation" ng-if="item.company" ng-bind-html="item.company"></span>
-								    <span class="department" ng-if="item.designation" ng-bind-html="item.designation"></span>
-								</div>
-								<img ng-mouseleave="showToolTips('-1')" ng-mouseover="showToolTips($index,$parent.$index)" src="newui/images/1X1.png" style="background:url({{item.pic_phy}})" class="profile">
+								<h3 ng-if="!data.experience[0].designation && !data.experience[0].company" ng-bind-html="data.company"></h3>
+								<p  class="location" ng-bind-html="data.area"></p>
 								
+								<div ng-repeat="item in data.connectedUsers" class="relative-pos">
+										<div ng-show="$parent.$index==parentIndex && childIndex==$index" class="custom-tooltip">
+										<span class="name" ng-bind-html="item.name"></span>
+										<span class="occupation" ng-if="item.company" ng-bind-html="item.company"></span>
+										<span class="department" ng-if="item.designation" ng-bind-html="item.designation"></span>
+									</div>
+								 <img ng-mouseleave="showToolTips('-1')" ng-mouseover="showToolTips($index,$parent.$index)" src="newui/images/1X1.png" style="background:url({{item.pic_phy}})" class="profile">
 								</div>
+						     	<br/><b ng-if="data.featured_skiils.length>0 && multipleArrList.length>0">Featured Skills:</b> <span data-ng-repeat="skill in data.featured_skiils">
+								<small ng-if="multipleArrList.length>0" ng-bind-html="highlight(skill, multipleArrList[0])"></small>
+								</span>
+								<br/><b ng-if="multipleArrList.length>0 && data.title && highlight(data.title, multipleArrList[0])">Title:</b> <small ng-if="multipleArrList.length>0 && data.title" ng-bind-html="highlight(data.title, multipleArrList[0])"> </small>
+								<br/> <b ng-if="multipleArrList.length>0 && data.summary && highlight(data.summary, multipleArrList[0])">Summary:</b> <small ng-if="multipleArrList.length>0 && data.summary" ng-bind-html="highlight(data.summary, multipleArrList[0],'summary')"> </small>
+								<br/> <b ng-if="data.experience.length>0 && multipleArrList.length>0">Experience :</b>
+                                 <span data-ng-repeat="expe in data.experience">
+								<small ng-if="multipleArrList.length>0 && expe.designation" ng-bind-html="highlight(expe.designation, multipleArrList[0])"></small>
+								</span>	
 						     </div>
 							<div class="detail_action">
 								<a target="_blank" href="{{data.profile_url}}"><img src="newui/images/linkden.png"></a>
@@ -224,8 +236,7 @@ include_once('../config-ini.php');
 				</li>
 				<li ng-show="resultStatus=='failure'">No Results Found. Please try , different keyword or company or keyord company combination</li>
 			</ul>
-			
-			<div ng-show="totalPageLength>0" class="pagination">
+			<div ng-show="totalPageLength>0 && !showLoder" class="pagination">
 			 <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1;searchData()">
 				<< Previous
 			</button>
@@ -237,8 +248,23 @@ include_once('../config-ini.php');
 <?php include_once('login.php');?>	  
 </div>
 <script>
-trackingApp.registerCtrl('searchController',function($scope,$http, $location, $timeout, $element)
+trackingApp.registerCtrl('searchController',function($scope,$http, $location, $timeout, $element,$sce)
 {
+    
+    $scope.highlight = function(text, search) 
+    {
+		var tmpStr  = text.match(search);
+		var newStr = tmpStr[0];
+		if(search && text.indexOf(search) !== -1)
+		{
+			return $sce.trustAsHtml(newStr.replace(new RegExp(search, 'gi'), '<span class="highlightedText">$&</span>'));
+		}
+		else
+		{
+			return $sce.trustAsHtml('');
+		}
+		
+	};
 
 	$scope.showToolTips = function(index,parent)
 	{
@@ -288,12 +314,12 @@ trackingApp.registerCtrl('searchController',function($scope,$http, $location, $t
 	$scope.searchData = function()
 	{
         $scope.showLoder = true;
-        if($scope.multipleArrList.length==0 && $scope.position)
+        if($scope.position)
         {
 			$scope.multipleArrList.push($scope.position);
 			$scope.position  = '';	
 		}
-		if($scope.multipleCompanyArrList.length==0 && $scope.company)
+		if($scope.company)
         {
 			$scope.multipleCompanyArrList.push($scope.company);
 			$scope.company  = '';	

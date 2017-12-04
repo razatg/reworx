@@ -4,6 +4,9 @@ include_once('../config-ini.php');
 $returnArr = array('status'=>'failure','data'=>'');
 $arrValues = json_decode(file_get_contents('php://input'), true);
 $UIDFromRemove = isset($arrValues['UID'])?trim($arrValues['UID']):"1";
+$addedOn = isset($arrValues['addedOn'])?trim($arrValues['addedOn']):"";
+$type = isset($arrValues['type'])?trim($arrValues['type']):"";
+$flagValue = true;
 if($_SERVER['HTTP_HOST']=='localhost')
 {
 	$m = new MongoClient("mongodb://192.168.3.2:27017");
@@ -17,10 +20,22 @@ else if($_SERVER['HTTP_HOST']=='demo.onsisdev.info')
 if(!empty($_SESSION['member']['UID']))
 {
 	$UID = $_SESSION['member']['UID'];
-	$dataListArr = $db->employeeReferData->findOne(array('UID'=>$UID));
+	$dataListArr = $db->employeeReferData->findOne(array('addedOn'=>(int)$addedOn));
 	$uIdList = $dataListArr['referalUIDList'];
-	unset($uIdList[$UIDFromRemove]);
-	if($db->employeeReferData->update(array('UID'=>$UID),array('$set'=>array("referalUIDList"=>$uIdList))))
+	if(!empty($uIdList))
+	{
+		$newUidList = array();
+		foreach($uIdList as $item)
+		{
+			if($item['UID']== $UIDFromRemove)
+			{
+				$item[$type] = true; 
+			}
+		}
+	}
+	$updateArr = array('$set'=>array("referalUIDList"=>$uIdList));
+	
+	if($db->employeeReferData->update(array('addedOn'=>$addedOn),$updateArr))
 	{
 		$returnArr['status'] = 'success';
 	}

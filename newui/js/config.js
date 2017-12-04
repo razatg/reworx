@@ -1,6 +1,6 @@
 if(window.location.hostname=='localhost')
 {
-	var angRoute = "http://localhost/tracking";
+	var angRoute = "http://localhost/reworx";
 }
 else if(window.location.hostname=='demo.onsisdev.info')
 {

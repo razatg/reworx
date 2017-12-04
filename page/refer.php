@@ -29,12 +29,6 @@ include_once('../config-ini.php');
 </header>
 	<div class="bodypan" ng-style="{'min-height':divHeight()}">
 	 <center ng-if="showLoder"><img width="80" src="newui/images/widget-loader-lg-en.gif" alt=""></center>
-		<div ng-if="!showLoder" class="grid-center">
-			 <h1 class="pageheding">Please review shortlisted for the positions below:</h1>
-			 <h6  ng-if="recruiterList.job_title" ng-bind-html="recruiterList.job_title"></h6>
-			 <p  ng-if="recruiterList.job_position_url" class="par">{{recruiterList.job_position_url}},</p>
-			 <p ng-if="recruiterList.referral_amount" class="par"><strong>Bonus ${{recruiterList.referral_amount}}</strong></p>
-		</div>
 	<!--Section: Testimonials v.2-->
 	<section ng-show="!showLoder" class="text-center grid-center">
 		<!--Carousel Wrapper-->
@@ -43,20 +37,27 @@ include_once('../config-ini.php');
 			<div class="carousel-inner" role="listbox">
 				<!--First slide-->
 				<div  ng-repeat="data in referListArr" class="item {{$index==0?'active':''}}">
+					<div ng-if="!showLoder" class="grid-center">
+					 <h1 class="pageheding">Please review shortlisted for the positions below:</h1>
+					 <h6  ng-if="data.recruiterMsg.job_title" ng-bind-html="data.recruiterMsg.job_title"></h6>
+					 <p  ng-if="data.recruiterMsg.job_position_url" class="par">{{data.recruiterMsg.job_position_url}},</p>
+					 <p ng-if="data.recruiterMsg.referral_amount" class="par"><strong>Bonus ${{data.recruiterMsg.referral_amount}}</strong></p>
+				</div>
+					
 					<div class="testimonial">
 						<!--Avatar-->
 						<div class="avatar">
-							<img ng-src="{{data.pic_phy}}" class="rounded-circle img-fluid" alt="{{data.name}}"/>
+							<img ng-src="{{data.profile[0].pic_phy}}" class="rounded-circle img-fluid" alt="{{data.profile[0].name}}"/>
 						</div>
-						<h4 style="color:#7e7e7e">{{data.name}}</h4>
+						<h4 style="color:#7e7e7e">{{data.profile[0].name}}</h4>
 						<!--Content-->
 						<p><i class="fa fa-quote-left"></i> 
-						<span ng-if="data.experience[0].designation && data.experience[0].company" ng-bind-html="data.experience[0].designation+' at '+ data.experience[0].company"></span> 
+						<span ng-if="data.profile[0].experience[0].designation && data.profile[0].experience[0].company" ng-bind-html="data.profile[0].experience[0].designation+' at '+ data.profile[0].experience[0].company"></span> 
 						</p>   
-						<h6><i></i>{{data.area}}</h6>
+						<h6><i></i>{{data.profile[0].area}}</h6>
 						<div class="social_icon">
-							<a href="{{data.profile_url}}"><img src="newui/images/linkden.png"></a>
-							<a href="mailto:{{data.email}}"><img src="newui/images/mail.png"></a>
+							<a href="{{data.profile[0].profile_url}}"><img src="newui/images/linkden.png"></a>
+							<a href="mailto:{{data.profile[0].email}}"><img src="newui/images/mail.png"></a>
 						</div>
 						<div class="btn-container">
 							<a href="#" ng-click="getEmpDetail(data)"  class="btn btn-success">REFER</a>
@@ -86,7 +87,6 @@ include_once('../config-ini.php');
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title"><b>Refer</b> </h4>
 					<span ng-if="errorMsg" style="color:red;" ng-bind-html="errorMsg"></span>
-
 				 </div>
 				 <div class="modal-body">
 					<form>
@@ -135,12 +135,11 @@ include_once('../config-ini.php');
 				 <div class="modal-footer">
 					<button ng-if="!showLoderRefuse" type="button" class="btn btn-lg btn-default" data-dismiss="modal">Close</button>
 					<center  ng-if="showLoderRefuse"><img width="80" src="newui/images/widget-loader-lg-en.gif" alt=""></center>
-					<button  ng-if="!showLoderRefuse" type="submit" ng-click="removeFromReferList(selectedUID)" class="btn btn-lg btn-success">Ok</button>
+					<button  ng-if="!showLoderRefuse" type="submit" ng-click="removeFromReferList(selectedUID,selectedType)" class="btn btn-lg btn-success">Ok</button>
 				 </div>
 			  </div>
 		   </div>
 		</div>
-	
 </div>
 <script>
 trackingApp.registerCtrl('referController',function($scope,$http, $location, $timeout, $element)
@@ -152,18 +151,20 @@ trackingApp.registerCtrl('referController',function($scope,$http, $location, $ti
 		window.location.href =  '<?php echo ANGULAR_ROUTE; ?>/search';
 	}
 	$scope.selectedUID = '';
-	$scope.notInterested = function(tmp)
+	$scope.notInterested = function(tmp,type)
 	{
 		$('#myModalRefuse').modal('show');
-		$scope.selectedUID  = tmp.UID;
+		$scope.selectedUID  = tmp.profile[0].UID;
+		$scope.selectedType  = type;
+		$scope.selectedDate = tmp.time;
 		
 	}
 	$scope.showLoderRefuse = false;
-	$scope.removeFromReferList = function(UID)
+	$scope.removeFromReferList = function(UID,type)
 	{
 		$scope.showLoderRefuse = true;
 		var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/remove-from-refer-list.php';
-		$http.post(absUrl,{UID:UID}).success(function(response)
+		$http.post(absUrl,{UID:UID,addedOn:$scope.selectedDate,type:type}).success(function(response)
 		{
 			$('#myModalRefuse').modal('hide');
 			$scope.showLoderRefuse = false;
@@ -189,9 +190,9 @@ trackingApp.registerCtrl('referController',function($scope,$http, $location, $ti
 	$scope.getEmpDetail = function(tmp)
 	{
 		$('#myModal').modal('show');
-		$scope.requestForm.subject_to_employee =  $scope.recruiterList.subject_to_employee.replace('[SHORTLISTED]', tmp.name);
-		var empMsg =  $scope.recruiterList.message_to_employee.replace('[SHORTLISTED]', tmp.name);
-		empMsg =  empMsg.replace(' [OPENJOBPOSITIONTITLE]',$scope.recruiterList.job_title);
+		$scope.requestForm.subject_to_employee =  tmp.recruiterMsg.subject_to_employee.replace('[SHORTLISTED]', tmp.profile[0].name);
+		var empMsg =  tmp.recruiterMsg.message_to_employee.replace('[SHORTLISTED]', tmp.profile[0].name);
+		empMsg =  empMsg.replace(' [OPENJOBPOSITIONTITLE]',tmp.recruiterMsg.job_title);
 		$scope.requestForm.message_to_employee  =  empMsg.replace('[EMPLOYEE]',$scope.employeeName);
 		$scope.requestForm.employeeDetail = tmp;
 	}
