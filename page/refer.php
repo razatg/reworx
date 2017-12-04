@@ -219,7 +219,6 @@ trackingApp.registerCtrl('referController',function($scope,$http, $location, $ti
 		}
 		else
 		{
-			
 			if(!$scope.requestForm.subject_to_employee)
 			{
 				$scope.errorMsg = 'Please enter suggestion for employee';
@@ -232,8 +231,6 @@ trackingApp.registerCtrl('referController',function($scope,$http, $location, $ti
 		}
 	}
 })
-
-
 </script>
 
 

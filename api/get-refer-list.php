@@ -39,7 +39,6 @@ if(!empty($_SESSION['member']['UID']))
 				}
 			}
 		}
-		
 		$returnArr['data'] = $dataReferListArr;
 		$returnArr['status'] = 'success';
 		$returnArr['totalCount'] = count($dataReferListArr);
