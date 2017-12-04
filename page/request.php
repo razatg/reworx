@@ -2,34 +2,36 @@
 include_once('../config-ini.php');
 ?>
 <div data-ng-controller="searchController">
+ 
+
 <header>
-	<div class="grid-center">
-	<div id="navmobile">
-		<nav>
-			<ul>
-				<?php include('menu.php');?>
-			</ul>
-		</nav>
-	</div>
-		<!-- Nav Mobile -->
-		<?php include_once('navbar.php');?>
+	<div class="container">
+	 	<?php include_once('navbar.php');?>
 		<div class="search_container">
 			<a class=" search_btn"></a>
 			<a class=" filter_btn"></a>
 		</div>
 	</div>
-	<!-- Nav Mobile -->
-	<!-- Nav Desktop -->
-	<nav id="navdektop" class="main_menu">
-		<ul id="idmenu">
-			<?php include('menu.php');?>
-			<li class="network_btn"><a href="#"  data-toggle="modal" data-target="#myModal">Compose and Send Email</a>
-		</ul>
-	</nav>
-	<!-- Nav Desktop -->
+    <nav class="navbar navbar-toggleable-sm navbar-light bg-faded">
+      <div class="container">
+  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarNav">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+  <div class="collapse navbar-collapse main_menu" id="navbarNav">
+    <ul class="navbar-nav">
+      <?php include('menu.php');?>
+      <li class="network_btn"><a href="#"  data-toggle="modal" data-target="#myModal">Compose and Send Email</a>
+    </ul>
+  </div>
+  </div>
+</nav>
 </header>
+
+
 <div class="bodypan" ng-style="{'min-height':divHeight()}">
-	<div class="grid-center">
+	<div class="conteiner">
 		<center  ng-if="showLoder"><img width="80" src="newui/images/widget-loader-lg-en.gif" alt=""></center>
 		<ul ng-if="!showLoder" class="list-item">
 			<li ng-repeat="data in resultList.data">

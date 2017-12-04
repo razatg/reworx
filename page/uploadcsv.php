@@ -3,7 +3,7 @@ include_once('../config-ini.php');
 ?>
 <div data-ng-controller="homeController">
 <header>
-	<div class="grid-center">
+	<div class="container">
 		<?php include_once('navbar.php');?>
 	</div>
 </header>	

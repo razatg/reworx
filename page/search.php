@@ -3,142 +3,38 @@ ini_set('display_errors', 1);
 include_once('../config-ini.php');
 ?>
 <div data-ng-controller="searchController">
+ 
 <header>
-	<div class="grid-center">
-	<div id="navmobile">
-		<nav>
-			<ul>
-				<?php include('menu.php');?>
-			</ul>
-		</nav>
-	</div>
-		<!-- Nav Mobile -->
-		<?php include_once('navbar.php');?>
+	<div class="container">
+	 	<?php include_once('navbar.php');?>
 		<div class="search_container">
 			<a class=" search_btn"></a>
 			<a class=" filter_btn"></a>
 		</div>
 	</div>
-	<!-- Nav Mobile -->
-	<!-- Nav Desktop -->
-	<nav id="navdektop" class="main_menu">
-		<ul id="idmenu">
-			<?php include('menu.php');?>
-			<li ng-if="addtolistdata>0" class="network_btn"><a href="<?php echo ANGULAR_ROUTE; ?>/request">{{addtolistdata}} &nbsp; Shortlisted </a></li>
-		</ul>
-	</nav>
-	<!-- Nav Desktop -->
+    <nav class="navbar navbar-toggleable-sm navbar-light bg-faded">
+      <div class="container">
+  	  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarNav">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+  <div class="collapse navbar-collapse main_menu" id="navbarNav">
+    <ul class="navbar-nav">
+      <?php include('menu.php');?>
+      <li ng-if="addtolistdata>0" class="network_btn"><a href="<?php echo ANGULAR_ROUTE; ?>/request">{{addtolistdata}} &nbsp; Shortlisted </a></li>
+      
+    </ul>
+  </div>
+  </div>
+</nav>
 </header>
+
+
 <div class="bodypan" ng-style="{'min-height':divHeight()}">
 	<div class="search_container">
-		<div class="grid-center">
-			<style>.customCatComplete{
-							background: none !important;
-							width: 288px !important;
-							margin: 0 !important;
-							border: none !important;
-							outline: 0 !important;
-							padding: 0px 0 2px !important;
-					}
-					
-					.customCatComplete1{
-							background: none !important;
-							width: 90px !important;
-							margin: 0 !important;
-							border: none !important;
-							outline: 0 !important;
-							padding: 0px 0 2px !important;
-					}
-						.rnz_new_fld span{    width: 100px;
-							font-weight: bold;
-							float: left;
-							display: inline-block;
-							padding: 12px 0;}
-						.rnz_new_fld select{    width: calc(100% - 100px);
-							float: left;
-							height: 45px;}
-							.rnz_new_fld_btn{    height: 45px;
-							float: left;
-							background: #000;
-							color: #fff5f5;
-							width: 115px;
-							font-weight: bold;
-							padding: 11px 0;
-						}
-						.rnz_new_fld_btn:hover{color:#fff;}
-						
-						.autocomplete-options-dropdown {
-							position: absolute;
-							top: 10px;
-							left: -9.5px;
-							border: 1px solid #ccc;
-							border-top-color: #d9d9d9;
-							box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-							-webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-							cursor: default;
-							z-index: 1001;
-							background: white;
-							WIDTH: 104%;
-						}
-						.customLocation .autocomplete-options-container .autocomplete-options-dropdown{
-							top: 0;
-							left: 0;
-							WIDTH: 100%;
-						}
-						.custom-tooltip {
-       border: 1px solid #4dc8b2;
-    padding: 10px 13px;
-    border-radius: 10px;
-    font-size: 16px;
-    display: inline-block;
-    min-width: 150px;
-    background: #fff;
-    position: absolute;
-    /* display: none; */
-    bottom: 10px;
-    left: -10px;
-}
-.custom-tooltip:before {
-        background: #fff;
-    border: 1px solid #4dc8b2;
-    border-right-width: 1px;
-    border-bottom-width: 1px;
-    border-right-style: solid;
-    border-bottom-style: solid;
-    border-right-color: rgb(214, 214, 214);
-    border-bottom-color: rgb(214, 214, 214);
-    content: "";
-    display: block;
-    position: absolute;
-        bottom: -21px;
-    left: 25px;
-    width: 12px;
-    height: 12px;
-    -webkit-transform: rotate(-137deg);
-    -ms-transform: rotate(-137deg);
-    transform: rotate(-137deg);
-    -webkit-transform-origin: 0% 0;
-    -ms-transform-origin: 0% 0;
-    transform-origin: 0% 0;
-    z-index: 1;
-    border-bottom: 0px;
-    border-right: 0px;
-}
-.custom-tooltip span {
-    display: block;
-}
-.custom-tooltip .name {
-    font-weight: bold;
-}
-.custom-tooltip .occupation {
-    color: #4dc8b2;
-}
-.relative-pos{position:relative;}
-.highlightedText {
-    background: yellow;
-}
-					</style>
-					
+		<div class="container">
+		 
 			<div class="field_row">
 				
 				<div class="fld_col">
@@ -177,8 +73,8 @@ include_once('../config-ini.php');
 			<a data-ng-click="showFilter()" class="filter_btn"></a>
 		</div>
 	</div>			
-	<div class="search_container" ng-show="showAdvancedFilter" style="padding:0;">
-		<div class="grid-center">
+	<div class="search_container second_container" ng-show="showAdvancedFilter" style="padding:0; padding-bottom:15px;">
+		<div class="container">
 			<div class="field_row">
 				<div class="fld_col customLocation">
 					 <autocomplete name="location" ng-keypress="searchEnter($event);"  ng-keyup="fetchData('location')" ng-model="location" options="locationData" 
@@ -197,7 +93,7 @@ include_once('../config-ini.php');
 			<a class="btn rnz_new_fld_btn" data-ng-click="searchData();">Search</a>
 		</div>
 	  </div>			
-		<div class="grid-center">
+		<div class="container">
 			<center  ng-if="showLoder"><img width="80" src="newui/images/widget-loader-lg-en.gif" alt=""></center>
 			 <ul ng-if="!showLoder" class="list-item">
 				<li ng-repeat="data in resultList.data">

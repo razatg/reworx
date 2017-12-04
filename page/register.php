@@ -3,38 +3,34 @@ include_once('../config-ini.php');
 ?>
 <div data-ng-controller="registerController">
 <header>
-	<div class="grid-center">
-	<div id="navmobile">
-		<nav>
-			<ul>
-				<li><a href="#">Analytics</a></li>
-				<li><a href="#">Tracking</a></li>
-				<li><a href="#">Connect Your Networks</a></li>
-			</ul>
-		</nav>
-	</div>
-		<!-- Nav Mobile -->
-		<?php include_once('navbar.php');?>
-		<div class="search_container">
-			<a class=" search_btn"></a>
-			<a class=" filter_btn"></a>
-		</div>
-	</div>
-	<!-- Nav Mobile -->
-	<!-- Nav Desktop -->
-	<nav id="navdektop" class="main_menu">
-		<ul id="idmenu">
-			<li class="active"><a href="#">Home</a></li>
-			<li><a href="#">Analytics</a></li>
-			<li><a href="#">Tracking</a></li>
-			<li class="network_btn"><a href="#">Connect Your Networks</a></li>
-		</ul>
-	</nav>
-	<!-- Nav Desktop -->
+    <nav class="navbar navbar-toggleable-sm navbar-light bg-faded">
+      <div class="container">
+  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarNav">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+  <div class="collapse navbar-collapse main_menu" id="navbarNav">
+    <ul class="navbar-nav">
+      <?php include('menu.php');?>
+    <li><?php 
+			if(!empty($_SESSION['member']['email'])){?>
+				<a ng-click="logout()">Logout</a>
+			<?php } 
+			else
+			{?>
+			<a ng-click="togglePopup('show')">Login</a>
+			<?php }
+			?>
+		</li>
+    </ul>
+  </div>
+  </div>
+</nav>
 </header>
 <div class="bodypan">
 	<div class="search_container">
-		<div class="grid-center">
+		<div class="container">
 			<h1>Recruiter Registration</h1>
 			<span ng-if="errorMsg" style="color:red;" ng-bind-html="errorMsg"></span>
 			<span ng-if="successMsg" style="color:green;" ng-bind-html="successMsg"></span>	

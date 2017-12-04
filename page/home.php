@@ -3,24 +3,36 @@ include_once('../config-ini.php');
 ?>
 <div data-ng-controller="homeController">
 <header>
-	<div class="container  grid-center">
-	<nav id="navdektop" class="mainMenu">
-	<ul id="idmenu">
-    <?php include('menu.php');?>
-    <li><?php 
-			if(!empty($_SESSION['member']['email'])){?>
-				<a ng-click="logout()">Logout</a>
-			<?php } 
-			else
-			{?>
-			<a ng-click="togglePopup('show')">Login</a>
-			<?php }
-			?>
-		</li>
-	</ul>
-</nav>
+	<div class="container">
+	 	<?php include_once('navbar.php');?>
+		<div class="search_container">
+			<a class=" search_btn"></a>
+			<a class=" filter_btn"></a>
+		</div>
 	</div>
-</header>	
+    <nav class="navbar navbar-toggleable-sm navbar-light bg-faded">
+      <div class="container">
+  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarNav">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+  <div class="collapse navbar-collapse main_menu" id="navbarNav">
+    <ul class="navbar-nav">
+      <?php include('menu.php');?>
+    
+    </ul>
+  </div>
+  </div>
+</nav>
+</header>
+
+
+
+
+
+
+	
 <div class="homebanner">
 	<img src="newui/images/2X1.png" alt="" style="background:url(newui/images/home-slider.jpg) no-repeat;" width="100%">
     <div class="banner">

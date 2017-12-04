@@ -2,43 +2,41 @@
 include_once('../config-ini.php');
 ?>
 <div data-ng-controller="referController">
+ 
+
 <header>
-	<div class="grid-center">
-	<div id="navmobile">
-		<nav>
-			<ul>
-			<?php include('menu.php');?>
-			</ul>
-		</nav>
+	<div class="container">
+	 	<?php include_once('navbar.php');?>
 	</div>
-		<!-- Nav Mobile -->
-		<?php include_once('navbar.php');?>
-		<div class="search_container">
-			<a class=" search_btn"></a>
-			<a class=" filter_btn"></a>
-		</div>
-	</div>
-	<!-- Nav Mobile -->
-	<!-- Nav Desktop -->
-	<nav id="navdektop" class="main_menu">
-		<ul id="idmenu">
-			<?php include('menu.php');?>
-		</ul>
-	</nav>
-	<!-- Nav Desktop -->
+    <nav class="navbar navbar-toggleable-sm navbar-light bg-faded">
+      <div class="container">
+  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarNav">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+  <div class="collapse navbar-collapse main_menu" id="navbarNav">
+    <ul class="navbar-nav">
+      <?php include('menu.php');?>
+    </ul>
+  </div>
+  </div>
+</nav>
 </header>
+
+
 	<div class="bodypan" ng-style="{'min-height':divHeight()}">
 	 <center ng-if="showLoder"><img width="80" src="newui/images/widget-loader-lg-en.gif" alt=""></center>
 	<!--Section: Testimonials v.2-->
-	<section ng-show="!showLoder" class="text-center grid-center">
+	<section ng-show="!showLoder" class="text-center container">
 		<!--Carousel Wrapper-->
 	   <div id="carousel-generic" class="testimonial-carousel slide" data-ride="carousel">
 			<!--Slides-->
 			<div class="carousel-inner" role="listbox">
 				<!--First slide-->
 				<div  ng-repeat="data in referListArr" class="item {{$index==0?'active':''}}">
-					<div ng-if="!showLoder" class="grid-center">
-					 <h1 class="pageheding">Please review shortlisted for the positions below:</h1>
+					<div ng-if="!showLoder" class="container  text-left">
+					 <h1 class="pageheding text-left">Please review shortlisted for the positions below:</h1>
 					 <h6  ng-if="data.recruiterMsg.job_title" ng-bind-html="data.recruiterMsg.job_title"></h6>
 					 <p  ng-if="data.recruiterMsg.job_position_url" class="par">{{data.recruiterMsg.job_position_url}},</p>
 					 <p ng-if="data.recruiterMsg.referral_amount" class="par"><strong>Bonus ${{data.recruiterMsg.referral_amount}}</strong></p>
