@@ -1,13 +1,12 @@
 <?php
-ini_set('display_errors',0);
+ini_set('display_errors',1);
 include_once('../config-ini.php');
 $returnArr = array('status'=>'failure','data'=>'','totalCount'=>0);
 $arrValues = json_decode(file_get_contents('php://input'), true);
 $page = isset($arrValues['page'])?trim($arrValues['page']):"1";
 $where = array();
-
-$position = isset($arrValues['position'])?$arrValues['position']:"";
-$company = isset($arrValues['company'])?$arrValues['company']:"";
+$position = isset($arrValues['position'])?explode(',',rtrim(trim($arrValues['position']),",")):"";
+$company = isset($arrValues['company'])?explode(',',rtrim(trim($arrValues['company']),",")):"";
 $location = isset($arrValues['location'])?$arrValues['location']:"";
 $total_experience = isset($arrValues['total_experience'])?$arrValues['total_experience']:"";
 

@@ -30,13 +30,13 @@ if(!empty($arrValues))
 			{
 				if($data['title']!='')
 				{
-					$suggestionResult[] = array('title'=>$data['title']);
+					$suggestionResult[] = array('value'=>str_replace(',', '', $data['title']),'label'=>str_replace(',', '', $data['title']));
 				}
 				foreach($data['featured_skiils'] as $key=>$val)
 				{
 					if(strpos(strtolower($val), strtolower($typeSearch)) !== false && $val!='') 
 					{
-						$suggestionResult2[] = array('title'=>$val);
+						$suggestionResult2[] = array('value'=>str_replace(',', '', $val),'label'=>str_replace(',', '', $val));
 					}
 				}
 			}
@@ -69,7 +69,7 @@ if(!empty($arrValues))
 			{
 				if($data['area']!='')
 				{
-					$suggestionResult[] = array('area'=>$data['area']);
+					$suggestionResult[] =   array('value'=>$data['area'],'label'=>$data['area']);
 				}
 				
 			}
@@ -100,7 +100,7 @@ if(!empty($arrValues))
 			{
 				if($data['company']!='')
 				{
-					$suggestionResult[] = array('title_comp'=>$data['company']);
+					$suggestionResult[] = array('value'=>str_replace(',', '', $data['company']),'label'=>str_replace(',', '', $data['company']));
 				}
 			}
 			$uniquePids = array_unique($suggestionResult, SORT_REGULAR);

@@ -21,7 +21,7 @@ include_once('../config-ini.php');
       </button>
   <div class="collapse navbar-collapse main_menu" id="navbarNav">
     <ul class="navbar-nav">
-      <?php include('menu.php');?>
+      <?php include('menu.php');?>	
       <li ng-if="addtolistdata>0" class="network_btn"><a href="<?php echo ANGULAR_ROUTE; ?>/request">{{addtolistdata}} &nbsp; Shortlisted </a></li>
       
     </ul>
@@ -29,44 +29,15 @@ include_once('../config-ini.php');
   </div>
 </nav>
 </header>
-
-
 <div class="bodypan" ng-style="{'min-height':divHeight()}">
 	<div class="search_container">
 		<div class="container">
-		 
 			<div class="field_row">
-				
 				<div class="fld_col">
-					<ul class="search_list_container">
-					<li class="search_list" ng-repeat="data in multipleArrList track by $index">
-                      <a ng-click="removeFromSearchList($index,'position')" class="glyphicon glyphicon-remove search_list_remove"></a>
-					{{data}}
-					</li>
-					<li><autocomplete name="position" ng-blur="onSelect(position)" ng-keypress="searchEnter($event);"  ng-keyup="fetchData('position')" ng-model="position" options="datas" 
-						place-holder="Enter a Position (e.g Java Developer) or Skill (eg Java).."
-						on-select="onSelect" 
-						display-property="title"
-						input-class="form-control customCatComplete"
-						clear-input="false">
-				</autocomplete></li>
-			 
-					</ul>
+					<input id="positionId" style="height:45px!important" ng-model="position" placeholder="Enter Position (e.g Java Developer) or Skill (eg Java) sepereated by comma" class="form-control" ng-keydown="autoCompleteCustom('positionId','position')">
 				</div>
 				<div class="fld_col">
-				<ul class="search_list_container">
-					<li class="search_list" ng-repeat="data in multipleCompanyArrList track by $index">
-                      <a ng-click="removeFromSearchList($index,'company')" class="glyphicon glyphicon-remove search_list_remove"></a>
-					{{data}}
-					</li>
-					<li><autocomplete name="company" ng-keypress="searchEnter($event);"  ng-keyup="fetchData('company')" ng-model="company" options="companyList" 
-						place-holder="Company"
-						on-select="onSelectComp" 
-						display-property="title_comp"
-						input-class="form-control customCatComplete1"
-						clear-input="false">
-				</autocomplete></li>
-					</ul>	
+				<input id="companyId" style="height:45px!important" ng-model="company" placeholder="Enter Company name sepereated by comma (,)" class="form-control" ng-keydown="autoCompleteCustom('companyId','company')">
 				</div>
 			</div>
 			<a class="search_btn" data-ng-click="searchData();"></a>
@@ -76,14 +47,8 @@ include_once('../config-ini.php');
 	<div class="search_container second_container" ng-show="showAdvancedFilter" style="padding:0; padding-bottom:15px;">
 		<div class="container">
 			<div class="field_row">
-				<div class="fld_col customLocation">
-					 <autocomplete name="location" ng-keypress="searchEnter($event);"  ng-keyup="fetchData('location')" ng-model="location" options="locationData" 
-						place-holder="Search Geo Location"
-						on-select="onSelectArea" 
-						display-property="area"
-						input-class="form-control"
-						clear-input="false">
-				</autocomplete> 
+				<div class="fld_col">
+					<input style="height:45px!important" id="locationId" ng-model="location" placeholder="Search Geo Location" ng-keydown="autoCompleteCustom('locationId','location')" class="form-control">
 				</div>
 				<div class="fld_col rnz_new_fld">
 				<span>Experience</span>
@@ -93,6 +58,7 @@ include_once('../config-ini.php');
 			<a class="btn rnz_new_fld_btn" data-ng-click="searchData();">Search</a>
 		</div>
 	  </div>			
+	
 		<div class="container">
 			<center  ng-if="showLoder"><img width="80" src="newui/images/widget-loader-lg-en.gif" alt=""></center>
 			 <ul ng-if="!showLoder" class="list-item">
@@ -101,10 +67,14 @@ include_once('../config-ini.php');
 					   <div class="item-row">
 						   <div class="detail_info">
 								<h1 style="text-align:left;" ng-bind-html="data.name"></h1>
-								<h3 ng-if="data.experience[0].designation && data.experience[0].company" ng-bind-html="data.experience[0].designation+' at '+ data.experience[0].company"></h3> 
-								<h3 ng-if="!data.experience[0].designation && !data.experience[0].company" ng-bind-html="data.company"></h3>
-								<p  class="location" ng-bind-html="data.area"></p>
-								
+								<h3 ng-if="!company && data.experience[0].designation && data.experience[0].company" ng-bind-html="data.experience[0].designation+' at '+ data.experience[0].company"></h3> 
+								<h3 ng-if="!company && !data.experience[0].designation && !data.experience[0].company" ng-bind-html="data.company">
+								</h3>
+								<h3 ng-if="company && data.experience[0].designation && data.experience[0].company" highlight="data.experience[0].designation+' at '+ data.experience[0].company" keywords="company"></h3> 
+								<h3 ng-if="company && !data.experience[0].designation && !data.experience[0].company" highlight="data.company" keywords="company">
+								</h3>
+								<p ng-if="!location" class="location" ng-bind-html="data.area"></p>
+								<p ng-if="location" class="location" highlight="data.area" keywords="location"></p>
 								<div ng-repeat="item in data.connectedUsers" class="relative-pos">
 										<div ng-show="$parent.$index==parentIndex && childIndex==$index" class="custom-tooltip">
 										<span class="name" ng-bind-html="item.name"></span>
@@ -113,15 +83,20 @@ include_once('../config-ini.php');
 									</div>
 								 <img ng-mouseleave="showToolTips('-1')" ng-mouseover="showToolTips($index,$parent.$index)" src="newui/images/1X1.png" style="background:url({{item.pic_phy}})" class="profile">
 								</div>
-						     	<br/><b ng-if="data.featured_skiils.length>0 && multipleArrList.length>0">Featured Skills:</b> <span data-ng-repeat="skill in data.featured_skiils">
-								<small ng-if="multipleArrList.length>0" ng-bind-html="highlight(skill, multipleArrList[0])"></small>
-								</span>
-								<br/><b ng-if="multipleArrList.length>0 && data.title && highlight(data.title, multipleArrList[0])">Title:</b> <small ng-if="multipleArrList.length>0 && data.title" ng-bind-html="highlight(data.title, multipleArrList[0])"> </small>
-								<br/> <b ng-if="multipleArrList.length>0 && data.summary && highlight(data.summary, multipleArrList[0])">Summary:</b> <small ng-if="multipleArrList.length>0 && data.summary" ng-bind-html="highlight(data.summary, multipleArrList[0],'summary')"> </small>
-								<br/> <b ng-if="data.experience.length>0 && multipleArrList.length>0">Experience :</b>
-                                 <span data-ng-repeat="expe in data.experience">
-								<small ng-if="multipleArrList.length>0 && expe.designation" ng-bind-html="highlight(expe.designation, multipleArrList[0])"></small>
-								</span>	
+								<ul class="match-keyword">
+									<li ng-show="position && data.title"><strong>Title: </strong><span highlight="data.title" keywords="position"></span></li>
+									<li ng-show="position && data.summary">
+										<strong>Summary: </strong><span highlight="data.summary" keywords="position"></span></li>
+									<li ng-show="data.featured_skiils.length>0 && position">
+										<strong>Skills: </strong>
+										<span data-ng-repeat="skill in data.featured_skiils">
+										<span highlight="skill" keywords="position"></span>
+									</li>
+									<li ng-show="data.experience.length>0 && position">
+										<strong>Experience: </strong><span data-ng-repeat="expe in data.experience">
+										<span highlight="expe.designation" keywords="position"></span>
+									</li>
+								</ul>
 						     </div>
 							<div class="detail_action">
 								<a target="_blank" href="{{data.profile_url}}"><img src="newui/images/linkden.png"></a>
@@ -141,27 +116,20 @@ include_once('../config-ini.php');
 			</button>
 		   </div>	
 	  </div>
+  
+
 <?php include_once('login.php');?>	  
 </div>
+<style type="text/css">
+			.angular-highlight {
+				background-color:	yellow;
+				font-weight:		bold;
+			}
+		</style>
 <script>
 trackingApp.registerCtrl('searchController',function($scope,$http, $location, $timeout, $element,$sce)
 {
-    
-    $scope.highlight = function(text, search) 
-    {
-		var tmpStr  = text.match(search);
-		var newStr = tmpStr[0];
-		if(search && text.indexOf(search) !== -1)
-		{
-			return $sce.trustAsHtml(newStr.replace(new RegExp(search, 'gi'), '<span class="highlightedText">$&</span>'));
-		}
-		else
-		{
-			return $sce.trustAsHtml('');
-		}
-		
-	};
-
+	
 	$scope.showToolTips = function(index,parent)
 	{
 		$scope.childIndex = index;
@@ -169,25 +137,11 @@ trackingApp.registerCtrl('searchController',function($scope,$http, $location, $t
 	}
 	
 	$scope.resultList = {};
-	$scope.multipleArrList = [];
-	$scope.multipleCompanyArrList = [];
 	$scope.yearOfExp = ['Select Experience'];
 	for(var i = 1;i<=50;i++)
 	{
 		$scope.yearOfExp.push(i);
 	}
-	$scope.removeFromSearchList = function(index,type)
-	{
-		if(type=='company')
-		{
-			$scope.multipleCompanyArrList.splice(index,1);
-		}
-		else
-		{
-			$scope.multipleArrList.splice(index,1);
-		}
-		
-	}   
 	$scope.showAdvancedFilter = false;
 	$scope.showFilter = function()
 	{
@@ -210,19 +164,8 @@ trackingApp.registerCtrl('searchController',function($scope,$http, $location, $t
 	$scope.searchData = function()
 	{
         $scope.showLoder = true;
-        if($scope.position)
-        {
-			$scope.multipleArrList.push($scope.position);
-			$scope.position  = '';	
-		}
-		if($scope.company)
-        {
-			$scope.multipleCompanyArrList.push($scope.company);
-			$scope.company  = '';	
-		}
-       
 		var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/get-data.php';
-		$http.post(absUrl,{total_experience:$scope.total_experience,position:$scope.multipleArrList,company:$scope.multipleCompanyArrList,page:$scope.currentPage,location:$scope.location}).success(function(response)
+		$http.post(absUrl,{total_experience:$scope.total_experience,position:$scope.position,company:$scope.company,page:$scope.currentPage,location:$scope.location}).success(function(response)
 		{
 			$scope.resultList = response;
 			$scope.resultStatus = response.status;
@@ -238,91 +181,9 @@ trackingApp.registerCtrl('searchController',function($scope,$http, $location, $t
 			$scope.searchData();
 		}
 	};
-	
-	$scope.onSelect = function(selection) 
-	{
-		$scope.selectedData = selection;
-		if($scope.multipleArrList.length>0)
-		{
-			for(var i=0;i<$scope.multipleArrList.length;i++)
-			{
-				if($scope.multipleArrList[i].title!=selection.title)
-				{
-					var movetoList = selection.title;
-				}
-			}
-			
-			$scope.multipleArrList.push(movetoList);
-		}
-		else
-		{
-			$scope.multipleArrList.push(selection.title);	
-		}
-		
-		$scope.position  = '';
-	};
-	
-	$scope.onSelectComp = function(company)
-	{
-		$scope.selectedData = company;
-		if($scope.multipleCompanyArrList.length>0)
-		{
-				for(var i=0;i<$scope.multipleCompanyArrList.length;i++)
-				{
-					if($scope.multipleCompanyArrList[i].title_comp!=company.title_comp)
-					{
-						var movetoList = company.title_comp;
-					}
-				}
-				
-				$scope.multipleCompanyArrList.push(movetoList);
-			}
-			else
-			{
-				
-				$scope.multipleCompanyArrList.push(company.title_comp);	
-			}
-			
-			$scope.company  = '';	
-	}
-	
-	$scope.onSelectArea = function(area)
-	{
-		$scope.locationData = area;
-	}
-	
+
 	$scope.selectedData = null;
 	$scope.resultStatus = '';
-	$scope.datas = {};
-	$scope.companyList = {};
-	$scope.fetchData = function(type)
-	{
-	  if($scope[type].length>3)
-	  {    
-		 var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/autosuggestion.php';
-		 $http.post(absUrl,{keywords:$scope[type],type:type}).success(function(response)
-			{
-				
-				if(response.data.length>0)
-				{
-					if(type== 'company')
-					{
-						$scope.companyList = angular.copy(response.data);
-					}
-					else if(type== 'location')
-					{
-						$scope.locationData = angular.copy(response.data);
-					}
-					else
-					{
-						$scope.datas = angular.copy(response.data);
-					//	$scope.skillsList = angular.copy(response.data);
-					}
-					
-				}
-			})  
-	  }
-	}
 	$scope.numberOfPages=function()
     {
         return Math.ceil($scope.totalPageLength/$scope.pageSize);                
@@ -375,9 +236,77 @@ trackingApp.registerCtrl('searchController',function($scope,$http, $location, $t
 		})
 	}
 	$scope.getlist();
+	$scope.autoCompleteCustom = function(id,type)
+	{
+		$("#"+id)
+		 // don't navigate away from the field on tab when selecting an item
+		.bind( "keydown", function( event ) {
+				if ( event.keyCode === $.ui.keyCode.TAB &&
+				$( this ).autocomplete( "instance" ).menu.active ) {
+				event.preventDefault();
+				}
+		})
+		.autocomplete({
+				minLength: 0,
+				source: function( request, response ) 
+				{
+					  if(type=='location')
+					  {
+						  var keyterm = request.term; 
+					  }
+					  else
+					  {
+						   var keyterm = extractLast( request.term );
+					  }
+					  if(keyterm.length>3)
+					  {	
+						  var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/autosuggestion.php';
+						  $http.post(absUrl,{keywords:keyterm,type:type}).success(function(projectResponse)
+							{
+							response($.ui.autocomplete.filter(projectResponse.data,keyterm));
+						 })
+					}
+				},
+				//    source:projects,    
+				focus: function() 
+				{
+					// prevent value inserted on focus
+					return false;
+				},
+				select: function( event, ui ) 
+				{
+					var terms = split( this.value );
+					// remove the current input
+					terms.pop();
+					// add the selected item
+					terms.push( ui.item.value );
+					// add placeholder to get the comma-and-space at the end
+					terms.push( "" );
+					if(type=='location')
+					  {
+						  this.value = terms.join("");
+						  $scope[type] = this.value;
+					  }
+					  else
+					  {
+						   this.value = terms.join( ", " );
+						   $scope[type] = this.value;
+					  }	
+					
+					return false;
+			}
+		});
+	}
 	
 })
-
+function split( val ) 
+{
+	return val.split( /,\s*/ );
+}
+function extractLast( term ) 
+{
+	return split( term ).pop();
+}
 </script>
 <style>
 .pagination {

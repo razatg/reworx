@@ -164,12 +164,11 @@ Regards,\n\
 			{
 				if(response)
 				{
-					
 					$timeout(function()
 					{
 						$scope.showLodermail = false;
 						$('#myModal').modal('hide');
-						//window.location.href =  '<?php echo ANGULAR_ROUTE; ?>/search';
+						window.location.href =  '<?php echo ANGULAR_ROUTE; ?>/search';
 					},100)
 				}
 			})

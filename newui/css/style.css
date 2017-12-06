@@ -32,6 +32,13 @@ ul,h1,h2,h3,h4,h5,h6 {
 ul,ol,li {
 	list-style:none;
 }
+ul.match-keyword {
+    list-style: none;
+    margin: 15px 0 0;
+    display: inline-block;
+    width: 100%;
+    line-height: 23px;
+}
 h1 {
     color: #fff;
     font-size: 26px ;
@@ -1778,4 +1785,5 @@ display: inline-block;
     background: white;
     width: calc(100% + 20px);
 }
+
 

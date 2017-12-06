@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors', 0);
+ini_set('display_errors', 1);
 $returnArr = array('status'=>'failure','data'=>'');
 if(!empty($_FILES))
 {
@@ -28,6 +28,23 @@ if(!empty($_FILES))
 		}
 		else
 		{
+		    $UID = !empty($_SESSION['member']['UID'])?$_SESSION['member']['UID']:"";
+			$target_dir = "../tmp/profile/";
+            $target_file = $target_dir.$UID.'.'.$pathInfo['extension'];
+            $target_file = $target_dir.$UID.'.'.$pathInfo['extension'];
+            $target_file = $target_dir.$UID.'.'.$pathInfo['extension'];
+			if(move_uploaded_file($fileName,$target_file))
+			{
+				if($db->employee_contacts->update(array("UID"=>$UID),array('$set'=>array("connectionUploaded"=>true))))
+				{
+					$returnArr['status'] = 'success';
+				}
+			}
+			else
+			{
+				$returnArr['status'] = 'not valid';
+			}
+			/*
 			$checkCurrentUploading =  $db->contact->count();
 			$array = array();
 			$row = 1;
@@ -67,8 +84,10 @@ if(!empty($_FILES))
 		else
 		 {
 			$returnArr['status'] = 'not valid';
-		 }
-	    }	
+		 } */	
+		 
+	    }
+	   
 	}
 	else
 	{

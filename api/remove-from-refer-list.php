@@ -23,19 +23,18 @@ if(!empty($_SESSION['member']['UID']))
 	$dataListArr = $db->employeeReferData->findOne(array('addedOn'=>(int)$addedOn));
 	$uIdList = $dataListArr['referalUIDList'];
 	if(!empty($uIdList))
-	{
-		$newUidList = array();
+	{   $newUpdatedArr =  array(); 
 		foreach($uIdList as $item)
 		{
 			if($item['UID']== $UIDFromRemove)
 			{
 				$item[$type] = true; 
 			}
+		   $newUpdatedArr[] = $item;
 		}
 	}
-	$updateArr = array('$set'=>array("referalUIDList"=>$uIdList));
-	
-	if($db->employeeReferData->update(array('addedOn'=>$addedOn),$updateArr))
+	$updateArr = array('$set'=>array("referalUIDList"=>$newUpdatedArr));
+	if($db->employeeReferData->update(array('addedOn'=>(int)$addedOn),$updateArr))
 	{
 		$returnArr['status'] = 'success';
 	}

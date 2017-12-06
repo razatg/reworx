@@ -32,7 +32,7 @@ if(!empty($userData['data']['email']) && !empty($userData['data']['password']))
 		{
 			$returnArr['status'] = 'csvnotuploaded';
 			
-			if(!empty($checkUser['connections']))
+			if($checkUser['connectionUploaded'])
 			{
 				$returnArr['status'] = 'csvuploaded';
 			}
