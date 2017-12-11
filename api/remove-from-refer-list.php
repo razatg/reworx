@@ -7,16 +7,7 @@ $UIDFromRemove = isset($arrValues['UID'])?trim($arrValues['UID']):"1";
 $addedOn = isset($arrValues['addedOn'])?trim($arrValues['addedOn']):"";
 $type = isset($arrValues['type'])?trim($arrValues['type']):"";
 $flagValue = true;
-if($_SERVER['HTTP_HOST']=='localhost')
-{
-	$m = new MongoClient("mongodb://192.168.3.2:27017");
-	$db = $m->RPO_DataBase;
-}
-else if($_SERVER['HTTP_HOST']=='demo.onsisdev.info')
-{
-	$m = new MongoClient("mongodb://dheeraj:dheeraj@ds117485.mlab.com:17485/pradip");
-	$db = $m->pradip;
-}
+$db = connect();
 if(!empty($_SESSION['member']['UID']))
 {
 	$UID = $_SESSION['member']['UID'];

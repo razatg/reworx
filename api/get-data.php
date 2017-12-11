@@ -9,51 +9,57 @@ $position = isset($arrValues['position'])?explode(',',rtrim(trim($arrValues['pos
 $company = isset($arrValues['company'])?explode(',',rtrim(trim($arrValues['company']),",")):"";
 $location = isset($arrValues['location'])?$arrValues['location']:"";
 $total_experience = isset($arrValues['total_experience'])?$arrValues['total_experience']:"";
-
-if($_SERVER['HTTP_HOST']=='localhost')
-{
-	$m = new MongoClient("mongodb://192.168.3.2:27017");
-	$db = $m->RPO_DataBase;
-}
-else if($_SERVER['HTTP_HOST']=='demo.onsisdev.info')
-{
-	$m = new MongoClient("mongodb://dheeraj:dheeraj@ds117485.mlab.com:17485/pradip");
-	$db = $m->pradip;
-}
-
+$searchStringArr = array();
+$db = connect();
 $collection = $db->profile;
 $offset = ($page*10);
+if(!empty($_SESSION['member']['cId']))
+{
+	$cId = $_SESSION['member']['cId'];
+	$where['referrer_c_id']	 = array('$in' => array($cId));
+}
 if(!empty($position))
 {
 	$tmpTitle = array();
 	$tmpFeature = array();
 	$summaryArr = array();
 	$experienceArr = array();
-	foreach($position as $q) {
-	   $tmpTitle[] = array('title'=>array('$regex'=>$q,'$options'=>'i'));
-	   $tmpFeature[] = array('featured_skiils'=>array('$regex'=>$q,'$options'=>'i'));
-	   $summaryArr[] = array('summary'=>array('$regex'=>$q,'$options'=>'i'));
-	   $experienceArr[] = array('experience'=>array('designation'=>array('$regex'=>$q,'$options'=>'i')));
+	$keywordsList = '';
+    if(count($position)>1)
+	{
+		foreach($position as $q) 
+		{
+		   array_push($searchStringArr,$q);
+		   $tmpTitle[] = array('title'=>array('$regex'=>$q,'$options'=>'i'));
+		   $tmpFeature[] = array('featured_skiils'=>array('$regex'=>$q,'$options'=>'i'));
+		   $summaryArr[] = array('summary'=>array('$regex'=>$q,'$options'=>'i'));
+		   $experienceArr[] = array('experience'=>array('designation'=>array('$regex'=>$q,'$options'=>'i')));
+		   $keywordsList.= $q.' ';
+		}
+		$where['$text'] = array('$search'=>$keywordsList);
 	}
-	$where['$or'] = array(array('$or'=>$tmpTitle),array('$or'=>$tmpFeature),array('$or'=>$summaryArr),array('$or'=>$experienceArr));
+	else
+	{
+		$keywordsList = '"'.$position[0].'"'; 
+		$where['$text'] = array('$search'=>$keywordsList);
+	}
+	//$where['$or'] = array(array('$or'=>$tmpTitle),array('$or'=>$tmpFeature),array('$or'=>$summaryArr),array('$or'=>$experienceArr));
 	//$where['$or'] = $tmpFeature;
 }
-if(!empty($_SESSION['member']['cId']))
-{
-	$cId = $_SESSION['member']['cId'];
-	$where['referrer_c_id']	 = array('$in' => array($cId));
-}
+
 if(!empty($company))
 {
 		$tmp = array();
 		foreach ($company as $q) 
 		{
+			array_push($searchStringArr,$q);
 			$tmp[] = new MongoRegex("/$q/i");
 		}
 		$where['company'] = array('$in'=>$tmp);
 }
 if(!empty($location))
 {
+   array_push($searchStringArr,$q);
   $where['area']	 = new MongoRegex("/$location/i");
 }
 if(!empty($total_experience) && $total_experience!='Select Experience')
@@ -61,11 +67,11 @@ if(!empty($total_experience) && $total_experience!='Select Experience')
   $where['total_experience']	 = array('$gt'=>$total_experience);
 }
 //print_r(json_encode($where));exit;
-
 if(!empty($where))
 {
+	$sortArr = array("score"=>array('$meta'=>"textScore"));
 	$cursorCount = $collection->count($where);
-	$cursor = $collection->find($where,array('summary','experience','UID','title','featured_skiils','pic_phy','name','designation','company','experience','parentUID','area'))->skip($offset)->limit(10);
+	$cursor = $collection->find($where,$sortArr)->sort($sortArr)->skip($offset)->limit(10);
 	$searchResult =  iterator_to_array($cursor);
 	if(!empty($searchResult))
 	{
@@ -73,6 +79,17 @@ if(!empty($where))
 		$dataList = array();
 		foreach($searchResult  as $data)
 		{
+			$searchString = serialize($data);
+			$i = 0; 
+			/*if(!empty($searchStringArr))
+			{
+				foreach($searchStringArr as $match) 
+				{
+					$i = $i+substr_count(strtolower($searchString), trim(strtolower($match)));
+				}
+		    }
+		    */
+		    $data['sortorder']	= $i;
 			$parentUidList = $data['parentUID'];
 			$connectedProfiles = $collection->find(array('UID'=>array('$in' =>$parentUidList)),array('UID','pic_phy','name','designation','company'));
 			if(!empty($connectedProfiles))
@@ -86,6 +103,10 @@ if(!empty($where))
 			}
 			$dataList[] = $data;
 		}
+		//function sortByOrder($a, $b) {
+		//	return $b['sortorder'] - $a['sortorder'];
+		//}
+      //  usort($dataList, 'sortByOrder');
 		$returnArr['data'] = $dataList;
 		$returnArr['status'] = 'success';
 		$returnArr['totalCount'] = $cursorCount;

@@ -133,7 +133,7 @@ trackingApp.directive('fileModel', ['$parse', function ($parse) {
 	   }
 	};
 }]);
-    
+
 trackingApp.directive('highlight', function() {
 	var component = function(scope, element, attrs) {
 		var tokenize = function(keywords,str) {
@@ -167,7 +167,8 @@ trackingApp.directive('highlight', function() {
 			keywords:	'='
 		}
 	};
-});    
+});
+    
 
 
 

@@ -87,7 +87,7 @@ include_once('../config-ini.php');
 					   <div class="form-group">
 						  <label>Bonus for Refrel Amount</label>
 						  <div style="display:inline-block; width:100%;">
-							 <div class="col-20"><input type="text" name="currency" ng-model="requestForm.currency" class="form-control" placeholder="$"></div>
+							 <div class="col-20"><input type="text" name="currency" ng-model="requestForm.currency" class="form-control" placeholder="Currency"></div>
 							 <div class="col-50"><input type="text" name="referral_amount" ng-model="requestForm.referral_amount" class="form-control" placeholder="Amount"></div>
 							 <div class="col-30">Bonus for Refrel Amount?</div>
 						  </div>
@@ -164,6 +164,7 @@ Regards,\n\
 			{
 				if(response)
 				{
+					
 					$timeout(function()
 					{
 						$scope.showLodermail = false;
@@ -292,7 +293,7 @@ Regards,\n\
     text-decoration: none;
     transition: background-color .3s;
     border: 1px solid #ddd;
-    background-color: #54c7b1;
+    background-color:#0085c8;
     color: #fff;
 }
 button:disabled {
