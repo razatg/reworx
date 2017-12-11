@@ -5,10 +5,7 @@ include_once('../config-ini.php');
 <header>
 	<div class="container">
 	 	<?php include_once('navbar.php');?>
-		<div class="search_container">
-			<a class=" search_btn"></a>
-			<a class=" filter_btn"></a>
-		</div>
+		 
 	</div>
     <nav class="navbar navbar-toggleable-sm navbar-light bg-faded" style="display:none">
       <div class="container">

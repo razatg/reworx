@@ -4,12 +4,12 @@ include_once('../config-ini.php');
 ?>
 <div data-ng-controller="searchController">
  
-<header>
+<header class="sr_rnz_container">
 	<div class="container">
-	 	<?php include_once('navbar.php');?>
+	 	<?php include('navbar.php');?>
 		<div class="search_container">
-			<a class=" search_btn"></a>
-			<a class=" filter_btn"></a>
+			<a class="search_btn" ng-click="showSearchBox('search')"></a>
+		 
 		</div>
 	</div>
     <nav class="navbar navbar-toggleable-sm navbar-light bg-faded">
@@ -22,6 +22,7 @@ include_once('../config-ini.php');
   <div class="collapse navbar-collapse main_menu" id="navbarNav">
     <ul class="navbar-nav">
       <?php include('menu.php');?>	
+      <?php include('navbar.php');?>
       <li ng-if="addtolistdata>0" class="network_btn"><a href="<?php echo ANGULAR_ROUTE; ?>/request">{{addtolistdata}} &nbsp; Shortlisted </a></li>
       
     </ul>
@@ -30,7 +31,7 @@ include_once('../config-ini.php');
 </nav>
 </header>
 <div class="bodypan" ng-style="{'min-height':divHeight()}">
-	<div class="search_container">
+	<div class="search_container {{mainSearch}}">
 		<div class="container">
 			<div class="field_row">
 				<div class="fld_col">
@@ -134,6 +135,19 @@ trackingApp.registerCtrl('searchController',function($scope,$http, $location, $t
 	{
 		$scope.childIndex = index;
 		$scope.parentIndex = parent;
+	}
+	$scope.mainSearch = '';
+	$scope.showSearchBox = function(type)
+	{
+		if(type=='search')
+		{
+			$scope.mainSearch = ($scope.mainSearch=='show')?'hide':'show';
+		}
+		else
+		{
+			$scope.filterSearch = ($scope.filterSearch=='show')?'hide':'show';
+		}
+		
 	}
 	
 	$scope.resultList = {};

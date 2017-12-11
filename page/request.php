@@ -7,10 +7,6 @@ include_once('../config-ini.php');
 <header>
 	<div class="container">
 	 	<?php include_once('navbar.php');?>
-		<div class="search_container">
-			<a class=" search_btn"></a>
-			<a class=" filter_btn"></a>
-		</div>
 	</div>
     <nav class="navbar navbar-toggleable-sm navbar-light bg-faded">
       <div class="container">
@@ -31,7 +27,7 @@ include_once('../config-ini.php');
 
 
 <div class="bodypan" ng-style="{'min-height':divHeight()}">
-	<div class="conteiner">
+	<div class="container">
 		<center  ng-if="showLoder"><img width="80" src="newui/images/widget-loader-lg-en.gif" alt=""></center>
 		<ul ng-if="!showLoder" class="list-item">
 			<li ng-repeat="data in resultList.data">
