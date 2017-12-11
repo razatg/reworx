@@ -34,12 +34,12 @@ include_once('../config-ini.php');
 			<!--Slides-->
 			<div class="carousel-inner" role="listbox">
 				<!--First slide-->
-				<div  ng-repeat="data in referListArr" class="item {{$index==0?'active':''}}">
+				<div  ng-repeat="data in referListArr" class="item {{$index==selectedIndex?'active':''}}">
 					<div ng-if="!showLoder" class="container  text-left">
 					 <h1 class="pageheding text-left">Please review shortlisted for the positions below:</h1>
 					 <h6  ng-if="data.recruiterMsg.job_title" ng-bind-html="data.recruiterMsg.job_title"></h6>
 					 <p  ng-if="data.recruiterMsg.job_position_url" class="par">{{data.recruiterMsg.job_position_url}},</p>
-					 <p ng-if="data.recruiterMsg.referral_amount" class="par"><strong>Bonus ${{data.recruiterMsg.referral_amount}}</strong></p>
+					 <p ng-if="data.recruiterMsg.referral_amount" class="par"><strong>Bonus <small ng-if="data.recruiterMsg.currency">{{data.recruiterMsg.currency}}</small>{{data.recruiterMsg.referral_amount}}</strong></p>
 				</div>
 					
 					<div class="testimonial">
@@ -144,6 +144,7 @@ trackingApp.registerCtrl('referController',function($scope,$http, $location, $ti
 {
 	$scope.checkSession = '<?php echo !empty($_SESSION['member']['userType'])?$_SESSION['member']['userType']:"";?>';
 	$scope.employeeName = '<?php echo !empty($_SESSION['member']['first_name'])?$_SESSION['member']['first_name']:"";?>';
+	$scope.selectedIndex = 0;
 	if(!$scope.checkSession || $scope.checkSession!='employee')
 	{
 		window.location.href =  '<?php echo ANGULAR_ROUTE; ?>/search';
@@ -156,6 +157,21 @@ trackingApp.registerCtrl('referController',function($scope,$http, $location, $ti
 		$scope.selectedType  = type;
 		$scope.selectedDate = tmp.time;
 		
+	}
+	$scope.selectedProfileIndex = function(arr)
+	{
+		var selectedProfileUID = '<?php echo !empty($_SESSION['member']['selectedProfile'])?$_SESSION['member']['selectedProfile']:"";?>';
+     	var uniqueID = '<?php echo !empty($_SESSION['member']['uniqueID'])?$_SESSION['member']['uniqueID']:"";?>';
+	  	if(arr.length>0)
+		{
+			for(var i =0;i<arr.length;i++)
+			{
+				if(arr[i].time==uniqueID && arr[i].profile[0].UID==selectedProfileUID)
+				{
+					$scope.selectedIndex = i;
+				}
+			}
+		}
 	}
 	$scope.showLoderRefuse = false;
 	$scope.removeFromReferList = function(UID,type)
@@ -179,6 +195,7 @@ trackingApp.registerCtrl('referController',function($scope,$http, $location, $ti
 		{
 			$scope.showLoder = false;
 			$scope.referListArr = response.data;
+			$scope.selectedProfileIndex(response.data);
 			$scope.totalCount = response.totalCount;
 			$scope.recruiterList = response.recruiterList;
 		})
@@ -230,5 +247,7 @@ trackingApp.registerCtrl('referController',function($scope,$http, $location, $ti
 	}
 })
 </script>
-
+<?php //unset($_SESSION['member']['selectedProfile']);
+///unset($_SESSION['member']['uniqueID']);
+?>
 

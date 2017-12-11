@@ -1,0 +1,73 @@
+/*-------------------dashboard----starts----------------*/
+.dashboard-box-container{ width:92%; margin:0 auto;}
+.dashboard-box-container a:hover{ text-decoration:none;}
+.app-bg-box{ background:#0077a2;  color: #fff;  text-align:center; min-height:236px; padding:20px; position:relative;   cursor: pointer; z-index:10;}
+.app-bg-box h3{ display:block; font-size:22px; padding:20px 0;}
+.app-bg-box-text{ background:#f7f5f6; font-size:13px; color:#6b6b6b; padding:20px; min-height:236px; z-index:9;} .heading-main-top{ margin:60px 0 20px 0; }
+.adminIcon{ font-size:88px;} .bg-green{ background:#1cbcb4;} .bg-purple{ background:#8493ca;} .bg-light-green{ background:#8ec63f;} .bg-dark-pink{ background:#bc1c73; z-index:9;} .bg-blue{ background:#4046c7;}
+.blue-icons-bg{ background:#00acee; padding:65px 30px 0; margin:0 0 40px; color:#fff; position:relative;  }
+.blue-icons-bg-left {background: url(../images/corner-left-blue.png) no-repeat;   height: 38px;  left: 0; position: absolute;  top: -38px; width: 45px;}
+.blue-icons-bg-right {background: url(../images/corner-right-blue.png) no-repeat;   height: 38px;  right: 0; position: absolute;  top: -38px; width: 45px;}
+.adminIcon2{ font-size:40px; float:left; margin:-8px 9px 0 0; width:52px;}
+.blue-area-small{ margin:0 0 40px;}
+.blue-area-small h3{ font-size:22px; font-weight:bold;  text-shadow: 0 1px 1px #0086da;   line-height: 21px;} .blue-area-small h3 span{ font-size:12px; display:block; font-weight:normal;} 
+.app-bg-box:after {  content: "";   height: 0;   right: 0;   margin-left: 50%;    pointer-events: none;    position: absolute;    top: 60px;    width: 0; border-top: 18px solid transparent;	border-bottom: 18px solid transparent; 	border-right:18px solid #f7f5f6;	}
+.bg-purple.app-bg-box:after, .bg-light-green.app-bg-box:after {   border-left: 18px solid #f7f5f6;  left: 0; margin-left: 0; border-right:0px solid #f7f5f6;	}
+.dashboard-box-container h2 {    color: #383838;  font: 30px Rockwell,Arial,Helvetica,sans-serif !important;   margin: 10px 0 15px;   text-align: center;    width: 100%;}
+.heading-main-top2{ margin:60px 0 20px;}
+
+
+/*-------------------dashboard----ends----------------*/
+@media (min-width: 1200px) {}
+@media (min-width: 992px) and (max-width: 1199px) {}
+@media (min-width: 768px) and (max-width: 991px) {.heading-main-top { margin: 0 0 20px;}}
+@media (min-width: 480px) and (max-width: 767px) { .adminIcon {  font-size: 54px;} .app-bg-box h3{ font-size:18px;} .heading-main-top { margin: 0 0 20px;} .app-bg-box:after{ border-top: 10px solid transparent;	border-bottom: 10px solid transparent; 	border-right:10px solid #f7f5f6;} .bg-purple.app-bg-box:after, .bg-light-green.app-bg-box:after {  border-left: 10px solid #f7f5f6;} .dashboard-box-container{ margin:28px auto 0;}}
+@media (max-width: 479px) {.adminIcon {  font-size: 54px;} .app-bg-box h3{ font-size:16px;} .heading-main-top { margin: 0 0 20px;} .app-bg-box:after{ border-top: 10px solid transparent;	border-bottom: 10px solid transparent; 	border-right:10px solid #f7f5f6;} .bg-purple.app-bg-box:after, .bg-light-green.app-bg-box:after {  border-left: 10px solid #f7f5f6;}
+.dashboard-box-container{ margin:40px auto 0;}
+}
+
+
+/*Referral Dashbord*/
+.referral-dashbord  .social-icon
+{color: #808080;
+font-size: 20px;
+display: block;
+text-align: center;
+margin: 0 auto 0px;
+font-weight: 600;}
+
+.referral-dashbord .social-txt{
+	display: block;
+text-align: center;
+margin-bottom: 5px;
+font-size: 18px;}
+.referral-dashbord  .grn{
+background:#2dad8a;	
+}
+.referral-dashbord  .red-c{
+background:#e74b40;
+}
+.referral-dashbord .counter{
+font-size: 45px;
+color: #000;
+line-height: 75px;}
+.referral-dashbord .noti-icon{
+	font-size: 35px; width: 80px; display: inline-block; height: 80px;
+	 text-align: center; line-height: 80px; border-radius: 50px; margin-bottom: 15px; color:#fff; background: rgb(0, 171, 182);}
+.referral-dashbord .noti-area{
+	border-top: 1px solid rgb(231, 231, 231);
+	padding-top: 8px;
+}
+	
+.referral-dashbord .app-bg-box-text{
+	min-height: 263px !important; 
+}
+.referral-dashbord .app-bg-box{
+	min-height: 263px !important; 
+}
+/*end Referral Dashbord*/
+
+@media only screen and (min-width:320px) and (max-width: 480px) {
+.app-bg-box-text{padding: 7px;}
+.app-bg-box{padding: 20px 10px;}
+} 

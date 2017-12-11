@@ -5,16 +5,7 @@ $userData = json_decode(file_get_contents('php://input'), true);
 if(!empty($userData['data']))
 {
 	$userData = $userData['data'];
-	if($_SERVER['HTTP_HOST']=='localhost')
-	{
-		$m = new MongoClient("mongodb://192.168.3.2:27017");
-	    $db = $m->RPO_DataBase;
-	}
-	else if($_SERVER['HTTP_HOST']=='demo.onsisdev.info')
-	{
-		$m = new MongoClient("mongodb://dheeraj:dheeraj@ds117485.mlab.com:17485/pradip");
-		$db = $m->pradip;
-	}
+	$db = connect();
 	$checkUser = $db->recruiter->findOne(array("email"=>trim($userData['email'])));
 	if(empty($checkUser))
 	{

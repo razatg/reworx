@@ -4,16 +4,7 @@ $returnArr = array('status'=>'failure','data'=>'','totalCount'=>0);
 $arrValues = json_decode(file_get_contents('php://input'), true);
 $page = isset($arrValues['page'])?trim($arrValues['page']):"1";
 $where = array();
-if($_SERVER['HTTP_HOST']=='localhost')
-{
-	$m = new MongoClient("mongodb://192.168.3.2:27017");
-	$db = $m->RPO_DataBase;
-}
-else if($_SERVER['HTTP_HOST']=='demo.onsisdev.info')
-{
-	$m = new MongoClient("mongodb://dheeraj:dheeraj@ds117485.mlab.com:17485/pradip");
-	$db = $m->pradip;
-}
+$db = connect();
 $collection = $db->profile;
 $offset = ($page*10);
 if(!empty($_SESSION['member']['UID']))

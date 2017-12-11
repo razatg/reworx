@@ -3,18 +3,11 @@ include_once('../config-ini.php');
 $returnArr = array('status'=>'failure');
 $email = isset($_GET['email'])?$_GET['email']:"";
 $UID = isset($_GET['UID'])?$_GET['UID']:"";
+$key = isset($_GET['key'])?$_GET['key']:"";
+$uniqueID = isset($_GET['uniqueID'])?$_GET['uniqueID']:"";
 if(!empty($UID) && !empty($email))
 {
-	if($_SERVER['HTTP_HOST']=='localhost')
-	{
-		$m = new MongoClient("mongodb://192.168.3.2:27017");
-	    $db = $m->RPO_DataBase;
-	}
-	else if($_SERVER['HTTP_HOST']=='demo.onsisdev.info')
-	{
-		$m = new MongoClient("mongodb://dheeraj:dheeraj@ds117485.mlab.com:17485/pradip");
-		$db = $m->pradip;
-	}
+	$db = connect();
 	$checkUser = $db->employee_contacts->findOne(array("email"=>base64_decode($email),"UID"=>(int)base64_decode($UID)));
 	if($checkUser)
 	{
@@ -24,6 +17,8 @@ if(!empty($UID) && !empty($email))
 			$returnArr['status'] = 'csvuploaded';
 		}
 		$checkUser['userType'] = 'employee';
+		$checkUser['selectedProfile'] = base64_decode($key);
+		$checkUser['uniqueID'] = base64_decode($uniqueID);
 		$returnArr['data'] = $checkUser;
 		$_SESSION['member'] = $checkUser;
 		$url = ANGULAR_ROUTE.'/refer/'.base64_decode($UID);

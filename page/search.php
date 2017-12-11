@@ -320,7 +320,7 @@ function extractLast( term )
     text-decoration: none;
     transition: background-color .3s;
     border: 1px solid #ddd;
-    background-color: #54c7b1;
+    background-color:#0085c8;
     color: #fff;
 }
 button:disabled {
