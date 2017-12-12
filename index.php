@@ -6,8 +6,8 @@ include_once('config-ini.php');
 		<title>Home</title>	
 		<base href="<?php echo ANGULAR_ROUTE;?>/index.php">   
 		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />	
-		 <link rel="stylesheet" href="newui/css/bootstrap.min.css">
-		  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+		<link rel="stylesheet" href="newui/css/bootstrap.min.css">
+		 <link rel="stylesheet" href="newui/css/jquery-ui.css">
 		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 		<link href="newui/css/style.css?v=<?php echo time();?>" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" src="newui/js/jquery.min.js"></script>
