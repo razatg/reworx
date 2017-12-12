@@ -25,7 +25,10 @@ trackingApp.config(['$routeProvider','$controllerProvider','$locationProvider','
 		})
 			
 	.when('/request/',{'templateUrl':function(params){ return angRoute+'/page/request.php'}
-		})	
+		})
+		
+	.when('/tutorial/',{'templateUrl':function(params){ return angRoute+'/page/tutorial.php'}
+		})		
 		
 	.when('/employee-dashboard/',{'templateUrl':function(params){ return angRoute+'/page/employee-dashboard.php'}
 		})

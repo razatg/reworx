@@ -1,5 +1,6 @@
 <?php
 ini_set('display_errors', 1);
+include_once('../config-ini.php');
 $returnArr = array('status'=>'failure','data'=>'');
 $target_dir = "../tmp/profile/";
 $scanned_directory = array_diff(scandir($target_dir), array('..', '.'));

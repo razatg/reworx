@@ -54,8 +54,8 @@ include_once('../config-ini.php');
 						</p>   
 						<h6><i></i>{{data.profile[0].area}}</h6>
 						<div class="social_icon">
-							<a href="{{data.profile[0].profile_url}}"><img src="newui/images/linkden.png"></a>
-							<a href="mailto:{{data.profile[0].email}}"><img src="newui/images/mail.png"></a>
+							<a href="{{data.profile[0].profile_url}}"><img style="width:auto" src="newui/images/linkden.png"></a>
+							<a href="mailto:{{data.profile[0].email}}"><img style="width:auto" src="newui/images/mail.png"></a>
 						</div>
 						<div class="btn-container">
 							<a href="#" ng-click="getEmpDetail(data)"  class="btn btn-success">REFER</a>
@@ -193,11 +193,18 @@ trackingApp.registerCtrl('referController',function($scope,$http, $location, $ti
 		var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/get-refer-list.php';
 		$http.post(absUrl).success(function(response)
 		{
-			$scope.showLoder = false;
-			$scope.referListArr = response.data;
-			$scope.selectedProfileIndex(response.data);
-			$scope.totalCount = response.totalCount;
-			$scope.recruiterList = response.recruiterList;
+			if(response.status=='failure')
+			{
+				window.location.href =  '<?php echo ANGULAR_ROUTE; ?>/employee-dashboard';
+			}
+			else
+			{
+				$scope.showLoder = false;
+				$scope.referListArr = response.data;
+				$scope.selectedProfileIndex(response.data);
+				$scope.totalCount = response.totalCount;
+				$scope.recruiterList = response.recruiterList;
+			}
 		})
 	}
 	$scope.getlist();

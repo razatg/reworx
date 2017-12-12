@@ -22,7 +22,7 @@ include_once('../config-ini.php');
 		 {?>
 		  <a class="application-btn" ng-click="togglePopup('show')">Upload</a>
 		<?php }?>
-		<a class="more_btn">Learn how..</a>
+		<a class="more_btn" target="_blank" href="<?php echo ANGULAR_ROUTE; ?>/tutorial">Learn how..</a>
 	</div>
 	<h2>You will be providing publically accessible information Only.<br>
 	 We will never contact anyone on your behalf</h2>
