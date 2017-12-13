@@ -1,3 +1,4 @@
+var angRoute  = '';
 if(window.location.hostname=='localhost')
 {
 	var angRoute = "http://localhost/reworx";

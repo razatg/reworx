@@ -52,7 +52,6 @@ include_once('config-ini.php');
 			</div>
 			</div>
 			</footer>
-
 	</body>
 <script>
 $(document).ready(function(){

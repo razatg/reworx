@@ -67,14 +67,13 @@ include_once('../config-ini.php');
 				 <div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title"><b>Review</b> </h4>
-					<span ng-if="errorMsg" style="color:red;" ng-bind-html="errorMsg"></span>
-
 				 </div>
 				 <div class="modal-body">
 					<form>
 					   <div class="form-group">
 						  <label for="">Open Job Position Title</label>
 						  <input type="text" name="job_title" ng-model="requestForm.job_title" class="form-control" placeholder="Job Title"> 
+					   		<span ng-if="errorMsgTitle" style="color:red;"  ng-bind-html="errorMsgTitle"></span>
 					   </div>
 					   <div class="form-group">
 						  <label for="">Open Job Position URL</label>
@@ -83,18 +82,22 @@ include_once('../config-ini.php');
 					   <div class="form-group">
 						  <label>Bonus for Refrel Amount</label>
 						  <div style="display:inline-block; width:100%;">
-							 <div class="col-20"><input type="text" name="currency" ng-model="requestForm.currency" class="form-control" placeholder="Currency"></div>
-							 <div class="col-50"><input type="text" name="referral_amount" ng-model="requestForm.referral_amount" class="form-control" placeholder="Amount"></div>
+							 <div class="col-20"><input type="text" name="currency" ng-model="requestForm.currency" class="form-control" placeholder="Currency">
+							 </div>
+							 <div class="col-50"><input type="text" name="referral_amount" ng-model="requestForm.referral_amount" class="form-control" placeholder="Amount">
+							 </div>
 							 <div class="col-30">Bonus for Refrel Amount?</div>
 						  </div>
 					   </div>
 					   <div class="form-group">
 						  <label>Subject for Employee</label>
 						  <input type="text" name="subject_employee" ng-model="requestForm.subject_employee" class="form-control" placeholder="Subject"> 
+					     <span ng-if="errorMsgSubject" style="color:red;"  ng-bind-html="errorMsgSubject"></span>
 					   </div>
 					   <div class="form-group">
 						  <label>Message for Employee</label>
 						  <textarea class="form-control" name="message_employee" ng-model="requestForm.message_employee" id="exampleTextarea" rows="3" placeholder="Message"></textarea>
+					     <span ng-if="errorMsgEmp" style="color:red;"  ng-bind-html="errorMsgEmp"></span>
 					   </div>
 					   <div class="panel-group">
 						  <div class="panel panel-default">
@@ -106,10 +109,12 @@ include_once('../config-ini.php');
 								   <div class="form-group">
 									  <label>Subject for Employee</label>
 									  <input type="text" name="subject_to_employee" ng-model="requestForm.subject_to_employee" class="form-control" placeholder="Subject"> 
+								      <span ng-if="errorEmpSub" style="color:red;"  ng-bind-html="errorEmpSub"></span>
 								   </div>
 								   <div class="form-group margin-none">
 									  <label>Message for Employee</label>
 									  <textarea class="form-control margin-none" name="message_to_employee" ng-model="requestForm.message_to_employee" rows="3" placeholder="Message"></textarea>
+								      <span ng-if="errorEmpMsg" style="color:red;"  ng-bind-html="errorEmpMsg"></span>
 								   </div>
 								</div>
 							 </div>
@@ -153,7 +158,7 @@ Regards,\n\
 	{
 		if($scope.requestForm.job_title && $scope.requestForm.subject_employee && $scope.requestForm.message_employee)
 		{
-			$scope.errorMsg = '';
+			$scope.errorEmpMsg,$scope.errorEmpSub,$scope.errorMsgTitle,$scope.errorMsgSubject,$scope.errorMsgTitle,$scope.errorMsg = '';
 			$scope.showLodermail = true;
 			var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/sendmail.php';
 			$http.post(absUrl,{formdata:$scope.requestForm,connection:$scope.resultList}).success(function(response)
@@ -174,23 +179,23 @@ Regards,\n\
 		{
 			if(!$scope.requestForm.job_title)
 			{
-				$scope.errorMsg = 'Please enter job title';
+				$scope.errorMsgTitle = 'Please enter job title';
 			}
 			else if(!$scope.requestForm.subject_employee)
 			{
-				$scope.errorMsg = 'Please enter subject for employee';
+				$scope.errorMsgSubject = 'Please enter subject for employee';
 			}
 			else if(!$scope.requestForm.message_employee)
 			{
-				$scope.errorMsg = 'Please enter message for employee';
+				$scope.errorMsgEmp = 'Please enter message for employee';
 			}
 			else if(!$scope.requestForm.subject_to_employee)
 			{
-				$scope.errorMsg = 'Please enter suggestion for employee';
+				$scope.errorEmpSub = 'Please enter suggestion for employee';
 			}
 			else if(!$scope.requestForm.message_to_employee)
 			{
-				$scope.errorMsg = 'Please enter suggestion for employee';
+				$scope.errorEmpMsg = 'Please enter suggestion for employee';
 			}
 			return false;
 		}
