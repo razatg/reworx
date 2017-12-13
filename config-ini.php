@@ -1,6 +1,7 @@
 <?php
 ini_set('display_errors', 0);
 session_start();
+$angRoute = "http://refhireable.com";
 if($_SERVER['HTTP_HOST']=='localhost')
 {
 	$angRoute = "http://localhost/reworx";
@@ -25,6 +26,11 @@ function connect()
 	    $db = $m->RPO_DataBase;
 	}
 	else if($_SERVER['HTTP_HOST']=='demo.onsisdev.info')
+	{
+		$m = new MongoClient("mongodb://dheeraj:dheeraj@ds117485.mlab.com:17485/pradip");
+		$db = $m->pradip;
+	}
+	else if($_SERVER['HTTP_HOST']=='refhireable.com')
 	{
 		$m = new MongoClient("mongodb://dheeraj:dheeraj@ds117485.mlab.com:17485/pradip");
 		$db = $m->pradip;
