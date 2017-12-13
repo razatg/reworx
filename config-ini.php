@@ -30,7 +30,7 @@ function connect()
 		$m = new MongoClient("mongodb://dheeraj:dheeraj@ds117485.mlab.com:17485/pradip");
 		$db = $m->pradip;
 	}
-	else if($_SERVER['HTTP_HOST']=='demo.onsisdev.info')
+	else if($_SERVER['HTTP_HOST']=='refhireable.com')
 	{
 		$m = new MongoClient("mongodb://dheeraj:dheeraj@ds117485.mlab.com:17485/pradip");
 		$db = $m->pradip;
