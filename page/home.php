@@ -71,53 +71,26 @@ include_once('../config-ini.php');
 
                 <div class="testimonial">
                     
-                    <h4>Anna Deynah</h4>
+                    <h4>Neha Tyagi, AppyPie</h4>
                     <i class="glyphicon glyphicon-star"></i>
                     <i class="glyphicon glyphicon-star"></i>
                     <i class="glyphicon glyphicon-star"></i>
                     <i class="glyphicon glyphicon-star"></i>
                     <i class="glyphicon glyphicon-star"></i>
                     <!--Content-->
-                    <p><i class="fa fa-quote-left"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod eos id officiis hic tenetur quae quaerat ad velit ab. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore cum accusamus eveniet molestias voluptatum inventore laboriosam labore sit, aspernatur praesentium iste impedit quidem dolor veniam.</p>   
+                    <p><i class="fa fa-quote-left"></i> We suddenly had database of 1000s of relevant profiles from networks of our team and work process to automate and manage referrals at scale.. This has helped us both reduce the time to close new positions and the most obvious benefit has been cost, as we are spending a fraction of what we did, per position.
+</p>   
                 </div>
 
             </div>
             <!--First slide-->
 
             <!--Second slide-->
-            <div class="item">
-
-                <div class="testimonial">
-                     
-                    <h4>Anna Deynah</h4>
-                    <i class="glyphicon glyphicon-star"></i>
-                    <i class="glyphicon glyphicon-star"></i>
-                    <i class="glyphicon glyphicon-star"></i>
-                    <i class="glyphicon glyphicon-star"></i>
-                    <i class="glyphicon glyphicon-star"></i>
-                    <!--Content-->
-                    <p><i class="fa fa-quote-left"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod eos id officiis hic tenetur quae quaerat ad velit ab. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore cum accusamus eveniet molestias voluptatum inventore laboriosam labore sit, aspernatur praesentium iste impedit quidem dolor veniam.</p>   
-                </div>
-
-            </div>
+             
             <!--Second slide-->
 
             <!--Third slide-->
-            <div class="item">
-
-                <div class="testimonial">
-                     
-                    <h4>Anna Deynah</h4>
-                    <i class="glyphicon glyphicon-star"></i>
-                    <i class="glyphicon glyphicon-star"></i>
-                    <i class="glyphicon glyphicon-star"></i>
-                    <i class="glyphicon glyphicon-star"></i>
-                    <i class="glyphicon glyphicon-star"></i>
-                    <!--Content-->
-                    <p><i class="fa fa-quote-left"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod eos id officiis hic tenetur quae quaerat ad velit ab. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore cum accusamus eveniet molestias voluptatum inventore laboriosam labore sit, aspernatur praesentium iste impedit quidem dolor veniam.</p>   
-                </div>
-
-            </div>
+             
             <!--Third slide-->
 			</div>
         </div>
@@ -144,15 +117,15 @@ include_once('../config-ini.php');
     	<div class="row">
           <div class="col-lg-4 col-sm-4 text-center mb-4">
           <div class="work_digit">1</div>
-          <p>Search easily from Qulified Network of your own Employees</p>
+          <p>Search easily from Qualified Network of your own Employees.</p>
         </div>
         <div class="col-lg-4 col-sm-4 text-center mb-4">
           <div class="work_digit">2</div>
-          <p>Have your employee's Reach outto their network with ease</p>
+          <p>Have your employee's Reach out to their network with ease.</p>
         </div>
         <div class="col-lg-4 col-sm-4 text-center mb-4">
           <div class="work_digit">3</div>
-          <p> Track the referral process end to end and reward your employees</p>
+          <p>Track the referral process end to end and reward your employees.</p>
         </div>
         </div>
     </div>

@@ -693,7 +693,7 @@ footer p {
 	color:#444;
 }
 .fade {
-    background: rgba(0,0,0,0.5) !important;
+    background: rgb(0,0,0,0.4) !important;
 }
 .network_btn {
 	background: #fff;
@@ -723,12 +723,6 @@ box-shadow: none !important;
 	float:left;
 	padding:20px 0;
 }
-.navbar-nav .logout_container a {
-    padding: 10px 0;
-    float: left;
-    color: #fff;
-}
-.navbar-nav  .logo, .navbar-nav .logout_container{display:none;}
 
 .field_row {
 	width:calc(100% - 115px);
@@ -1552,7 +1546,7 @@ z-index: 3;
 		height:28px;
 		float:left;
 		border-radius:0;
-		border-right:0px solid #d5d5d5;
+		border-right:1px solid #d5d5d5;
 		padding-right:5px;
 	}
 	.filter_btn {
@@ -1638,10 +1632,10 @@ background: #0085c8;
 .logout_container img {display:none;}
 .bodypan .search_container {
     display: none;
-    margin: 0;
+    margin: -20px;
     z-index: 9;
     position: relative;
-    width: calc(100% );
+    width: calc(100% + 40px);
 }
 .fld_col {
     
@@ -1709,12 +1703,11 @@ footer .col-sm-4{padding:0px;}
 .detail_action .btn-res { 
     clear: left;
 }
- .sr_rnz_container .logout_container{display:none;}
- .navbar-nav .logout_container{display:block;}
+ 
 }
 @media only screen and (max-width:479px) {
 	header .search_container {
-		right:0px;
+		right:-10px;
 	 
 		transform:scale(.7);
 	}
@@ -1818,26 +1811,31 @@ display: inline-block;
     background: white;
     width: calc(100% + 20px);
 }
-header .container {padding:0px;}
-.screen-content{ 
-max-width: 300px; 
-margin-left: -150px; 
-width: 300px;}
-}
-.pd{padding:15px 0; display:inline-block; text-decoration:none}
-.pd:hover{text-decoration:none}
-.item img{width:100%;}
-.pd span {
-    font-size: 20px !important;
-    padding-top: 4px;
-    display: inline-block;
-    margin-left: 20px;
-}
-h2.pd {
-    font-size: 24px;
-    font-weight: bold;
-}
-#myCarousel {
-    padding-bottom: 80px;
-}
 
+.screen-content {
+    position: relative;
+    top: 0;
+    text-align: center;
+    max-width: 100%;
+    padding: 25px 20px;
+    background: #0085c8;
+    margin: 0px auto;
+        margin-bottom: 0px;
+        margin-left: auto;
+    margin-bottom: 0px;
+    margin-left: auto;
+    margin-left: auto;
+    margin-left: auto;
+    margin-left: auto;
+    left: 0;
+    margin-left: 0;
+    color: #fff;
+    border-radius: 0;
+    border: 1px solid #0085c8;
+    font-size: 22px;
+    line-height: 30px;
+    box-shadow: 0 0 10px #0085c8;
+    box-sizing: border-box;
+    width: 100%;
+    margin-bottom: 20px;
+}

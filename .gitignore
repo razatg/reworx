@@ -1,4 +1,11 @@
 tmp/
 profile/
 tmp-test/
+<<<<<<< HEAD
 config-ini.php
+=======
+api/sendmail.php
+api/send-mail-to-employee.php
+
+/config-ini.php
+>>>>>>> ba3738e5166c7d8b8385ce1657de479307097013

@@ -78,7 +78,8 @@ include_once('../config-ini.php');
 		<div class="item">
 		 
 		<div class="screen-content">
-			You will get an email from LinkedIn with the link to download the Public data but generally if you Reload this page, your Public Data will be ready. So try Reloading this page
+			Generally if you Reload this page, your Public Data will be ready. So try Reloading this page.
+
 		</div>
 		<img src="newui/images/reloadThePage-5.jpg" alt="">
 		</div>
@@ -94,7 +95,7 @@ include_once('../config-ini.php');
 		<div class="item">
 		 
 		<div class="screen-content">
-			Store your data on your computer, I have used the Desktop to store the same.
+			Store your data on your computer, I have used the Desktop above
 		</div>
 		<img src="newui/images/saveToComputer-7.jpg" alt="">
 		</div>
@@ -109,7 +110,7 @@ include_once('../config-ini.php');
 		
 		<div class="item">
 		<div class="screen-content">
-			Sample of Public Connections,  this is how the data looks like.
+			Above is Sample of of your Public Connections data looks like.
 		</div>
 		<img src="newui/images/csvContent.jpg" alt="">
 		</div>
