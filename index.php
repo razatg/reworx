@@ -19,7 +19,7 @@ include_once('config-ini.php');
 	</head>
 	<body class="{{currentUrl=='/'?'bg':''}} {{currentUrl=='/uploadcsv'?'bgHome':''}}">
 		 <div ng-view></div>
-		<footer ng-show="currentUrl" style="display:none;">
+		<footer ng-show="currentUrl" id="footerDiv" style="display:none;">
 			<div class="container grid-center">
 			<div class="row">
 			  <div class="col-sm-6 col-md-6">
