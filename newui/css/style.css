@@ -771,14 +771,14 @@ box-shadow: none !important;
 .btn-res:hover{color:#fff;text-decoration:none; background:#0085c8;}
 .detail_action .btn-res{    width: 140px;}
 .bodypan .search_btn {
-	background:url(../images/spirel.png) no-repeat 12px 8px #0c6697;
+	background:url(../images/spirel1.png) no-repeat 12px 8px #0c6697;
 	width:50px;
 	height:40px;
 	float:left;
 	border-radius:5px;
 }
 .bodypan .filter_btn {
-	background:url(../images/spirel.png) no-repeat -55px 6px #414747;
+	background:url(../images/spirel1.png) no-repeat -55px 6px #414747;
 	width:50px;
 	height:40px;
 	float:left;
