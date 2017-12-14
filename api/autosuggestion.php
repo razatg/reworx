@@ -1,4 +1,5 @@
 <?php
+include_once('../config-ini.php');
 ini_set('display_errors', 0);
 $returnArr = array('status'=>'failure','data'=>'');
 $arrValues = json_decode(file_get_contents('php://input'), true);
