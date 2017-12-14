@@ -3,3 +3,4 @@ profile/
 tmp-test/
 config-ini.php
 config-ini-master.php
+/config-ini.php
