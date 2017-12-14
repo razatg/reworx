@@ -5,7 +5,6 @@ include_once('../config-ini.php');
 <header>
 	<div class="container">
 	 	<?php include_once('navbar.php');?>
-		 
 	</div>
     <nav class="navbar navbar-toggleable-sm navbar-light bg-faded" style="display:none">
       <div class="container">
@@ -17,19 +16,12 @@ include_once('../config-ini.php');
   <div class="collapse navbar-collapse main_menu" id="navbarNav">
     <ul class="navbar-nav">
       <?php include('menu.php');?>
-    
     </ul>
   </div>
   </div>
 </nav>
 </header>
 
-
-
-
-
-
-	
 <div class="homebanner"> 
     <img src="newui/images/2X1.png" class="header_bg" alt=""/>
     <div class="banner">
