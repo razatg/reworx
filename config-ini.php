@@ -37,5 +37,4 @@ function connect()
 	}
 	return $db;
 }
-
 ?>
