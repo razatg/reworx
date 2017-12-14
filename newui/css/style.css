@@ -1403,7 +1403,7 @@ footer ul li a{margin:0px; padding:0px; color:#6a6a6a;}
 .highlightedText {
     background: yellow;
 }
-					
+.navbar-nav .logout_container,.navbar-nav .logo{display:none;}					
 
 @media only screen and (max-width:1360px) {
 .homebanner img{height:530px;}
@@ -1632,10 +1632,10 @@ background: #0085c8;
 .logout_container img {display:none;}
 .bodypan .search_container {
     display: none;
-    margin: -20px;
+    margin: 0px;
     z-index: 9;
     position: relative;
-    width: calc(100% + 40px);
+    width: 100%;
 }
 .fld_col {
     
@@ -1703,7 +1703,8 @@ footer .col-sm-4{padding:0px;}
 .detail_action .btn-res { 
     clear: left;
 }
- 
+ .logout_container{display:none}
+ .navbar-nav .logout_container{display:block;}	
 }
 @media only screen and (max-width:479px) {
 	header .search_container {

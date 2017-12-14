@@ -10,19 +10,16 @@ include_once('config-ini.php');
 		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 		<link href="newui/css/style.css?v=<?php echo time();?>" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" src="newui/js/jquery.min.js"></script>
-	    <script src="newui/js/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="newui/js/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="newui/js/angular.min.js"></script>
 		<script type="text/javascript" src="newui/js/angular-sanitize.js"></script>
 		<script type="text/javascript" src="newui/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="newui/js/angular-route.js"></script>
 		<script type="text/javascript" src="newui/js/config.js?v=<?php echo time();?>"></script>
-		<link rel="stylesheet" href="newui/css/simple-autocomplete.css">
-	   <script type="text/javascript" src="newui/js/simple-autocomplete.js"></script>
 	</head>
 	<body class="{{currentUrl=='/'?'bg':''}} {{currentUrl=='/uploadcsv'?'bgHome':''}}">
 		 <div ng-view></div>
-		<footer ng-show="currentUrl">
+		<footer ng-show="currentUrl" style="display:none;">
 			<div class="container grid-center">
 			<div class="row">
 			  <div class="col-sm-6 col-md-6">
@@ -67,6 +64,10 @@ $(document).ready(function(){
 		  $('#carousel-generic').carousel('next');
 		});
  }, 3000);
+ 
+  setTimeout(function(){  
+	  $('#footerDiv').show(); 
+  }, 200);
 	})
 </script>	
 <script type="text/javascript" src="newui/js/jquery.meanmenu.js"></script>
