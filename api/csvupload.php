@@ -29,6 +29,7 @@ if(!empty($_FILES))
 				if($db->employee->update(array("UID"=>$UID),array('$set'=>array("connectionUploaded"=>true))))
 				{
 					$returnArr['status'] = 'success';
+					$_SESSION['member']['connectionUploaded'] = true;
 				}
 			}
 			else
