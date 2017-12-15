@@ -26,10 +26,9 @@ include_once('config-ini.php');
 			  <div class="col-md-4 col-sm-4">
 			  <h6>Quick Links</h6>
 			  <ul>
-				<li><a href="#">How it Works</a></li>
-				<li><a href="#">About Us</a></li>
-				<li><a href="#">Start a Free Trial</a></li>
-				<li><a href="#">Login</a></li>
+				<li><a href="#howitwork">How it Works</a></li> 
+				<li><a href="#homebanner">Start a Free Trial</a></li>
+				<li><a ng-click="togglePopup('show')">Login</a></li>
 			  </ul>
 			  </div>
 			  <div class="col-md-4 col-sm-4">

@@ -16,7 +16,7 @@ $body = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://
 </style>
 <table class="emailer_temp" width="600px" bgcolor="#ffffff" border="0" cellspacing="0" cellpadding="0" align="center" style="border: 1px solid #bccbcb;">
    <tr>
-      <td align="center" bgcolor="#279eb6">
+      <td align="center" bgcolor="#0085c8">
          <table width="100%" border="0" cellspacing="15" cellpadding="0">
             <tr>
                <td><a href="#" target="_blank"><img border="0" alt="" src="'.ANGULAR_ROUTE.'/newui/images/logo.png"/></a></td>
@@ -35,13 +35,13 @@ $body = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://
                </td>
             </tr>
             <tr>
-            	<td><a href="__LINK_URL__" style="background: #4ec8b0;color: #fff;font-size: 20px;text-align: center;padding: 0px 20px;border-radius: 7px;overflow: hidden;text-decoration: navajowhite;display: table;margin: 15px auto;width: auto;height: 40px;font-family: arial;line-height: 20px;">Refer</a></td>
+            	<td><a href="__LINK_URL__" style="background: #0085c8;color: #fff;font-size: 20px;text-align: center;padding: 0px 20px;border-radius: 7px;overflow: hidden;text-decoration: navajowhite;display: table;margin: 15px auto;width: auto;height: 40px;font-family: arial;line-height: 20px;">Refer</a></td>
             </tr>
          </table>
       </td>
    </tr>
    <tr>
-      <td bgcolor="#e5eded" style="border-top: 1px solid #bccbcb;">
+      <td bgcolor="#f4f4f4" style="border-top: 1px solid #bccbcb;">
          <table width="100%" border="0" cellspacing="13" cellpadding="0">
             <tr>
                <td style="font-size:14px; font-family:calibri,arial,sans-serif; color:#819191; line-height:20px; margin:0; text-align:center;">© 2017 TheReferralWorks. All rights reserved.</td>

@@ -7,6 +7,7 @@ include_once('../config-ini.php');
 <header>
 	<div class="container">
 	 	<?php include_once('navbar.php');?>
+		 
 	</div>
     <nav class="navbar navbar-toggleable-sm navbar-light bg-faded">
       <div class="container">
@@ -66,7 +67,7 @@ include_once('../config-ini.php');
 			  <div class="modal-content">
 				 <div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title"><b>Review</b> </h4>
+					<h4 class="modal-title"><b>Compose and Send Email</b> </h4>
 				 </div>
 				 <div class="modal-body">
 					<form>
@@ -76,8 +77,8 @@ include_once('../config-ini.php');
 					   		<span ng-if="errorMsgTitle" style="color:red;"  ng-bind-html="errorMsgTitle"></span>
 					   </div>
 					   <div class="form-group">
-						  <label for="">Open Job Position URL</label>
-						  <input type="text" name="job_position_url" ng-model="requestForm.job_position_url" class="form-control" placeholder="URL"> 
+						  <label for="">Open Job Position URL/Description</label>
+						  <textarea type="text" name="job_position_url" ng-model="requestForm.job_position_url" class="form-control" placeholder="URL/Description"></textarea> 
 					   </div>
 					   <div class="form-group">
 						  <label>Bonus for Refrel Amount</label>

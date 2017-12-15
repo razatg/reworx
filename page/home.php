@@ -2,11 +2,11 @@
 include_once('../config-ini.php');
 ?>
 <div data-ng-controller="homeController">
-<header>
+<header class="homepage">
 	<div class="container">
 	 	<?php include_once('navbar.php');?>
 	</div>
-    <nav class="navbar navbar-toggleable-sm navbar-light bg-faded" style="display:none">
+    <nav class="navbar navbar-toggleable-sm navbar-light bg-faded">
       <div class="container">
   <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbarNav">
         <span class="icon-bar"></span>
@@ -15,14 +15,21 @@ include_once('../config-ini.php');
       </button>
   <div class="collapse navbar-collapse main_menu" id="navbarNav">
     <ul class="navbar-nav">
-      <?php include('menu.php');?>
+      <li><a href="#howitwork">How it Works</a></li> 
+        <li><a href="#homebanner">Start a Free Trial</a></li> 
     </ul>
   </div>
   </div>
 </nav>
 </header>
 
-<div class="homebanner"> 
+
+
+
+
+
+	
+<div class="homebanner" id="homebanner"> 
     <img src="newui/images/2X1.png" class="header_bg" alt=""/>
     <div class="banner">
     <div class="container grid-center">
@@ -49,11 +56,8 @@ include_once('../config-ini.php');
 </div>
 <div class=" testimonial-second">
 <section class="container text-center grid-center">
- 
-
-    <!--Carousel Wrapper-->
+   <!--Carousel Wrapper-->
    <div id="carousel-generic" class="testimonial-carousel  slide" data-ride="carousel">
-		<h4>Testimonial</h4>
         <!--Slides-->
          <div class="carousel-inner-hidden">
         <div class="carousel-inner" role="listbox">
@@ -71,7 +75,7 @@ include_once('../config-ini.php');
                     <i class="glyphicon glyphicon-star"></i>
                     <!--Content-->
                     <p><i class="fa fa-quote-left"></i> We suddenly had database of 1000s of relevant profiles from networks of our team and work process to automate and manage referrals at scale.. This has helped us both reduce the time to close new positions and the most obvious benefit has been cost, as we are spending a fraction of what we did, per position.
-</p>   
+                 </p>   
                 </div>
 
             </div>
@@ -103,7 +107,7 @@ include_once('../config-ini.php');
     </div>
 </div>
 
-<div class="howitwork">
+<div class="howitwork" id="howitwork">
 	<div class="container grid-center text-center">
     <h4>How it Works</h4>
     	<div class="row">
@@ -210,5 +214,10 @@ trackingApp.registerCtrl('homeController',function($scope,$http, $location, $tim
 	}
 
 });	
+$(document).ready(function(){
+	if($(window).width() > 767) {
+		$(".navbar ").appendTo(".homepage .container:eq(0)");	
+	}
+})
 </script>
 
