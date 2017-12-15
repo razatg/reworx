@@ -1895,3 +1895,7 @@ display: inline-block;
     width: 100%;
     margin-bottom: 20px;
 }
+.pd {
+    margin: 20px 0;
+    display: inline-block;
+}
