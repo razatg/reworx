@@ -177,10 +177,18 @@ trackingApp.registerCtrl('referController',function($scope,$http, $location, $ti
 		var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/get-refer-list.php';
 		$http.post(absUrl).success(function(response)
 		{
-			$scope.showLoder = false;
-			$scope.referListArr = response.data;
-			$scope.totalCount = response.totalCount;
-			$scope.recruiterList = response.recruiterList;
+			if(response.status=='failure')
+			{
+				window.location.href =  '<?php echo ANGULAR_ROUTE; ?>/employee-dashboard';
+			}
+			else
+			{
+				$scope.showLoder = false;
+				$scope.referListArr = response.data;
+				$scope.totalCount = response.totalCount;
+				$scope.recruiterList = response.recruiterList;
+			}
+			
 		})
 	}
 	$scope.getlist();

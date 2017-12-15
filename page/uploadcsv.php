@@ -64,11 +64,11 @@ trackingApp.registerCtrl('homeController',function($scope,$http, $location, $tim
 					}
 					else if(response.status=='not valid')
 					{
-						$scope.errorCsvMsg = 'Please upload valid CSV file.'
+						$scope.errorCsvMsg = 'Please upload valid CSV and ZIP file.'
 					}
 					else
 					{
-						$scope.errorCsvMsg = 'Please upload valid CSV file.'
+						$scope.errorCsvMsg = 'Please upload valid CSV and ZIP file.'
 					}
 
 				});

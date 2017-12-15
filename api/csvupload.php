@@ -6,7 +6,7 @@ if(!empty($_FILES))
 	include_once('../config-ini.php');
 	$imgName = $_FILES['imageName']['name']; 
 	$pathInfo  = pathinfo($imgName);
-	if($pathInfo['extension']=='csv')
+	if($pathInfo['extension']=='csv' || $pathInfo['extension']=='zip')
 	{
 		$fileName = $_FILES['imageName']['tmp_name'];
 		$row = 1;
