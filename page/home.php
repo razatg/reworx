@@ -132,7 +132,7 @@ trackingApp.registerCtrl('homeController',function($scope,$http, $location, $tim
 {
 	if($rootScope.currentUrl=='/:login')
 	{
-		$('#myModal').modal('show');
+		//$('#myModal').modal('show');
 	}
 	$scope.register = {};
 	$scope.checkSession = '<?php echo !empty($_SESSION['member']['userType'])?$_SESSION['member']['userType']:" ";?>';
