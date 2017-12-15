@@ -18,7 +18,7 @@ if(!empty($userData['data']['email']) && !empty($userData['data']['password']))
     }
     else
     {
-		$checkUser = $db->employee_contacts->findOne(array("email"=>$email,"password"=>$password));
+		$checkUser = $db->employee->findOne(array("email"=>$email,"password"=>$password));
 		if(!empty($checkUser))
 		{
 			$returnArr['status'] = 'csvnotuploaded';

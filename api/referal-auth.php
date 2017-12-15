@@ -8,7 +8,7 @@ $uniqueID = isset($_GET['uniqueID'])?$_GET['uniqueID']:"";
 if(!empty($UID) && !empty($email))
 {
 	$db = connect();
-	$checkUser = $db->employee_contacts->findOne(array("email"=>base64_decode($email),"UID"=>(int)base64_decode($UID)));
+	$checkUser = $db->employee->findOne(array("email"=>base64_decode($email),"UID"=>(int)base64_decode($UID)));
 	if($checkUser)
 	{
 		$returnArr['status'] = 'csvnotuploaded';

@@ -35,14 +35,14 @@ function updateToDB($fileName)
 	{
 		$row = 1;
 		$UID = $pathInfo['filename'];
-		$checkUploadedCsv = $db->employee_contacts->findOne(array("UID"=>$UID),array("connections"));
+		$checkUploadedCsv = $db->employee->findOne(array("UID"=>$UID),array("connections"));
 		if(!empty($checkUploadedCsv['connections']))
 		{
 			$returnArr['status'] = 'alredyuploaded';
 		}
 		else
 		{
-			$checkCurrentUploading =  $db->contact->count();
+			$checkCurrentUploading =  $db->connections->count();
 			$array = array();
 			$row = 1;
 			$finalArr = array();
@@ -52,7 +52,7 @@ function updateToDB($fileName)
 				while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) 
 				{
 					if($row == 1){ $row++; continue; }	
-					  $checkDuplicateAccount =  $db->contact->findOne(array("email"=>trim($data[2])));
+					  $checkDuplicateAccount =  $db->connections->findOne(array("email"=>trim($data[2])));
 					  if(empty($checkDuplicateAccount) )
 					  {
 						  $array['UID'] =  $checkCurrentUploading+1;
@@ -71,11 +71,11 @@ function updateToDB($fileName)
 						 $UIDarray[] = $checkDuplicateAccount['UID'];
 					 }
 				}
-				if($db->employee_contacts->update(array("UID"=>(int)$UID),array('$set'=>array("connections"=>$UIDarray))))
+				if($db->employee->update(array("UID"=>(int)$UID),array('$set'=>array("connections"=>$UIDarray))))
 				{
 					if(!empty($finalArr))
 					{
-						$db->contact->batchInsert($finalArr);
+						$db->connections->batchInsert($finalArr);
 					}
 					return true;
 				}

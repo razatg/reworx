@@ -12,7 +12,7 @@ if(!empty($_FILES))
 		$row = 1;
 		$db = connect();
 		$UID = $_SESSION['member']['UID'];
-		$checkUploadedCsv = $db->employee_contacts->findOne(array("UID"=>$UID),array("connections"));
+		$checkUploadedCsv = $db->employee->findOne(array("UID"=>$UID),array("connections"));
 		if(!empty($checkUploadedCsv['connections']))
 		{
 			$returnArr['status'] = 'alredyuploaded';
@@ -26,7 +26,7 @@ if(!empty($_FILES))
             $target_file = $target_dir.$UID.'.'.$pathInfo['extension'];
 			if(move_uploaded_file($fileName,$target_file))
 			{
-				if($db->employee_contacts->update(array("UID"=>$UID),array('$set'=>array("connectionUploaded"=>true))))
+				if($db->employee->update(array("UID"=>$UID),array('$set'=>array("connectionUploaded"=>true))))
 				{
 					$returnArr['status'] = 'success';
 				}
@@ -67,7 +67,7 @@ if(!empty($_FILES))
 				}
 				fclose($handle);
 				$db->contact->batchInsert($finalArr);
-				if($db->employee_contacts->update(array("UID"=>$UID),array('$set'=>array("connections"=>$UIDarray))))
+				if($db->employee->update(array("UID"=>$UID),array('$set'=>array("connections"=>$UIDarray))))
 				{
 					$returnArr['status'] = 'success';
 				}
