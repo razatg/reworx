@@ -16,7 +16,7 @@ trackingApp.config(['$routeProvider','$controllerProvider','$locationProvider','
 	.when('/',{'templateUrl':angRoute+'/page/home.php'
 		})
 	
-	.when('/:login',{'templateUrl':function(params){ return angRoute+'/page/home.php?page='+params.UID}
+	.when('/login',{'templateUrl':function(params){ return angRoute+'/page/home.php'}
 		})	
 		
 	.when('/uploadcsv',{'templateUrl':angRoute+'/page/uploadcsv.php'

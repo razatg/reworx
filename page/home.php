@@ -130,9 +130,9 @@ include_once('../config-ini.php');
 <script>
 trackingApp.registerCtrl('homeController',function($scope,$http, $location, $timeout, $element,$rootScope)
 {
-	if($rootScope.currentUrl=='/:login')
+	if($rootScope.currentUrl=='/login')
 	{
-		//$('#myModal').modal('show');
+		$('#myModal').modal('show');
 	}
 	$scope.register = {};
 	$scope.checkSession = '<?php echo !empty($_SESSION['member']['userType'])?$_SESSION['member']['userType']:" ";?>';
