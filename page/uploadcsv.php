@@ -17,7 +17,7 @@ include_once('../config-ini.php');
 		<?php if(!empty($_SESSION['member']['email'])){?>
 			<div class="fileUpload application-btn">
 			<label class="upload">
-				<input ng-if="!showLoder"  type="file" onchange="angular.element(this).scope().setFile(this)">
+				<input ng-if="!showLoder" type="file" onchange="angular.element(this).scope().setFile(this)">
 		    	Upload
 			</label>
 		  </div>
