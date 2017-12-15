@@ -15,8 +15,8 @@ include_once('../config-ini.php');
 		<img src="newui/images/linkdenlogo.jpg" alt="">
 		<h1>Upload your LinkedIn CSV </h1>
 		<?php if(!empty($_SESSION['member']['email'])){?>
-			<div class="fileUpload application-btn">
-			<label class="upload">
+			<div class="fileUpload">
+			<label class="upload application-btn">
 				<input ng-if="!showLoder" type="file" onchange="angular.element(this).scope().setFile(this)">
 		    	Upload
 			</label>
