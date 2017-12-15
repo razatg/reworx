@@ -15,6 +15,9 @@ trackingApp.config(['$routeProvider','$controllerProvider','$locationProvider','
 	
 	.when('/',{'templateUrl':angRoute+'/page/home.php'
 		})
+	
+	.when('/:login',{'templateUrl':function(params){ return angRoute+'/page/home.php?page='+params.UID}
+		})	
 		
 	.when('/uploadcsv',{'templateUrl':angRoute+'/page/uploadcsv.php'
 		})
@@ -29,7 +32,7 @@ trackingApp.config(['$routeProvider','$controllerProvider','$locationProvider','
 		})
 		
 	.when('/tutorial/',{'templateUrl':function(params){ return angRoute+'/page/tutorial.php'}
-		})		
+		})
 		
 	.when('/employee-dashboard/',{'templateUrl':function(params){ return angRoute+'/page/employee-dashboard.php'}
 		})
@@ -64,6 +67,10 @@ trackingApp.run(['$routeParams','$rootScope','$timeout','$location','$templateCa
 	    $root.errorLoginMsg = '';
 	    $('#myModal').modal(tmp);
 	    
+	}
+	$root.redirectPage = function()
+	{
+		window.location.href =  angRoute+'/';
 	}
 	$root.showLoderlogin = false;
 	$root.userarr = {};

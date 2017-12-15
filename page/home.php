@@ -128,8 +128,12 @@ include_once('../config-ini.php');
 <?php include_once('login.php');?>
 </div>
 <script>
-trackingApp.registerCtrl('homeController',function($scope,$http, $location, $timeout, $element)
+trackingApp.registerCtrl('homeController',function($scope,$http, $location, $timeout, $element,$rootScope)
 {
+	if($rootScope.currentUrl=='/:login')
+	{
+		$('#myModal').modal('show');
+	}
 	$scope.register = {};
 	$scope.checkSession = '<?php echo !empty($_SESSION['member']['userType'])?$_SESSION['member']['userType']:" ";?>';
 	$scope.employeeName = '<?php echo !empty($_SESSION['member']['first_name'])?$_SESSION['member']['first_name']:" ";?>';
