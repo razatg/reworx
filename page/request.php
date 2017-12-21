@@ -47,7 +47,7 @@ include_once('../config-ini.php');
                         <li ng-repeat="item in data.connectedUsers">
                         	<img src="newui/images/1X1.png" style="background:url('newui/images/user.png')"> 
                             <h2 ng-bind-html="item.first_name+' '+item.last_name"></h2>
-                            <p><?php echo isset($_SESSION['member']['company_name'])?$_SESSION['member']['company_name']:"";?></p> 
+                            <p>{{item.position}} at <?php echo isset($_SESSION['member']['company_name'])?$_SESSION['member']['company_name']:"";?></p> 
                             <div class="squaredTwo1">
                                 <input type="checkbox" name="connected_{{$index}}" ng-model="data.connectedUsers[$index].IsChecked">
                                 <label for="squaredTwo"></label>
