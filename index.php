@@ -66,7 +66,7 @@ $(document).ready(function(){
  
   setTimeout(function(){  
 	  $('#footerDiv').show(); 
-  }, 200);
+  }, 1000);
 	})
 </script>	
 <script type="text/javascript" src="newui/js/jquery.meanmenu.js"></script>
