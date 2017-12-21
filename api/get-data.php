@@ -52,8 +52,9 @@ if(!empty($company))
 		$tmp = array();
 		foreach ($company as $q) 
 		{
+			$companyName = trim($q);
 			array_push($searchStringArr,$q);
-			$tmp[] = new MongoRegex("/$q/i");
+			$tmp[] = new MongoRegex("/$companyName/i");
 		}
 		$where['company'] = array('$in'=>$tmp);
 }
@@ -91,7 +92,7 @@ if(!empty($where))
 		    */
 		    $data['sortorder']	= $i;
 			$parentUidList = $data['parentUID'];
-			$connectedProfiles = $collection->find(array('UID'=>array('$in' =>$parentUidList)),array('UID','pic_phy','name','designation','company'));
+			$connectedProfiles = $db->employee->find(array('UID'=>array('$in' =>$parentUidList)),array('UID','first_name','last_name','position','company'));
 			if(!empty($connectedProfiles))
 			{
 				$data['connectedUsers'] = array_values(iterator_to_array($connectedProfiles));
@@ -101,6 +102,11 @@ if(!empty($where))
 			{
 			  $data['IsEdit']	= true;
 			}
+			if(!file_exists('tmp/images/'.$data['pic_phy']))
+			{
+				$data['pic_phy']  = 'newui/images/user.png';
+			}
+			
 			$dataList[] = $data;
 		}
 		//function sortByOrder($a, $b) {

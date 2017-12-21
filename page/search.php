@@ -78,11 +78,12 @@ include_once('../config-ini.php');
 								<p ng-if="location" class="location" highlight="data.area" keywords="location"></p>
 								<div ng-repeat="item in data.connectedUsers" class="relative-pos">
 										<div ng-show="$parent.$index==parentIndex && childIndex==$index" class="custom-tooltip">
-										<span class="name" ng-bind-html="item.name"></span>
-										<span class="occupation" ng-if="item.company" ng-bind-html="item.company"></span>
-										<span class="department" ng-if="item.designation" ng-bind-html="item.designation"></span>
+										<span class="name" ng-bind-html="item.first_name+' '+item.last_name"></span>
+										<span class="occupation"><?php echo isset($_SESSION['member']['company_name'])?$_SESSION['member']['company_name']:"";?>
+										</span>
+										<span class="department" ng-if="item.position" ng-bind-html="item.position"></span>
 									</div>
-								 <img ng-mouseleave="showToolTips('-1')" ng-mouseover="showToolTips($index,$parent.$index)" src="newui/images/1X1.png" style="background:url({{item.pic_phy}})" class="profile">
+								 <img ng-mouseleave="showToolTips('-1')" ng-mouseover="showToolTips($index,$parent.$index)" src="newui/images/1X1.png" style="background:url('newui/images/user.png')" class="profile">
 								</div>
 								<ul class="match-keyword">
 									<li ng-show="position && data.title"><strong>Title: </strong><span highlight="data.title" keywords="position"></span></li>
