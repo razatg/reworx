@@ -28,7 +28,20 @@ if(!empty($_SESSION['member']['UID']))
 					if(!$item['notFit'] && !$item['donotknow'])
 					{
 						$selectedProfile = $collection->find(array("UID"=>(int)$item['UID']),array('UID','title','pic_phy','name','designation','company','experience','parentUID'));
-						$dataReferListArr[] = array('profile'=>array_values(iterator_to_array($selectedProfile)),'recruiterMsg'=>$data['recruiterList'],'time'=>$data['addedOn'],'cId'=>$data['cId']);
+						if(!empty($selectedProfile))
+						{
+							$profileListArr = array();
+							foreach($selectedProfile as $profile)
+							{
+								if(!file_exists(ANGULAR_ABSOLUTE_PATH.$profile['pic_phy']))
+								{
+									$profile['pic_phy']  = 'newui/images/user.png';
+								}
+								
+								$profileListArr[] =  $profile;
+							}
+						}
+						$dataReferListArr[] = array('profile'=>array_values($profileListArr),'recruiterMsg'=>$data['recruiterList'],'time'=>$data['addedOn'],'cId'=>$data['cId']);
 				    }
 				}
 			}

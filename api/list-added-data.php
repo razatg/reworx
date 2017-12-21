@@ -34,7 +34,7 @@ if(!empty($where))
 			$dataListChild = array();
 			$parentUidList = $data['parentUID'];
 			$i = 0;
-			$connectedProfiles = $collection->find(array('UID'=>array('$in' =>$parentUidList)));
+			$connectedProfiles = $db->employee->find(array('UID'=>array('$in' =>$parentUidList)),array('UID','first_name','last_name','position','company'));
 			if(!empty($connectedProfiles))
 			{
 				foreach(iterator_to_array($connectedProfiles) as $item)
@@ -52,6 +52,11 @@ if(!empty($where))
 				}
 				$data['connectedUsers'] = array_values($dataListChild);
 			}
+			
+		if(!file_exists(ANGULAR_ABSOLUTE_PATH.$data['pic_phy']))
+		{
+			$data['pic_phy']  = 'newui/images/user.png';
+		}	
 		$dataList[] = $data;	
 	   }
 	   	$returnArr['data'] = $dataList;

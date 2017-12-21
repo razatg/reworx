@@ -45,9 +45,9 @@ include_once('../config-ini.php');
 				<div class="detail_action" style="">
                		<ul class="add_list_profile">
                         <li ng-repeat="item in data.connectedUsers">
-                        	<img src="newui/images/1X1.png" style="background:url({{item.pic_phy}})"> 
-                            <h2 ng-bind-html="item.name"></h2>
-                            <p ng-if="item.experience[0].designation && item.experience[0].company" ng-bind-html="item.experience[0].designation+' at '+ item.experience[0].company"></p> 
+                        	<img src="newui/images/1X1.png" style="background:url('newui/images/user.png')"> 
+                            <h2 ng-bind-html="item.first_name+' '+item.last_name"></h2>
+                            <p><?php echo isset($_SESSION['member']['company_name'])?$_SESSION['member']['company_name']:"";?></p> 
                             <div class="squaredTwo1">
                                 <input type="checkbox" name="connected_{{$index}}" ng-model="data.connectedUsers[$index].IsChecked">
                                 <label for="squaredTwo"></label>
