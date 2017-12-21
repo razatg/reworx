@@ -102,7 +102,7 @@ if(!empty($where))
 			{
 			  $data['IsEdit']	= true;
 			}
-			if(!file_exists('tmp/images/'.$data['pic_phy']))
+			if(!file_exists(ANGULAR_ABSOLUTE_PATH.$data['pic_phy']))
 			{
 				$data['pic_phy']  = 'newui/images/user.png';
 			}

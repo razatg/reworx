@@ -17,9 +17,18 @@ if(!empty($where))
 	$cursorCount = $collection->count($where);
 	$cursor = $collection->find($where)->skip($offset)->limit(10);
 	$searchResult =  iterator_to_array($cursor);
+	$dataList = array();
 	if(!empty($searchResult))
 	{
-		$returnArr['data'] = $searchResult;
+		foreach($searchResult  as $data)
+		{
+			if(!file_exists(ANGULAR_ABSOLUTE_PATH.$data['pic_phy']))
+			{
+				$data['pic_phy']  = 'newui/images/user.png';
+			}
+		 $dataList[] = $data;	
+		}
+		$returnArr['data'] = $dataList;
 		$returnArr['status'] = 'success';
 		$returnArr['totalCount'] = $cursorCount;
 	}
