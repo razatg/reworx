@@ -16,8 +16,8 @@ $body = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://
 </style>
 <table class="emailer_temp" width="600px" bgcolor="#ffffff" border="0" cellspacing="0" cellpadding="0" align="center" style="border: 1px solid #bccbcb;">
    <tr>
-      <td align="center" bgcolor="#0085c8">
-         <table width="100%" border="0" cellspacing="15" cellpadding="0">
+      <td align="center" bgcolor="#fff">
+         <table width="100%" border="0" cellspacing="15" cellpadding="0"  style="border-bottom:1px solid #ccc">
             <tr>
                <td><a href="#" target="_blank"><img border="0" alt="" src="'.ANGULAR_ROUTE.'/newui/images/logo.png"/></a></td>
             </tr>
@@ -31,11 +31,14 @@ $body = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://
                <td valign="top">
                   <h1 style="font-size:20px; font-family:calibri,arial,sans-serif; color:#414747; padding:0px 0; line-height:normal; margin:0; margin-bottom:5px;">
                   </h1>
-                  <p style="font-size:16px; font-family:calibri,arial,sans-serif; color:#414747; line-height:22px; margin:0 0 20px 0">__MSG_CONTENT__</p>
+                  <p style="font-size:16px; font-family:calibri,arial,sans-serif; color:#414747; line-height:22px; margin:0 0 0 0">__MSG_CONTENT__</p>
                </td>
             </tr>
             <tr>
-            	<td><a href="__LINK_URL__" style="background: #0085c8;color: #fff;font-size: 20px;text-align: center;padding: 0px 20px;border-radius: 7px;overflow: hidden;text-decoration: navajowhite;display: table;margin: 15px auto;width: auto;height: 40px;font-family: arial;line-height: 20px;">Refer</a></td>
+            	<td><a href="__LINK_URL__" style="background: #0085c8;color: #fff;font-size: 20px;text-align: center;padding: 0px 20px;border-radius: 7px;overflow: hidden;text-decoration: navajowhite;display: table;margin: 15px auto;width: auto;height: 40px;font-family: arial;line-height: 20px;">__LINK_URL_MSG__</a></td>
+            </tr>
+            <tr>
+            	<td>__HR_TEAM__</td>
             </tr>
          </table>
       </td>
@@ -72,10 +75,13 @@ if(!empty($userData))
 					$referArrParent[] =  array('UID'=>(int)$data['UID'],'notFit'=>false,'donotknow'=>false,'fit'=>false);
 					$referArr[$item['UID']] =  $item['UID'];
 					$to = array('to'=>array($item['email']));
-					$messageHTML = "Hi ".$item['name'].",<br>".$data['name']." seems to be a good fit for the open position that we have, ".$mailData['job_title'].". <br>Since ".$data['name']." is connected with you on your social network, requesting you to write to him and have him get in touch with me or the HR team.<br>Please Click here or the Button Below to write to him:<br><a>Refer ".$data['name']."</a>";
+					$messageHTML = "Hi ".$item['name'].",<br>".$data['name']." seems to be a good fit for the open position that we have, ".$mailData['job_title'].". <br>Since ".$data['name']." is connected with you on your social network, requesting you to write to him and have him get in touch with me or the HR team.<br>Please Click on the Button Below to write to him:<br>";
 					$messageHTML = str_replace('__MSG_CONTENT__',$messageHTML,$body);
+					$messageHTML = str_replace('__HR_TEAM__',"Regards,<br>Team HR",$messageHTML);
 					$linkurl = ANGULAR_ROUTE.'/api/referal-auth.php?email='.base64_encode($item['email']).'&UID='.base64_encode($item['UID']).'&key='.base64_encode($data['UID']).'&uniqueID='.base64_encode($currentTime);
 					$messageHTML = str_replace('__LINK_URL__',$linkurl,$messageHTML);
+					$messageHTML = str_replace('__LINK_URL_MSG__','Refer '.$data['name'],$messageHTML);
+					
 					$from = '';
 					$fromName = '';
 					$toname = '';

@@ -1885,3 +1885,11 @@ input[type="file"]
 .application-btn:hover {
     color: #fff;
 }
+
+.search-list.list-item .detail_info {
+    float: left;
+    width: calc(100% - 400px);
+}
+.search-list .detail_info .profile { 
+    margin-bottom: 10px;
+}

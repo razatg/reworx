@@ -62,7 +62,7 @@ include_once('../config-ini.php');
 	
 		<div class="container">
 			<center  ng-if="showLoder"><img width="80" src="newui/images/widget-loader-lg-en.gif" alt=""></center>
-			 <ul ng-if="!showLoder" class="list-item">
+			 <ul ng-if="!showLoder" class="list-item search-list">
 				<li ng-repeat="data in resultList.data">
 					<img src="newui/images/1X1.png" style="background:url({{data.pic_phy}})" class="profile"/>
 					   <div class="item-row">

@@ -15,8 +15,8 @@ $body = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://
 </style>
 <table class="emailer_temp" width="600px" bgcolor="#ffffff" border="0" cellspacing="0" cellpadding="0" align="center" style="border: 1px solid #bccbcb;">
    <tr>
-      <td align="center" bgcolor="#0085c8">
-         <table width="100%" border="0" cellspacing="15" cellpadding="0">
+      <td align="center" bgcolor="#ffffff">
+         <table width="100%" border="0" cellspacing="15" cellpadding="0" style="border-bottom:1px solid #ccc">
             <tr>
                <td><a href="#" target="_blank"><img border="0" alt="" src="'.ANGULAR_ROUTE.'/newui/images/logo.png"/></a></td>
             </tr>

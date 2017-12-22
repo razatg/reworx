@@ -34,7 +34,7 @@ if(!empty($where))
 			$dataListChild = array();
 			$parentUidList = $data['parentUID'];
 			$i = 0;
-			$connectedProfiles = $db->employee->find(array('UID'=>array('$in' =>$parentUidList)),array('UID','first_name','last_name','position','company'));
+			$connectedProfiles = $db->employee->find(array('UID'=>array('$in' =>$parentUidList)),array('UID','first_name','last_name','position','company','email'));
 			if(!empty($connectedProfiles))
 			{
 				foreach(iterator_to_array($connectedProfiles) as $item)
