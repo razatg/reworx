@@ -83,8 +83,8 @@ if(!empty($userData))
 					$messageHTML = str_replace('__LINK_URL_MSG__','Refer '.$data['name'],$messageHTML);
 					
 					$from = '';
-					$fromName = '';
-					$toname = '';
+					$fromName = $_SESSION['member']['full_name'];
+					$toname = $_SESSION['member']['full_name'];
 					$subject = 'Refer your Connection '.$data['name'];
 					$messageText = '';
 					sendgridmail( $from, $fromName, $to, $toname, $subject, $messageText, $messageHTML, array(),array("UID"=>$data['UID']));
@@ -127,7 +127,9 @@ function sendgridmail( $from, $fromName, $json_string, $toname, $subject, $messa
 					'api_user'  => $user,
 					'api_key'   => $pass,
 					'x-smtpapi' => json_encode($json_string),
-					'to'        => 'noreply@referralworx.com',
+					'to'        => $email,
+					'fromname'  => $fromName,
+					'toname'    => $toname,
 					'subject'   => $subject,
 					'html'      => $messageHTML,
 					'from'      => $company_name.' via Referralworx <'.$email.'>',

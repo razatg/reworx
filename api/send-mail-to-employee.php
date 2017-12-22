@@ -66,13 +66,13 @@ if(!empty($userData))
 	}
 	$addedOn = $data['employeeDetail']['time'];
 	$cId = $data['employeeDetail']['cId'];
-	$ccArry = array();
+	$ccArry = "";
 	if(!empty($cId))
 	{
 		$dataListArr = $db->recruiter->findOne(array('cId'=>(int)$cId));
-		if(!empty($dataListAr))
+		if(!empty($dataListArr))
 		{
-			$ccArry = array($dataListAr['email']);
+			$ccArry =  $dataListArr['email'];
 		}
 	}
 	$messageHTML =  $data['message_to_employee'];
@@ -118,12 +118,15 @@ function sendgridmail($from, $fromName, $json_string, $toname, $subject, $messag
 							'api_key'   => $pass,
 							'x-smtpapi' => json_encode($json_string),
 							'to'        => 'noreply@referralworx.com',
-							'cc'        => json_encode($json_string),
+							'cc'        => $ccArry,
+							'fromname'  => $fromName,
+							'toname'    => $toname,
 							'subject'   => $subject,
 							'html'      => $messageHTML,
 							'from'      => $fromName.' via Referralworx <'.$from.'>',
 			               );
 			$request =  $url.'api/mail.send.json';
+			//print_r( $params);exit;
 			// Generate curl request
 			$session = curl_init($request);
 			// Tell curl to use HTTP POST
