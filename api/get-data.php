@@ -144,7 +144,7 @@ function beliefmedia_highlights($text, $words, $case = false)
 { 
 	 $words = trim($words);
 	 $words_array = explode(',', $words);
-	 $regex = ($case !== false) ? '/\b(' . implode('|', array_map('preg_quote', $words_array)) . ')\b/i' : '/\b(' . implode('|', array_map('preg_quote', $words_array)) . ')\b/';
+	 $regex = ($case !== true) ? '/\b(' . implode('|', array_map('preg_quote', $words_array)) . ')\b/i' : '/\b(' . implode('|', array_map('preg_quote', $words_array)) . ')\b/';
 	 foreach($words_array as $word) 
 	 { 
 		  if(strlen(trim($word)) != 0) 
