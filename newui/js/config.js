@@ -145,43 +145,9 @@ trackingApp.directive('fileModel', ['$parse', function ($parse) {
 	};
 }]);
 
-trackingApp.directive('highlight', function() {
-	var component = function(scope, element, attrs) {
-		var tokenize = function(keywords,str) {
-			keywords = keywords.replace(new RegExp(',$','g'), '').split(',');
-			var i;
-			var l = keywords.length;
-			for (i=0;i<l;i++) 
-			{
-				  var math =  new RegExp( eval("/"+keywords[i]+"/gi") );
-				  str = str.replace(math,'<mark style="background:#ff0">' + keywords[i] +'</mark>');
-			} 
-			return str;
-		}
-		scope.$watch('keywords', function() {
-			scope.keywords = scope.keywords.replace(/,\s*$/, "");
-		
-			if (!scope.keywords || scope.keywords == '') 
-			{
-				element.html(scope.highlight);
-				return false;
-			}
-			var tokenized	= tokenize(scope.keywords,scope.highlight);
-			element.html(tokenized);
-		});
-	}
-	return {
-		link: 			component,
-		replace:		false,
-		scope:			{
-			highlight:	'=',
-			keywords:	'='
-		}
-	};
-});
-    
-
-
-
-
+trackingApp.filter('to_trusted', ['$sce', function($sce) {
+      return function(text) {
+        return $sce.trustAsHtml(text);
+      };
+    }]);
 

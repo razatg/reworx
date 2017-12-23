@@ -30,16 +30,16 @@ include_once('../config-ini.php');
 	<!--Section: Testimonials v.2-->
 	<section ng-show="!showLoder" class="text-center container">
 		<!--Carousel Wrapper-->
-	   <div id="carousel-generic" class="testimonial-carousel slide" data-ride="carousel">
+	   <div ng-show="resultStatus=='success'" id="carousel-generic" class="testimonial-carousel slide" data-ride="carousel">
 			<!--Slides-->
 			<div class="carousel-inner" role="listbox">
 				<!--First slide-->
-				<div  ng-repeat="data in referListArr" class="item {{$index==0?'active':''}}">
+				<div  ng-repeat="data in referListArr" class="item {{$index==currentSelectedProfile?'active':''}}">
 					<div ng-if="!showLoder" class="container  text-left">
 					 <h1 class="pageheding text-left">Please review shortlisted for the positions below:</h1>
-					 <h6  ng-if="data.recruiterMsg.job_title" ng-bind-html="data.recruiterMsg.job_title"></h6>
-					 <p  ng-if="data.recruiterMsg.job_position_url" class="par">{{data.recruiterMsg.job_position_url}},</p>
-					 <p ng-if="data.recruiterMsg.referral_amount" class="par"><strong>Bonus ${{data.recruiterMsg.referral_amount}}</strong></p>
+					 <h6  ng-if="data.recruiterMsg.job_title"> <strong>Job Title :</strong>  {{data.recruiterMsg.job_title}} </h6>
+					 <p  ng-if="data.recruiterMsg.job_position_url" class="par"> <strong>Job Description :</strong>  {{data.recruiterMsg.job_position_url}}</p>
+					 <p ng-if="data.recruiterMsg.referral_amount" class="par"><strong>Bonus :  {{data.recruiterMsg.currency}} {{data.recruiterMsg.referral_amount}}</strong></p>
 				</div>
 					
 					<div class="testimonial">
@@ -73,6 +73,7 @@ include_once('../config-ini.php');
 			<!--Controls-->
 		</div>
 		<!--Carousel Wrapper-->
+	 <div style="margin-top:20px;" ng-show="resultStatus=='failure'">No referrers msg found.</li>
 	</section>
 	<!--Section: Testimonials v.2-->
 	</div>
@@ -124,11 +125,11 @@ include_once('../config-ini.php');
 			  <div class="modal-content">
 				 <div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title"><b>Confrim</b> </h4>
+					<h4 class="modal-title"><b>Please Confirm</b> </h4>
 					<span ng-if="errorMsg" style="color:red;" ng-bind-html="errorMsg"></span>
 				 </div>
 				 <div class="modal-body">
-					<span>You will not the Choice(in DB) and move on to the next Referral in list</span>
+					<span>We will store your choice, no communication will be done with this connection on your behalf</span>
 				 </div>
 				 <div class="modal-footer">
 					<button ng-if="!showLoderRefuse" type="button" class="btn btn-lg btn-default" data-dismiss="modal">Close</button>
@@ -149,6 +150,7 @@ trackingApp.registerCtrl('referController',function($scope,$http, $location, $ti
 		window.location.href =  '<?php echo ANGULAR_ROUTE; ?>/search';
 	}
 	$scope.selectedUID = '';
+	$scope.resultStatus = '';
 	$scope.notInterested = function(tmp,type)
 	{
 		$('#myModalRefuse').modal('show');
@@ -157,6 +159,22 @@ trackingApp.registerCtrl('referController',function($scope,$http, $location, $ti
 		$scope.selectedDate = tmp.time;
 		
 	}
+	$scope.currentSelectedProfile = 0;
+	$scope.selectedProfileIndex = function(arr)
+ 	{
+ 		var selectedProfileUID = '<?php echo !empty($_SESSION['member']['selectedProfile'])?$_SESSION['member']['selectedProfile']:"";?>';
+      	var uniqueID = '<?php echo !empty($_SESSION['member']['uniqueID'])?$_SESSION['member']['uniqueID']:"";?>';
+ 	  	if(arr.length>0)
+ 		{
+ 			for(var i =0;i<arr.length;i++)
+ 			{
+ 				if(arr[i].time==uniqueID && arr[i].profile[0].UID==selectedProfileUID)
+ 				{
+ 					$scope.currentSelectedProfile = i;
+ 				}
+ 			}
+ 		}
+ 	}
 	$scope.showLoderRefuse = false;
 	$scope.removeFromReferList = function(UID,type)
 	{
@@ -177,18 +195,12 @@ trackingApp.registerCtrl('referController',function($scope,$http, $location, $ti
 		var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/get-refer-list.php';
 		$http.post(absUrl).success(function(response)
 		{
-			if(response.status=='failure')
-			{
-				window.location.href =  '<?php echo ANGULAR_ROUTE; ?>/employee-dashboard';
-			}
-			else
-			{
-				$scope.showLoder = false;
-				$scope.referListArr = response.data;
-				$scope.totalCount = response.totalCount;
-				$scope.recruiterList = response.recruiterList;
-			}
-			
+			$scope.resultStatus = response.status;
+			$scope.showLoder = false;
+			$scope.referListArr = response.data;
+			$scope.selectedProfileIndex(response.data);
+			$scope.totalCount = response.totalCount;
+			$scope.recruiterList = response.recruiterList;
 		})
 	}
 	$scope.getlist();

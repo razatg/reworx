@@ -67,14 +67,10 @@ include_once('../config-ini.php');
 					   <div class="item-row">
 						   <div class="detail_info">
 								<h1 style="text-align:left;" ng-bind-html="data.name"></h1>
-								<h3 ng-if="!company && data.experience[0].designation && data.experience[0].company" ng-bind-html="data.experience[0].designation+' at '+ data.experience[0].company"></h3> 
-								<h3 ng-if="!company && !data.experience[0].designation && !data.experience[0].company" ng-bind-html="data.company">
+								<h3 ng-if="data.experience[0].designation && data.experience[0].company" ng-bind-html="data.experience[0].designation+' at '+ data.experience[0].company | to_trusted"></h3> 
+								<h3 ng-if="!data.experience[0].designation && !data.experience[0].company" ng-bind-html="data.company | to_trusted">
 								</h3>
-								<h3 ng-if="company && data.experience[0].designation && data.experience[0].company" highlight="data.experience[0].designation+' at '+ data.experience[0].company" keywords="company"></h3> 
-								<h3 ng-if="company && !data.experience[0].designation && !data.experience[0].company" highlight="data.company" keywords="company">
-								</h3>
-								<p ng-if="!location" class="location" ng-bind-html="data.area"></p>
-								<p ng-if="location" class="location" highlight="data.area" keywords="location"></p>
+								<p  class="location" ng-bind-html="data.area | to_trusted"></p>
 								<div ng-repeat="item in data.connectedUsers" class="relative-pos">
 										<div ng-show="$parent.$index==parentIndex && childIndex==$index" class="custom-tooltip">
 										<span class="name" ng-bind-html="item.first_name+' '+item.last_name"></span>
@@ -85,17 +81,18 @@ include_once('../config-ini.php');
 								 <img ng-mouseleave="showToolTips('-1')" ng-mouseover="showToolTips($index,$parent.$index)" src="newui/images/1X1.png" style="background:url('newui/images/user.png')" class="profile">
 								</div>
 								<ul class="match-keyword">
-									<li ng-show="position && data.title"><strong>Title: </strong><span highlight="data.title" keywords="position"></span></li>
-									<li ng-show="position && data.summary">
-										<strong>Summary: </strong><span highlight="data.summary" keywords="position"></span></li>
-									<li ng-show="data.featured_skiils.length>0 && position">
-										<strong>Skills: </strong>
-										<span data-ng-repeat="skill in data.featured_skiils">
-										<span highlight="skill" keywords="position"></span>
+									<li ng-show="isSearch==true && data.title"><strong>Title: </strong>
+										<span ng-bind-html="data.title | to_trusted"></span>
 									</li>
-									<li ng-show="data.experience.length>0 && position">
-										<strong>Experience: </strong><span data-ng-repeat="expe in data.experience">
-										<span highlight="expe.designation" keywords="position"></span>
+									<li ng-show="isSearch==true && data.summary">
+										<strong>Summary: </strong><span ng-bind-html="data.summary | to_trusted"></span></li>
+									<li ng-show="data.featured_skiils && isSearch==true">
+										<strong>Skills: </strong>
+										<span ng-bind-html="data.featured_skiils | to_trusted"></span>
+									</li>
+									<li ng-show="data.experience && isSearch==true">
+										<strong>Experience: </strong>
+										<span ng-bind-html="data.experience | to_trusted"></span>
 									</li>
 								</ul>
 						     </div>
@@ -136,6 +133,7 @@ trackingApp.registerCtrl('searchController',function($scope,$http, $location, $t
 		$scope.childIndex = index;
 		$scope.parentIndex = parent;
 	}
+	$scope.isSearch = false;
 	$scope.mainSearch = '';
 	$scope.showSearchBox = function(type)
 	{
@@ -184,6 +182,7 @@ trackingApp.registerCtrl('searchController',function($scope,$http, $location, $t
 			$scope.resultList = response;
 			$scope.resultStatus = response.status;
 			$scope.showLoder = false;
+			$scope.isSearch = response.isSearch;
 			$scope.totalPageLength = response.totalCount;
 		})
 	}

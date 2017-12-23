@@ -27,7 +27,7 @@ if(!empty($_SESSION['member']['UID']))
 				{
 					if(!$item['notFit'] && !$item['donotknow'])
 					{
-						$selectedProfile = $collection->find(array("UID"=>(int)$item['UID']),array('UID','title','pic_phy','name','email','designation','company','experience','parentUID'));
+						$selectedProfile = $collection->find(array("UID"=>(int)$item['UID']),array('UID','title','pic_phy','name','email','designation','area','company','experience','parentUID'));
 						if(!empty($selectedProfile))
 						{
 							$profileListArr = array();
@@ -46,9 +46,12 @@ if(!empty($_SESSION['member']['UID']))
 				}
 			}
 		}
-		$returnArr['data'] = $dataReferListArr;
-		$returnArr['status'] = 'success';
-		$returnArr['totalCount'] = count($dataReferListArr);
+		if(!empty($dataReferListArr))
+		{
+			$returnArr['data'] = $dataReferListArr;
+			$returnArr['status'] = 'success';
+			$returnArr['totalCount'] = count($dataReferListArr);
+	    }
 	}
 }
 echo json_encode($returnArr,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);exit;
