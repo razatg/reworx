@@ -59,7 +59,7 @@ include_once('../config-ini.php');
 						</div>
 						<div class="btn-container">
 							<a href="#" ng-click="getEmpDetail(data)"  class="btn btn-success">REFER</a>
-							<a href="#" ng-click="notInterested(data,'notfit')" class="btn btn-success">NOT A FIT</a>
+							<a href="#" ng-click="notInterested(data,'notFit')" class="btn btn-success">NOT A FIT</a>
 							<a href="#" ng-click="notInterested(data,'donotknow')" class="btn btn-success">DON'T KNOW</a>
 						</div>
 						<small class="text-center">{{$index+1}} out of {{totalCount}} reviewed</small>
