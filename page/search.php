@@ -40,7 +40,7 @@ include_once('../config-ini.php');
 				<input id="companyId" style="height:45px!important" ng-model="company" placeholder="Enter Company name sepereated by comma (,)" class="form-control">
 				</div>
 			</div>
-			<a class="search_btn" data-ng-click="searchData();currentPage=0"></a>
+			<a class="search_btn" data-ng-click="currentPage=0;searchData()"></a>
 			<a data-ng-click="showFilter()" class="filter_btn"></a>
 		</div>
 	</div>			
@@ -55,7 +55,7 @@ include_once('../config-ini.php');
 				<select ng-init="total_experience=yearOfExp[0]" ng-model="total_experience" class="form-control" ng-options="item for item in yearOfExp"></select>
 			</div>
 			</div>
-			<a class="btn rnz_new_fld_btn" data-ng-click="searchData();currentPage=0;">Search</a>
+			<a class="btn rnz_new_fld_btn" data-ng-click="currentPage=0;searchData()">Search</a>
 		</div>
 	  </div>			
 	
