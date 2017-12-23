@@ -1,5 +1,4 @@
 <?php 
-ini_set('display_errors', 1);
 include_once('../config-ini.php');
 ?>
 <div data-ng-controller="searchController">
@@ -35,13 +34,13 @@ include_once('../config-ini.php');
 		<div class="container">
 			<div class="field_row">
 				<div class="fld_col">
-					<input id="positionId" style="height:45px!important" ng-model="position" placeholder="Enter Position (e.g Java Developer) or Skill (eg Java) sepereated by comma" class="form-control" ng-keydown="autoCompleteCustom('positionId','position')">
+					<input id="positionId" style="height:45px!important" ng-model="position" placeholder="Enter Position (e.g Java Developer) or Skill (eg Java) sepereated by comma" class="form-control">
 				</div>
 				<div class="fld_col">
-				<input id="companyId" style="height:45px!important" ng-model="company" placeholder="Enter Company name sepereated by comma (,)" class="form-control" ng-keydown="autoCompleteCustom('companyId','company')">
+				<input id="companyId" style="height:45px!important" ng-model="company" placeholder="Enter Company name sepereated by comma (,)" class="form-control">
 				</div>
 			</div>
-			<a class="search_btn" data-ng-click="searchData();"></a>
+			<a class="search_btn" data-ng-click="searchData();currentPage=0"></a>
 			<a data-ng-click="showFilter()" class="filter_btn"></a>
 		</div>
 	</div>			
@@ -49,20 +48,20 @@ include_once('../config-ini.php');
 		<div class="container">
 			<div class="field_row">
 				<div class="fld_col">
-					<input style="height:45px!important" id="locationId" ng-model="location" placeholder="Search Geo Location" ng-keydown="autoCompleteCustom('locationId','location')" class="form-control">
+					<input style="height:45px!important" id="locationId" ng-model="location" placeholder="Search Geo Location" class="form-control">
 				</div>
 				<div class="fld_col rnz_new_fld">
 				<span>Experience</span>
 				<select ng-init="total_experience=yearOfExp[0]" ng-model="total_experience" class="form-control" ng-options="item for item in yearOfExp"></select>
 			</div>
 			</div>
-			<a class="btn rnz_new_fld_btn" data-ng-click="searchData();">Search</a>
+			<a class="btn rnz_new_fld_btn" data-ng-click="searchData();currentPage=0;">Search</a>
 		</div>
 	  </div>			
 	
 		<div class="container">
 			<center  ng-if="showLoder"><img width="80" src="newui/images/widget-loader-lg-en.gif" alt=""></center>
-			 <ul ng-if="!showLoder" class="list-item search-list">
+			 <ul ng-show="!showLoder" class="list-item search-list">
 				<li ng-repeat="data in resultList.data">
 					<img src="newui/images/1X1.png" style="background:url({{data.pic_phy}})" class="profile"/>
 					   <div class="item-row">

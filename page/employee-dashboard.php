@@ -23,7 +23,7 @@ include_once('../config-ini.php');
 </header>
 <div class="bodypan" ng-style="{'min-height':divHeight()}">
 	<center  ng-if="showLoder"><img width="80" src="newui/images/widget-loader-lg-en.gif" alt=""></center>
-	<div ng-if="!showLoder" class="container">
+	<div ng-show="!showLoder" class="container">
 			<ul class="list-item">
 				<li ng-repeat="data in resultList.data">
 					<img src="newui/images/1X1.png" style="background:url({{data.pic_phy}})" class="profile"/>
