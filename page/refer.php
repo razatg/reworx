@@ -230,6 +230,7 @@ trackingApp.registerCtrl('referController',function($scope,$http, $location, $ti
 				{
 					$timeout(function()
 					{
+						$scope.getlist();
 						$scope.showLodermail = false;
 						$('#myModal').modal('hide');	
 					},100)
