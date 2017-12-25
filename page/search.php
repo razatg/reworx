@@ -181,6 +181,7 @@ trackingApp.registerCtrl('searchController',function($scope,$http, $location, $t
 		{
 			$scope.resultList = response;
 			$scope.resultStatus = response.status;
+			$("html, body").animate({ scrollTop: 60 }, 600);
 			$scope.showLoder = false;
 			$scope.isSearch = response.isSearch;
 			$scope.totalPageLength = response.totalCount;
