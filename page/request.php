@@ -131,12 +131,37 @@ include_once('../config-ini.php');
 			  </div>
 		   </div>
 		</div>
-	
+	  
+	   <div data-backdrop="static" class="modal fade moldelRnz" id="myModalRefuse" role="dialog">
+		   <div class="modal-dialog modal-md">
+			  <!-- Modal content-->
+			  <div class="modal-content">
+				 <div class="modal-header">
+					<button type="button" ng-click="goToSearch()" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title"><b>All Done</b> </h4>
+				 </div>
+				 <div class="modal-body">
+					<span>Great! Search for more Awesome Candidates. <a href="search">Click Here</a></span>
+				 </div>
+				 <div class="modal-footer">
+					<button ng-click="goToSearch()" type="button" class="btn btn-lg btn-default" data-dismiss="modal">Close</button>
+				 </div>
+			  </div>
+		   </div>
+		</div>
+
 	</div>
 	</div>
 <script>
 trackingApp.registerCtrl('searchController',function($scope,$http, $location, $timeout, $element)
 {
+	
+	
+	$scope.goToSearch = function()
+	{
+		$('#myModalRefuse').modal('hide');
+		window.location.href =  '<?php echo ANGULAR_ROUTE; ?>/search';
+	}
 	$scope.resultList = {};
 	$scope.requestForm = {};
 	$scope.requestForm.subject_employee = 'Refer your Connection [SHORTLISTED]';
@@ -169,8 +194,12 @@ Regards,\n\
 					$timeout(function()
 					{
 						$scope.showLodermail = false;
+						$scope.searchData('request');
 						$('#myModal').modal('hide');
-						window.location.href =  '<?php echo ANGULAR_ROUTE; ?>/search';
+						$timeout(function()
+					    {
+							$('#myModalRefuse').modal('show');
+						},200)
 					},100)
 				}
 			})
@@ -243,7 +272,7 @@ Regards,\n\
     $scope.pageSize = 10;
     $scope.q = '';
     $scope.showLoder = false;
-	$scope.searchData = function()
+	$scope.searchData = function(type)
 	{
 		$scope.showLoder = true;
 		var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/list-added-data.php';
@@ -252,26 +281,13 @@ Regards,\n\
 			$scope.resultList = response;
 			$scope.showLoder = false;
 			$scope.totalPageLength = response.totalCount;
-			if($scope.resultList.status=='failure')
+			if($scope.resultList.status=='failure' && type!='reuest')
 			{
 				$location.path('/search');
 			}
 		})
 	}
-	$scope.searchData();
-	$scope.searchEnter = function(event)
-	{
-		if(event.keyCode=='13')
-		{
-			$scope.searchData();
-		}
-	};
-	$scope.onSelect = function(selection) 
-	{
-		$scope.selectedData = selection;
-	};
-	
-	$scope.selectedData = null;
+	$scope.searchData('get');
 	$scope.resultStatus = '';
 	$scope.datas = {};
 	$scope.companyList = {};

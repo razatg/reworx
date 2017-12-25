@@ -69,7 +69,15 @@ if(!empty($location))
 }
 if(!empty($total_experience) && $total_experience!='Select Experience')
 {
-  $where['total_experience']	 = array('$gt'=>$total_experience);
+  if($total_experience<10)
+  {
+	 $maxExp  = $total_experience+3; 
+  }
+  else
+  {
+	  $maxExp  = $total_experience+5; 
+  }	
+  $where['total_experience']	 = array('$gte'=>$total_experience,'$lte'=>$maxExp);
   $isSearch  = true;
 }
 //print_r(json_encode($where));exit;

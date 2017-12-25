@@ -73,7 +73,7 @@ include_once('../config-ini.php');
 			<!--Controls-->
 		</div>
 		<!--Carousel Wrapper-->
-	 <div style="margin-top:20px;" ng-show="resultStatus=='failure'">No referrers msg found.</li>
+	 <div style="margin-top:20px;" ng-show="resultStatus=='failure'">You will see whom to refer here. Once your company HR/Recruitment finds somebody suitable that you know.</li>
 	</section>
 	<!--Section: Testimonials v.2-->
 	</div>
@@ -139,6 +139,7 @@ include_once('../config-ini.php');
 			  </div>
 		   </div>
 		</div>
+
 </div>
 <script>
 trackingApp.registerCtrl('referController',function($scope,$http, $location, $timeout, $element)

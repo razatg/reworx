@@ -14,7 +14,7 @@ if(!empty($scanned_directory))
 		{
 			echo "Profile with UID=> ".$pathInfo['filename']." Udated<br>";
 			
-			$target_dir = "../tmp/trash-profile/";
+			$target_dir = "../tmp/profile/";
 			if(rename($fileName, $target_dir.$data))
 			{
 			   @unlink($fileName);

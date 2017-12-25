@@ -27,7 +27,7 @@ if(!empty($_SESSION['member']['UID']))
 				{
 					if($item['notFit']==false && $item['donotknow']==false)
 					{
-						$selectedProfile = $collection->find(array("UID"=>(int)$item['UID']),array('UID','title','pic_phy','name','email','designation','area','company','experience','parentUID'));
+						$selectedProfile = $collection->find(array("UID"=>(int)$item['UID']),array('UID','title','pic_phy','name','email','designation','area','company','experience','parentUID','profile_url'));
 						if(!empty($selectedProfile))
 						{
 							$profileListArr = array();
