@@ -81,13 +81,13 @@ include_once('../config-ini.php');
 						  <textarea type="text" name="job_position_url" ng-model="requestForm.job_position_url" class="form-control" placeholder="URL/Description"></textarea> 
 					   </div>
 					   <div class="form-group">
-						  <label>Bonus for Refrel Amount</label>
+						  <label>Bonus for Referral Amount</label>
 						  <div style="display:inline-block; width:100%;">
-							 <div class="col-20"><input type="text" name="currency" ng-model="requestForm.currency" class="form-control" placeholder="Currency">
+							 <div class="col-20"><input type="text" name="currency" ng-model="requestForm.currency" class="form-control" placeholder="Rs">
 							 </div>
 							 <div class="col-50"><input type="text" name="referral_amount" ng-model="requestForm.referral_amount" class="form-control" placeholder="Amount">
 							 </div>
-							 <div class="col-30">Bonus for Refrel Amount?</div>
+							 <div class="col-30">Bonus for Referral(Optional)</div>
 						  </div>
 					   </div>
 					   <div class="form-group">

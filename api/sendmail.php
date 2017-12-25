@@ -75,7 +75,7 @@ if(!empty($userData))
 					$referArrParent[] =  array('UID'=>(int)$data['UID'],'notFit'=>false,'donotknow'=>false,'fit'=>false);
 					$referArr[$item['UID']] =  $item['UID'];
 					$to = array('to'=>array($item['email']));
-					$messageHTML = "Hi ".$item['name'].",<br>".$data['name']." seems to be a good fit for the open position that we have, ".$mailData['job_title'].". <br>Since ".$data['name']." is connected with you on your social network, requesting you to write to him and have him get in touch with me or the HR team.<br>Please Click on the Button Below to write to him:<br>";
+					$messageHTML = "Hi ".$item['name'].",<br>".$data['name']." seems to be a good fit for the open position that we have for, <strong>".$mailData['job_title']."</strong>. <br>Since ".$data['name']." is connected with you on your social network, requesting you to write to him and have him get in touch with me or the HR team.<br>Please Click on the Button Below to write to him:<br>";
 					$messageHTML = str_replace('__MSG_CONTENT__',$messageHTML,$body);
 					$messageHTML = str_replace('__HR_TEAM__',"Regards,<br>Team HR",$messageHTML);
 					$linkurl = ANGULAR_ROUTE.'/api/referal-auth.php?email='.base64_encode($item['email']).'&UID='.base64_encode($item['UID']).'&key='.base64_encode($data['UID']).'&uniqueID='.base64_encode($currentTime);

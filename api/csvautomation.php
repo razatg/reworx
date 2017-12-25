@@ -6,21 +6,24 @@ $target_dir = "../tmp/profile/";
 $scanned_directory = array_diff(scandir($target_dir), array('..', '.'));
 if(!empty($scanned_directory))
 {
+	$flag = true;
 	foreach($scanned_directory as $data)
 	{
-		$fileName = $target_dir.$data;
-		$pathInfo  = pathinfo($fileName); 
-		if(updateToDB($fileName))
+		if(strpos($data,'done_')===false)
 		{
-			echo "Profile with UID=> ".$pathInfo['filename']." Udated<br>";
-			
-			$target_dir = "../tmp/profile/";
-			if(rename($fileName, $target_dir.$data))
+			$fileName = $target_dir.$data;
+			$pathInfo  = pathinfo($fileName); 
+			updateToDB($fileName);
+			if(rename($fileName, $target_dir.'done_'.$data))
 			{
-			   @unlink($fileName);
+			   //@unlink($fileName);
 			}
 			sleep(10);
-		}
+	   }
+	   else
+	   {
+		 echo "connections already updated with UID => ".$data." <br>";
+	   }
 	}
 }
 else
@@ -52,7 +55,7 @@ function updateToDB($fileName)
 				while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) 
 				{
 					if($row == 1){ $row++; continue; }	
-					  $checkDuplicateAccount =  $db->connections->findOne(array("email"=>trim($data[2])));
+					  $checkDuplicateAccount =  $db->connections1->findOne(array("email"=>trim($data[2])));
 					  if(empty($checkDuplicateAccount) )
 					  {
 						  $array['UID'] =  $checkCurrentUploading+1;
@@ -71,11 +74,18 @@ function updateToDB($fileName)
 						 $UIDarray[] = $checkDuplicateAccount['UID'];
 					 }
 				}
-				if($db->employee->update(array("UID"=>(int)$UID),array('$set'=>array("connections"=>$UIDarray))))
+				if($db->employee1->update(array("UID"=>(int)$UID),array('$set'=>array("connections"=>$UIDarray))))
 				{
 					if(!empty($finalArr))
 					{
-						$db->connections->batchInsert($finalArr);
+						if($db->connections1->batchInsert($finalArr))
+						{
+							echo "connections updated with UID => ".$UID." <br>";
+						}
+						else
+						{
+							echo "connections not updated with UID => ".$UID." <br>";
+						}
 					}
 					return true;
 				}
@@ -83,7 +93,7 @@ function updateToDB($fileName)
 			}
 		else
 		 {
-			return false;
+			echo "Not valid csv file";
 		 } 
 		 
 	    }
