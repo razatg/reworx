@@ -281,7 +281,7 @@ Regards,\n\
 			$scope.resultList = response;
 			$scope.showLoder = false;
 			$scope.totalPageLength = response.totalCount;
-			if($scope.resultList.status=='failure' && type!='reuest')
+			if($scope.resultList.status=='failure' && type!='request')
 			{
 				$location.path('/search');
 			}
