@@ -47,7 +47,7 @@ $body = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://
       <td bgcolor="#f4f4f4" style="border-top: 1px solid #bccbcb;">
          <table width="100%" border="0" cellspacing="13" cellpadding="0">
             <tr>
-               <td style="font-size:14px; font-family:calibri,arial,sans-serif; color:#819191; line-height:20px; margin:0; text-align:center;">© "'.date('Y').'" refhireable.com. All rights reserved.</td>
+               <td style="font-size:14px; font-family:calibri,arial,sans-serif; color:#819191; line-height:20px; margin:0; text-align:center;">© '.date('Y').' refhireable.com. All rights reserved.</td>
             </tr>
          </table>
       </td>
