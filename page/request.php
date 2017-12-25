@@ -57,7 +57,7 @@ include_once('../config-ini.php');
 				</div>
 			</div>
 			</li>
-			<li ng-show="resultList.status=='failure'">No users added to list. <a href="<?php echo ANGULAR_ROUTE; ?>/search">Click here to add to list</a></li>
+			<li ng-show="resultList.status=='failure'">Great! Search for more Awesome Candidates. <a href="<?php echo ANGULAR_ROUTE; ?>/search">Click Here</a></li>
 
 		</ul>
 		
@@ -166,7 +166,6 @@ Regards,\n\
 			{
 				if(response)
 				{
-					
 					$timeout(function()
 					{
 						$scope.showLodermail = false;
