@@ -83,7 +83,7 @@ include_once('../config-ini.php');
 					   <div class="form-group">
 						  <label>Bonus for Referral Amount</label>
 						  <div style="display:inline-block; width:100%;">
-							 <div class="col-20"><input type="text" name="currency" ng-model="requestForm.currency" class="form-control" placeholder="Rs">
+							 <div class="col-20"><input type="text" name="currency" ng-model="requestForm.currency" class="form-control" placeholder="Currency">
 							 </div>
 							 <div class="col-50"><input type="text" name="referral_amount" ng-model="requestForm.referral_amount" class="form-control" placeholder="Amount">
 							 </div>
