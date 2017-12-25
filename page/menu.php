@@ -4,7 +4,7 @@ include_once('../config-ini.php');?>
 <?php
  if($_SESSION['member']['userType']==='employee' &&  $_SESSION['member']['connectionUploaded'])
 {?>
-    <li><a href="/">Home</a></li>
+    <li><a href="employee-dashboard">Home</a></li>
    <li><a href="refer/<?php echo $_SESSION['member']['UID'];?>">Refer</a></li>
   
 <?php }
