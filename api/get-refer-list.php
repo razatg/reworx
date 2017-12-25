@@ -25,7 +25,7 @@ if(!empty($_SESSION['member']['UID']))
 			{
 				foreach($data['referalUIDList'] as $item)
 				{
-					if($item['notFit']==false && $item['donotknow']==false)
+					if($item['notFit']==false && $item['donotknow']==false && $item['fit']==false)
 					{
 						$selectedProfile = $collection->find(array("UID"=>(int)$item['UID']),array('UID','title','pic_phy','name','email','designation','area','company','experience','parentUID','profile_url'));
 						if(!empty($selectedProfile))
