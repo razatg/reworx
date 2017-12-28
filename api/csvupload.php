@@ -12,8 +12,8 @@ if(!empty($_FILES))
 		$row = 1;
 		$db = connect();
 		$UID = $_SESSION['member']['UID'];
-		$checkUploadedCsv = $db->employee->findOne(array("UID"=>$UID),array("connections"));
-		if(!empty($checkUploadedCsv['connections']))
+		$checkUploadedCsv = $db->employee->findOne(array("UID"=>$UID),array("connectionUploaded"));
+		if($checkUploadedCsv['connectionUploaded'])
 		{
 			$returnArr['status'] = 'alredyuploaded';
 		}

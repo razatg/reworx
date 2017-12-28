@@ -45,7 +45,8 @@ function updateToDB($fileName)
 		}
 		else
 		{
-			$checkCurrentUploading =  $db->connections->count();
+			$checkCurrentUploading =  $db->connections->find(array(),array('UID'))->sort(array('UID'=>-1))->limit(1);
+			$checkCurrentUploading = $checkCurrentUploading['UID'];
 			$array = array();
 			$row = 1;
 			$finalArr = array();
@@ -55,7 +56,7 @@ function updateToDB($fileName)
 				while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) 
 				{
 					if($row == 1){ $row++; continue; }	
-					  $checkDuplicateAccount =  $db->connections1->findOne(array("email"=>trim($data[2])));
+					  $checkDuplicateAccount =  $db->connections->findOne(array("email"=>trim($data[2])));
 					  if(empty($checkDuplicateAccount) )
 					  {
 						  $array['UID'] =  $checkCurrentUploading+1;
@@ -74,11 +75,11 @@ function updateToDB($fileName)
 						 $UIDarray[] = $checkDuplicateAccount['UID'];
 					 }
 				}
-				if($db->employee1->update(array("UID"=>(int)$UID),array('$set'=>array("connections"=>$UIDarray))))
+				if($db->employee->update(array("UID"=>(int)$UID),array('$set'=>array("connections"=>$UIDarray))))
 				{
 					if(!empty($finalArr))
 					{
-						if($db->connections1->batchInsert($finalArr))
+						if($db->connections->batchInsert($finalArr))
 						{
 							echo "connections updated with UID => ".$UID." <br>";
 						}
