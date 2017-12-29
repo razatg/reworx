@@ -75,12 +75,24 @@ if(!empty($userData))
 			$ccArry =  $dataListArr['email'];
 		}
 	}
-	$messageHTML =  $data['message_to_employee'];
+	$userFirstName = !empty($_SESSION['member']['first_name'])?$_SESSION['member']['first_name']:"";
+	$userLastName = !empty($_SESSION['member']['last_name'])?$_SESSION['member']['last_name']:"";
+	$empFullName  = explode(' ',$data['employeeDetail']['profile'][0]['name']);
+	$empFullName = $empFullName[0];
+	$messageHTML  =  str_replace('[USERNAME]', $empFullName,$data['message_to_employee']);
+	$messageHTML  =  str_replace('Job Title','<b><u>Job Title</u></b>',$messageHTML);
+	$messageHTML  =  str_replace('Job Desc','<b><u>Job Desc</u></b>' ,$messageHTML);
+	$messageHTML  =  str_replace('[JOB_TITLE]', $data['employeeDetail']['recruiterMsg']['job_title'],$messageHTML);
+	$messageHTML  =  str_replace('[JOB_DESC]', $data['employeeDetail']['recruiterMsg']['job_position_url'],$messageHTML);
+	$messageHTML  =  str_replace('[RECRUITER_EMAIL]', '<a href="mailto:'.$dataListArr['email'].'">'.$dataListArr['email'].'</a>',$messageHTML);
+	$messageHTML  =  str_replace('[COMPANY_NAME]', $dataListArr['company_name'],$messageHTML);
+	$messageHTML  =  str_replace('[EMPLOYEE_NAME]', $userFirstName.' '.$userLastName,$messageHTML);
 	$messageHTML = str_replace('__MSG_CONTENT__',nl2br($messageHTML),$body);
 	$from = !empty($_SESSION['member']['email'])?$_SESSION['member']['email']:"";
-	$fromName = !empty($_SESSION['member']['first_name'])?$_SESSION['member']['first_name']:"";
+	$fromName = $userFirstName.' '.$userLastName;
 	$toname   =  $data['employeeDetail']['profile'][0]['name'];
-	$subject  =  $data['subject_to_employee'];
+	$subject  =  str_replace('[JOB_TITLE]', $data['employeeDetail']['recruiterMsg']['job_title'],$data['subject_to_employee']);
+	$subject  =  str_replace('[COMPANY_NAME]', $dataListArr['company_name'],$subject);
 	$messageText = '';
 	sendgridmail($from, $fromName, $to, $toname, $subject, $messageText, $messageHTML, array(),$ccArry);
 	$db = connect();
@@ -126,7 +138,7 @@ function sendgridmail($from, $fromName, $json_string, $toname, $subject, $messag
 							'from'      => $fromName.' via Referralworx <'.$from.'>',
 			               );
 			$request =  $url.'api/mail.send.json';
-			//print_r( $params);exit;
+			//print_r($messageHTML);exit;
 			// Generate curl request
 			$session = curl_init($request);
 			// Tell curl to use HTTP POST

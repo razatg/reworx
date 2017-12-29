@@ -25,6 +25,9 @@ trackingApp.config(['$routeProvider','$controllerProvider','$locationProvider','
 	.when('/search/',{'templateUrl':function(params){ return angRoute+'/page/search.php'}
 		})
 		
+	.when('/report/',{'templateUrl':function(params){ return angRoute+'/page/report.php'}
+		})	
+		
 	.when('/refer/:UID',{'templateUrl':function(params){ return angRoute+'/page/refer.php?UID='+params.UID}
 		})
 			

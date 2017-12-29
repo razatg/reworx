@@ -171,12 +171,16 @@ Please Click here or the Button Below to write to him:\n\
 <button>Refer [SHORTLISTED]</button>\n \
 Regards,\n\
 Team HR';
-	$scope.requestForm.subject_to_employee = '[SHORTLISTED], we have an open job position';
-	$scope.requestForm.message_to_employee = 'Hi [SHORTLISTED],\n\
-We have an open position, [OPENJOBPOSITIONTITLE].\n\
-Would you be interested?, for next steps reply to this email the company HR is CCed on this email, If you need any other information, do let me know.\n\
-Regards,\n\
-[EMPLOYEE]';
+	$scope.requestForm.subject_to_employee = '[JOB_TITLE] position at my company [COMPANY_NAME]';
+	$scope.requestForm.message_to_employee = 'Hi [USERNAME],\n\
+\n\We are connected on LinkedIn, we have a position open and thought about you for the same, details below:\n\
+\n\Job Title : [JOB_TITLE] \n\
+Job Desc :\n\[JOB_DESC] \n\
+\n\If you have any questions please call or email me. Also I have marked email of the company HR in cc.\n\
+\n\This is the HR’s email id again [RECRUITER_EMAIL], you can write directly on this email.\n\
+\n\Looking forward to work with you at [COMPANY_NAME].\n\
+\n\Regards,\n\
+[EMPLOYEE_NAME]';
 	$scope.showPanel = false;
 	$scope.showLoder = false;
 	$scope.showLodermail = false;
