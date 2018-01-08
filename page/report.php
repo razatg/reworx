@@ -16,7 +16,7 @@ include_once('../config-ini.php');
   <div class="collapse navbar-collapse main_menu" id="navbarNav">
     <ul class="navbar-nav">
       <?php include('menu.php');?>
-      <li class="network_btn"><a href="#"  data-toggle="modal" data-target="#myModal">Compose and Send Email</a>
+      <li class="network_btn"><a href="#" data-toggle="modal" data-target="#myModal">Compose and Send Email</a>
     </ul>
   </div>
   </div>

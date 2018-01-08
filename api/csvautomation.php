@@ -46,7 +46,8 @@ function updateToDB($fileName)
 		else
 		{
 			$checkCurrentUploading =  $db->connections->find(array(),array('UID'))->sort(array('UID'=>-1))->limit(1);
-			$checkCurrentUploading = $checkCurrentUploading['UID'];
+			$checkCurrentUploading = iterator_to_array($checkCurrentUploading);
+			$checkCurrentUploading = $checkCurrentUploading[0]['UID'];
 			$array = array();
 			$row = 1;
 			$finalArr = array();
