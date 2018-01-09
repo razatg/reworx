@@ -44,8 +44,13 @@ if(!empty($userReportData))
 						$status = 'Sent Referral'; 
 					}
 					$parentUidList = $profileData['parentUID'];
+					$pic = $profileData['pic_phy'];
+					if(!file_exists(ANGULAR_ABSOLUTE_PATH.$profileData['pic_phy']))
+					{
+						$pic  = 'newui/images/user.png';
+					}
 					$connectedProfiles = $db->employee->find(array('UID'=>array('$in' =>$parentUidList)),array('UID','first_name','last_name'));
-					$userList[] =  array('name'=>$profileData['name'],'pic'=>$profileData['pic_phy'],'status'=>$status,'connectedUsers'=>array_values(iterator_to_array($connectedProfiles)));
+					$userList[] =  array('name'=>$profileData['name'],'pic'=>$pic,'status'=>$status,'connectedUsers'=>array_values(iterator_to_array($connectedProfiles)));
 					
 				
 				}

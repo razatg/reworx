@@ -77,7 +77,7 @@ include_once('../config-ini.php');
                                 	<table class="table">
                                     	<tr ng-repeat="data in item.userList">
                                         	<td width="18%"><img src="{{data.pic}}" width="30px" class="report_img_icon"/> {{data.name}}</td>
-                                            <td  width="30%"><span ng-repeat="list in data.connectedUsers">{{list.first_name}} {{list.first_name}} </span></td>
+                                            <td  width="30%"><span ng-repeat="list in data.connectedUsers">{{list.first_name}} {{list.last_name}} </span></td>
                                             <td  width="20%">{{data.status}}</td>
                                             <td  width="22%"><a href="#">Send Remider</a><br><a href="#">Mark Assist</a></td>
                                             <td  width="17%"><input type="checkbox"></td>
