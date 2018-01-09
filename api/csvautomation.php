@@ -32,7 +32,8 @@ else
 }
 function updateToDB($fileName)
 {
-	$db = connect();
+	$m = new MongoClient("mongodb://referrer:refer2hire!1@ds139856-a0.mlab.com:39856,ds139856-a1.mlab.com:39856/refhireable?replicaSet=rs-ds139856");
+    $db = $m->refhireable;
 	$pathInfo  = pathinfo($fileName);
 	if($pathInfo['extension']=='csv')
 	{
@@ -45,9 +46,13 @@ function updateToDB($fileName)
 		}
 		else
 		{
-			$checkCurrentUploading =  $db->connections->find(array(),array('UID'))->sort(array('UID'=>-1))->limit(1);
-			$checkCurrentUploading = iterator_to_array($checkCurrentUploading);
-			$checkCurrentUploading = $checkCurrentUploading[0]['UID'];
+			$checkCurrentUploading = 0;
+			$checkCurrentUploadingFile =  $db->connections->find(array(),array('UID'))->sort(array('UID'=>-1))->limit(1);
+			$checkCurrentUploadingFile = array_values(iterator_to_array($checkCurrentUploadingFile));
+            if(!empty($checkCurrentUploadingFile))
+            {
+				$checkCurrentUploading = (int)$checkCurrentUploadingFile[0]['UID'];
+			}
 			$array = array();
 			$row = 1;
 			$finalArr = array();
