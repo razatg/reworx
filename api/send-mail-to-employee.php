@@ -54,17 +54,19 @@ $returnArr = array('status'=>'failure');
 $userData = json_decode(file_get_contents('php://input'), true);
 if(!empty($userData))
 {
+	$time = time();
 	$db = connect();
 	$data = $userData['formdata'];
+	$addedOn = $data['employeeDetail']['time'];
 	if($_SERVER['HTTP_HOST']=='demo.onsisdev.info')
 	{
-		$to = array('to'=>array("pradip.comat@gmail.com","girdhar.rajat@gmail.com"),'category'=>$data['employeeDetail']['profile'][0]['UID']);
+		$to = array('to'=>array("pradip.comat@gmail.com","girdhar.rajat@gmail.com"),'category'=>$data['employeeDetail']['profile'][0]['UID'].'_'.$addedOn);
 	}
 	else
 	{
-		$to = array('to'=>array($data['employeeDetail']['profile'][0]['email']),'category'=>$data['employeeDetail']['profile'][0]['UID']);
+		$to = array('to'=>array($data['employeeDetail']['profile'][0]['email']),'category'=>$data['employeeDetail']['profile'][0]['UID'].'_'.$addedOn);
 	}
-	$addedOn = $data['employeeDetail']['time'];
+	
 	$cId = $data['employeeDetail']['cId'];
 	$ccArry = "";
 	if(!empty($cId))
