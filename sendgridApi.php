@@ -18,6 +18,7 @@ if ($fh){
 				$insertArr['timestamp'] = $data['timestamp'];
 				$insertArr['UID'] = $cat[0];
 				$insertArr['identifire'] = $cat[1];
+				$insertArr['event'] = $data['event'];
 				$db->emailActivity->insert($insertArr);
 			}
 		}
