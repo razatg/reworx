@@ -5,7 +5,8 @@ $fh = fopen($myFile, 'a+') or die("can't open file");
 if ($fh){
     $headers = apache_request_headers();
     $postdata = file_get_contents("php://input");
-
+    $postdata = json_decode($postdata,true);
+     
     foreach ($headers as $header => $value) {
     //fwrite($fh, print_r("$header: $value \n", true));
 }
