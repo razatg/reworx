@@ -58,11 +58,11 @@ if(!empty($userData))
 	$data = $userData['formdata'];
 	if($_SERVER['HTTP_HOST']=='demo.onsisdev.info')
 	{
-		$to = array('to'=>array("pradip.comat@gmail.com","girdhar.rajat@gmail.com"));
+		$to = array('to'=>array("pradip.comat@gmail.com","girdhar.rajat@gmail.com"),'category'=>$data['employeeDetail']['profile'][0]['UID']);
 	}
 	else
 	{
-		$to = array('to'=>array($data['employeeDetail']['profile'][0]['email']));
+		$to = array('to'=>array($data['employeeDetail']['profile'][0]['email']),'category'=>$data['employeeDetail']['profile'][0]['UID']);
 	}
 	$addedOn = $data['employeeDetail']['time'];
 	$cId = $data['employeeDetail']['cId'];
@@ -122,6 +122,7 @@ if(!empty($userData))
 
 function sendgridmail($from, $fromName, $json_string, $toname, $subject, $messageText, $messageHTML, $headers, $ccArry) 
 {
+
 	$url = SENDGRID_URL;
 	$user = SENDGRID_KEY;
 	$pass = SENDGRID_PASS;
