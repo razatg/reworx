@@ -45,7 +45,7 @@ include_once('config-ini.php');
 			  </div>
 			  </div>
 				<div class="col-sm-6 text-center col-md-6">
-				<p class="text-right">©2017 Refhireable. All rights reserved.</p>
+				<p class="text-right">©<?php echo date('Y');?> Refhireable. All rights reserved.</p>
 			  </div>
 			</div>
 			</div>
