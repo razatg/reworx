@@ -4,11 +4,17 @@ ini_set('display_errors',0);
 $returnArr = array('status'=>'failure');
 $db = connect();
 $criteria = array();  
-if(!empty($_SESSION['member']['cId']))
+$userType = $_SESSION['member']['userType']?$_SESSION['member']['userType']:"";
+if($userType=='recruiter')
 {
 	$cId = $_SESSION['member']['cId'];
 	$match    = array('$match'=>array('$and'=>array(array('cId'=>(int)$cId))));
-} 
+}
+else if($userType=='employee')
+{
+	$UID = $_SESSION['member']['UID'];
+	$match    = array('$match'=>array('$and'=>array(array('UID'=>(int)$UID))));
+}  
 $criteria = array($match,array('$group'=>array('_id'=>array('date'=>array('$dateToString'=>array('format'=>
 				                "%Y-%m-%d","date"=>'$date')),'job_title'=>'$recruiterList.job_title'),
 				                'count'=>array('$sum'=>1),
@@ -19,7 +25,6 @@ $userReportData = $db->employeeReferData->aggregate($criteria);
 $reportDataList = array();
 if(!empty($userReportData))
 {
-	//echo '<pre>';print_r($userReportData['result']);exit;
 	foreach($userReportData['result'] as $data)
 	{
 		$jobPost  = $data['_id']['job_title'];
