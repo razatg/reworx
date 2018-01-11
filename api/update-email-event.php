@@ -2,6 +2,7 @@
 ini_set('display_errors',0);
 include_once('../config-ini.php');
 $db = connect();
+$returnArr['status'] = 'failure';
 $udpateDbList =  $db->emailActivity->find();
 if(!empty($udpateDbList))
 {
