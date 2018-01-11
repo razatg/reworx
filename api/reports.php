@@ -44,7 +44,15 @@ if(!empty($userReportData))
 					{
 						$status = 'Not Suitable'; 
 					}
-					if($item1['fit'] == true)
+					else if($item1['event'] == 'delivered')
+					{
+						$status = 'Delivered'; 
+					}
+					else if($item1['event'] == 'opened')
+					{
+						$status = 'Opened'; 
+					}
+					else if($item1['fit'] == true)
 					{
 						$status = 'Sent Referral'; 
 					}
