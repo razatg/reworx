@@ -90,7 +90,7 @@ if(!empty($userData))
 	$messageHTML  =  str_replace('[COMPANY_NAME]', $dataListArr['company_name'],$messageHTML);
 	$messageHTML  =  str_replace('[EMPLOYEE_NAME]', $userFirstName.' '.$userLastName,$messageHTML);
 	$messageHTML = str_replace('__MSG_CONTENT__',nl2br($messageHTML),$body);
-	$from = "info@refhireable.com";
+	$from = !empty($_SESSION['member']['email'])?$_SESSION['member']['email']:"";
 	$fromName = $userFirstName.' '.$userLastName;
 	$toname   =  $data['employeeDetail']['profile'][0]['name'];
 	$subject  =  str_replace('[JOB_TITLE]', $data['employeeDetail']['recruiterMsg']['job_title'],$data['subject_to_employee']);

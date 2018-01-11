@@ -115,9 +115,10 @@ if(!empty($userData))
 
 function sendgridmail( $from, $fromName, $json_string, $toname, $subject, $messageText, $messageHTML, $headers, $unique_args) 
 {
-	$email = 'info@refhireable.com';
+	$email = 'invitation@referralworx.com';
 	if(!empty($_SESSION['member']['cId']))
 	{
+		$email = $_SESSION['member']['email'];
 		$company_name = $_SESSION['member']['company_name'];
 	}
 	$url = SENDGRID_URL;
