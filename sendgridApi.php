@@ -15,9 +15,9 @@ if ($fh){
 			{
 				$cat = explode('_',$data['category']);
 				$insertArr['email'] = $data['email'];
-				$insertArr['timestamp'] = $data['timestamp'];
-				$insertArr['UID'] = $cat[0];
-				$insertArr['identifier'] = $cat[1];
+				$insertArr['timestamp'] = (int)$data['timestamp'];
+				$insertArr['UID'] = (int)$cat[0];
+				$insertArr['identifier'] = (int)$cat[1];
 				$insertArr['event'] = $data['event'];
 				$db->emailActivity->insert($insertArr);
 			}
