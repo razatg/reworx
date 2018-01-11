@@ -25,7 +25,7 @@ if(!empty($udpateDbList))
 				}
 			}
 			$updateArr = array('$set'=>array("referalUIDList"=>$newUpdatedArr));
-			if($db->employeeReferData->update(array('addedOn'=>(int)$addedOn),$updateArr))
+			if($db->employeeReferData->update(array('addedOn'=>(int)$dataListArr['addedOn']),$updateArr))
 			{
 				$returnArr['status'] = 'success';
 			}
