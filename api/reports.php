@@ -40,7 +40,7 @@ if(!empty($userReportData))
 					$status = 'Pending';
 					///$data = checkReferDate($profileData['email']);
 					//print_r($data);exit;
-					if($item1['notfit'] == true || $item1['donotknow'] == true)
+					if($item1['notFit'] == true || $item1['donotknow'] == true)
 					{
 						$status = 'Not Suitable'; 
 					}
