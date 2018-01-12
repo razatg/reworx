@@ -75,10 +75,10 @@ include_once('../config-ini.php');
                                         	<td width="30%"><img src="{{data.pic}}" width="30px" class="report_img_icon"/> {{data.name}}</td>
                                             <td  width="25%">{{data.status}}</td>
                                             <td  width="30%">
-												<a ng-if="data.action=='Send Referral'" ng-click="gotoReferPage(data.UID)" href="javascript:void(0);">{{data.action}}</a>
-												<a ng-if="data.action=='Send Reminder'" href="<?php echo ANGULAR_ROUTE;?>/refer/<?php echo $_SESSION['member']['UID'];?>">{{data.action}}</a>
+												<a ng-if="data.action=='Send Referral'" ng-click="gotoReferPage(data.UID,data.addedOn)" href="javascript:void(0);">{{data.action}}</a>
+												<a ng-click="sendReminder(data.UID,data.addedOn)">{{data.action}}</a>
 												<a ng-if="data.action=='Call May Be'" href="{{data.profile_url}}">{{data.action}}</a>
-												<a ng-if="data.action=='-'" href="{{data.profile_url}}">{{data.action}}</a>
+												<a ng-if="data.action=='-'" href="javascript:void(0);">{{data.action}}</a>
 											</td>
                                         </tr>
                                     </table>
@@ -108,11 +108,23 @@ trackingApp.registerCtrl('reportController',function($scope,$http, $location, $t
 		window.location.href =  '<?php echo ANGULAR_ROUTE; ?>/';
 	}
 	
-	$scope.gotoReferPage = function(UID)
+	$scope.gotoReferPage = function(UID,uniqueId)
 	{
 		setCookie('UID',UID,1);
+		setCookie('uniqueId',uniqueId,1);
 		window.location.href =  '<?php echo ANGULAR_ROUTE;?>/refer/<?php echo $_SESSION['member']['UID'];?>';
 	}
+	
+	$scope.sendReminder = function(UID,uniqueId)
+	{
+		var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/send-reminder-mail-to-employee.php';
+		$http.post(absUrl,{UID:UID,uniqueId:uniqueId}).success(function(response)
+		{
+			alert(true);
+			
+		})
+	}
+	
     $scope.showLoder = false;
 	$scope.getReport = function()
 	{

@@ -36,7 +36,7 @@ if(!empty($userReportData))
 			{
 				foreach($item['referalUIDList'] as $item1)
 				{
-					$profileData = $db->profile->findOne(array('UID'=>(int)$item1['UID']),array('email','name','pic_phy','parentUID','profile_url'));
+					$profileData = $db->profile->findOne(array('UID'=>(int)$item1['UID']),array('UID','email','name','pic_phy','parentUID','profile_url'));
 					$status = 'Pending';
 					///$data = checkReferDate($profileData['email']);
 					//print_r($data);exit;
@@ -101,7 +101,7 @@ if(!empty($userReportData))
 						$pic  = 'newui/images/user.png';
 					}
 					$connectedProfiles = $db->employee->find(array('UID'=>array('$in' =>$parentUidList)),array('UID','first_name','last_name'));
-					$userList[] =  array('UID'=>$profileData['UID'],'profile_url'=>$profileData['name'],'name'=>$profileData['name'],'pic'=>$pic,'action'=>$action,'status'=>$status,'connectedUsers'=>array_values(iterator_to_array($connectedProfiles)));
+					$userList[] =  array('addedOn'=>$item['addedOn'],'UID'=>$profileData['UID'],'profile_url'=>$profileData['name'],'name'=>$profileData['name'],'pic'=>$pic,'action'=>$action,'status'=>$status,'connectedUsers'=>array_values(iterator_to_array($connectedProfiles)));
 					
 				
 				}

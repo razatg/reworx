@@ -47,7 +47,7 @@ include_once('../config-ini.php');
 						<div class="avatar">
 							<img ng-src="{{data.profile[0].pic_phy}}" class="rounded-circle img-fluid" alt="{{data.profile[0].name}}"/>
 						</div>
-						<h4 style="color:#7e7e7e">{{data.profile[0].name}}</h4>
+						<h4 style="color:#7e7e7e">{{data.profile[0].name}} {{data.profile[0].UID}}</h4>
 						<!--Content-->
 						<p><i class="fa fa-quote-left"></i> 
 						<span ng-if="data.profile[0].experience[0].designation && data.profile[0].experience[0].company" ng-bind-html="data.profile[0].experience[0].designation+' at '+ data.profile[0].experience[0].company"></span> 
@@ -163,8 +163,8 @@ trackingApp.registerCtrl('referController',function($scope,$http, $location, $ti
 	$scope.currentSelectedProfile = 0;
 	$scope.selectedProfileIndex = function(arr)
  	{
- 		var selectedProfileUID = '<?php echo !empty($_SESSION['member']['selectedProfile'])?$_SESSION['member']['selectedProfile']:"";?>';
-      	var uniqueID = '<?php echo !empty($_SESSION['member']['uniqueID'])?$_SESSION['member']['uniqueID']:"";?>';
+ 		var selectedProfileUID = '<?php echo !empty($_SESSION['member']['selectedProfile'])?$_SESSION['member']['selectedProfile']:$_COOKIE['UID'];?>';
+      	var uniqueID = '<?php echo !empty($_SESSION['member']['uniqueID'])?$_SESSION['member']['uniqueID']:$_COOKIE['uniqueId'];?>';
  	  	if(arr.length>0)
  		{
  			for(var i =0;i<arr.length;i++)
