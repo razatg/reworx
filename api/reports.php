@@ -54,7 +54,7 @@ if(!empty($userReportData))
 					}
 					else if($item1['fit'] == true)
 					{
-						$status = 'Sent Referral'; 
+						$status = 'Delivered'; 
 					}
 					$action = '';
 					if($item1['notFit'] == false && $item1['donotknow'] == false &&  $item1['fit']== false )

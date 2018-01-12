@@ -1,5 +1,6 @@
 <?php 
 include_once('../config-ini.php');
+ini_set('display_errors',1);
 $body = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -59,15 +60,15 @@ if(!empty($userData))
 	$UID = $userData['UID'];
 	$addedOn = $userData['uniqueId'];
 	$referData = $db->employeeReferData->findOne(array('addedOn'=>(int)$addedOn));
-    if(!empty($dataListArr))
+    if(!empty($referData))
 		{
-			$uIdList = $dataListArr['referalUIDList'];
+			$uIdList = $referData['referalUIDList'];
 			if(!empty($uIdList))
 				foreach($uIdList as $itemupdate)
 				{
 					if($itemupdate['UID']== $UID)
 					{
-						$selectedProfile = $collection->findOne(array("UID"=>(int)$UID),array('UID','title','pic_phy','name','email','designation','area','company','experience','parentUID','profile_url'));
+						$selectedProfile = $db->profile->findOne(array("UID"=>(int)$UID),array('UID','title','pic_phy','name','email','designation','area','company','experience','parentUID','profile_url'));
 						if(!empty($selectedProfile))
 						{
 							if($_SERVER['HTTP_HOST']=='demo.onsisdev.info')
@@ -79,7 +80,7 @@ if(!empty($userData))
 								$to = array('to'=>array($selectedProfile['email']),'category'=>$selectedProfile['UID'].'_'.$addedOn);
 							}
 							
-							$cId = $dataListArr['cId'];
+							$cId = $referData['cId'];
 							$ccArry = "";
 							if(!empty($cId))
 							{
@@ -96,7 +97,7 @@ if(!empty($userData))
 							$messageHTML  =  str_replace('[USERNAME]', $empFullName,$referData['recruiterList']['message_to_employee']);
 							$messageHTML  =  str_replace('Job Title','<b><u>Job Title</u></b>',$messageHTML);
 							$messageHTML  =  str_replace('Job Desc','<b><u>Job Desc</u></b>' ,$messageHTML);
-							$messageHTML  =  str_replace('[JOB_TITLE]', $data['employeeDetail']['recruiterMsg']['job_title'],$messageHTML);
+							$messageHTML  =  str_replace('[JOB_TITLE]', $referData['recruiterList']['job_title'],$messageHTML);
 							$messageHTML  =  str_replace('[JOB_DESC]', $referData['recruiterList']['job_position_url'],$messageHTML);
 							$messageHTML  =  str_replace('[RECRUITER_EMAIL]', '<a href="mailto:'.$dataListArr['email'].'">'.$dataListArr['email'].'</a>',$messageHTML);
 							$messageHTML  =  str_replace('[COMPANY_NAME]', $dataListArr['company_name'],$messageHTML);
@@ -108,18 +109,12 @@ if(!empty($userData))
 							$subject  =  str_replace('[JOB_TITLE]', $referData['recruiterList']['job_title'],$referData['recruiterList']['subject_to_employee']);
 							$subject  =  str_replace('[COMPANY_NAME]', $dataListArr['company_name'],$subject);
 							$messageText = '';
-							sendgridmail($from, $fromName, $to, $toname, $subject, $messageText, $messageHTML, array(),$ccArry);
-							
-							
+							$checkMail = sendgridmail($from, $fromName, $to, $toname, $subject, $messageText, $messageHTML, array(),$ccArry);
 						}
 					}
 				}
 			}
 		}
-	
-	echo 'success';exit;
-}
-
 function sendgridmail($from, $fromName, $json_string, $toname, $subject, $messageText, $messageHTML, $headers, $ccArry) 
 {
 
@@ -139,7 +134,6 @@ function sendgridmail($from, $fromName, $json_string, $toname, $subject, $messag
 							'from'      => $fromName.' via Referralworx <'.$from.'>',
 			               );
 			$request =  $url.'api/mail.send.json';
-			print_r($messageHTML);exit;
 			// Generate curl request
 			$session = curl_init($request);
 			// Tell curl to use HTTP POST
@@ -155,6 +149,7 @@ function sendgridmail($from, $fromName, $json_string, $toname, $subject, $messag
 			$response = curl_exec($session);
 			curl_close($session);
 			// print everything out
-			//print_r($response);
+			print_r($response);
 }
+echo json_encode($returnArr,JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);exit;
 ?>

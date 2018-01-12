@@ -28,7 +28,7 @@ include_once('../config-ini.php');
     <div ng-if="!showLoder" class="row">
 		<section>
         <div class="wizard">
-                <ul class="nav nav-wizard">
+              <!--  <ul class="nav nav-wizard">
                     <li class="active">
                         <a href="#step1" data-toggle="tab"><span>10</span>Employees</a>
                     </li> 
@@ -51,6 +51,7 @@ include_once('../config-ini.php');
                         <a href="#step4" data-toggle="tab"><span>2</span>Hired</a>
                     </li> 
                 </ul>
+                -->
                 <div class="row mb-15">
                 </div>
             <form>
@@ -61,7 +62,7 @@ include_once('../config-ini.php');
                             <thead>
                               <tr>
                                 <th width="25%">Job Position</th>
-                                <th width="25%">Candidates</th>
+                                <th width="25%">Connections</th>
                                 <th width="25%">Status</th>
                                 <th width="25%">Action</th>
                               </tr>
@@ -73,10 +74,11 @@ include_once('../config-ini.php');
                                 	<table class="table">
                                     	<tr ng-repeat="data in item.userList">
                                         	<td width="30%"><img src="{{data.pic}}" width="30px" class="report_img_icon"/> {{data.name}}</td>
+                                        	
                                             <td  width="25%">{{data.status}}</td>
                                             <td  width="30%">
 												<a ng-if="data.action=='Send Referral'" ng-click="gotoReferPage(data.UID,data.addedOn)" href="javascript:void(0);">{{data.action}}</a>
-												<a ng-click="sendReminder(data.UID,data.addedOn)">{{data.action}}</a>
+												<a ng-if="data.action=='Send Reminder' || data.action=='Reminder Sent'"  ng-click="sendReminder(data.UID,data.addedOn,$parent.$index,$index)">{{data.action}}</a>
 												<a ng-if="data.action=='Call May Be'" href="{{data.profile_url}}">{{data.action}}</a>
 												<a ng-if="data.action=='-'" href="javascript:void(0);">{{data.action}}</a>
 											</td>
@@ -90,9 +92,7 @@ include_once('../config-ini.php');
                         </div> 
                     </div> 
                 </div>
-                 
             </form>
-            <button type="button" class="btn btn-primary">Continue</button>
             <br><br>
         </div>
     </section>
@@ -108,23 +108,22 @@ trackingApp.registerCtrl('reportController',function($scope,$http, $location, $t
 		window.location.href =  '<?php echo ANGULAR_ROUTE; ?>/';
 	}
 	
-	$scope.gotoReferPage = function(UID,uniqueId)
+	$scope.gotoReferPage = function(UID,uniqueId,index)
 	{
 		setCookie('UID',UID,1);
 		setCookie('uniqueId',uniqueId,1);
 		window.location.href =  '<?php echo ANGULAR_ROUTE;?>/refer/<?php echo $_SESSION['member']['UID'];?>';
 	}
 	
-	$scope.sendReminder = function(UID,uniqueId)
+	$scope.sendReminder = function(UID,uniqueId,parentIndex,index)
 	{
+		$scope['reportList'][parentIndex]['userList'][index]['action'] = 'Reminder Sent';	
 		var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/send-reminder-mail-to-employee.php';
 		$http.post(absUrl,{UID:UID,uniqueId:uniqueId}).success(function(response)
 		{
-			alert(true);
 			
 		})
 	}
-	
     $scope.showLoder = false;
 	$scope.getReport = function()
 	{
