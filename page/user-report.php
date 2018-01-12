@@ -52,8 +52,6 @@ include_once('../config-ini.php');
                     </li> 
                 </ul>
                 <div class="row mb-15">
-                	<div class="col-md-3 col-sm-4 col-xs-12"><select class="form-control mb-0"><option>Show Open Positions Only</option></select></div>
-                	<div class="col-md-3 col-sm-4 col-xs-12 pull-right"><select class="form-control mb-0"><option>Show Open Positions Only</option></select></div>
                 </div>
             <form>
             <div class="tab-content">
@@ -62,12 +60,10 @@ include_once('../config-ini.php');
                           <table class="table table-report">
                             <thead>
                               <tr>
-                                <th width="15%">Job Position</th>
-                                <th width="15%">Candidates</th>
-                                <th width="25%">Connections</th>
-                                <th width="17%">Status</th>
-                                <th width="18%">Action</th>
-                                <th width="10%">Hired</th>
+                                <th width="25%">Job Position</th>
+                                <th width="25%">Candidates</th>
+                                <th width="25%">Status</th>
+                                <th width="25%">Action</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -76,11 +72,14 @@ include_once('../config-ini.php');
                                 <td colspan="5">
                                 	<table class="table">
                                     	<tr ng-repeat="data in item.userList">
-                                        	<td width="18%"><img src="{{data.pic}}" width="30px" class="report_img_icon"/> {{data.name}}</td>
-                                            <td  width="30%"><span ng-repeat="list in data.connectedUsers">{{list.first_name}} {{list.last_name}} </span></td>
-                                            <td  width="20%">{{data.status}}</td>
-                                            <td  width="22%"><a href="#">Send Remider</a><br><a href="#">Mark Assist</a></td>
-                                            <td  width="17%"><input type="checkbox"></td>
+                                        	<td width="30%"><img src="{{data.pic}}" width="30px" class="report_img_icon"/> {{data.name}}</td>
+                                            <td  width="25%">{{data.status}}</td>
+                                            <td  width="30%">
+												<a ng-if="data.action=='Send Referral'" href="<?php echo ANGULAR_ROUTE;?>/refer/<?php echo $_SESSION['member']['UID'];?>">{{data.action}}</a>
+												<a ng-if="data.action=='Send Reminder'" href="<?php echo ANGULAR_ROUTE;?>/refer/<?php echo $_SESSION['member']['UID'];?>">{{data.action}}</a>
+												<a ng-if="data.action=='Call May Be'" href="{{data.profile_url}}">{{data.action}}</a>
+												<a ng-if="data.action=='-'" href="{{data.profile_url}}">{{data.action}}</a>
+											</td>
                                         </tr>
                                     </table>
                                 </td>
@@ -100,11 +99,14 @@ include_once('../config-ini.php');
    </div>
 </div>
 </div>
-
-
 <script>
 trackingApp.registerCtrl('reportController',function($scope,$http, $location, $timeout, $element)
 {
+    $scope.checkSession = '<?php echo !empty($_SESSION['member']['userType'])?$_SESSION['member']['userType']:"";?>';
+	if(!$scope.checkSession)
+	{
+		window.location.href =  '<?php echo ANGULAR_ROUTE; ?>/';
+	}
     $scope.showLoder = false;
 	$scope.getReport = function()
 	{

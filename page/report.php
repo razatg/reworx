@@ -79,7 +79,7 @@ include_once('../config-ini.php');
                                         	<td width="18%"><img src="{{data.pic}}" width="30px" class="report_img_icon"/> {{data.name}}</td>
                                             <td  width="30%"><span ng-repeat="list in data.connectedUsers">{{list.first_name}} {{list.last_name}} </span></td>
                                             <td  width="20%">{{data.status}}</td>
-                                            <td  width="22%"><a href="#">Send Remider</a><br><a href="#">Mark Assist</a></td>
+                                            <td  width="22%"><a href="#">Send Remider</a></td>
                                             <td  width="17%"><input type="checkbox"></td>
                                         </tr>
                                     </table>
@@ -100,11 +100,14 @@ include_once('../config-ini.php');
    </div>
 </div>
 </div>
-
-
 <script>
 trackingApp.registerCtrl('reportController',function($scope,$http, $location, $timeout, $element)
 {
+    $scope.checkSession = '<?php echo !empty($_SESSION['member']['userType'])?$_SESSION['member']['userType']:"";?>';
+	if(!$scope.checkSession)
+	{
+		window.location.href =  '<?php echo ANGULAR_ROUTE; ?>/';
+	}
     $scope.showLoder = false;
 	$scope.getReport = function()
 	{

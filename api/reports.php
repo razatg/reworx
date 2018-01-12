@@ -36,7 +36,7 @@ if(!empty($userReportData))
 			{
 				foreach($item['referalUIDList'] as $item1)
 				{
-					$profileData = $db->profile->findOne(array('UID'=>(int)$item1['UID']),array('email','name','pic_phy','parentUID'));
+					$profileData = $db->profile->findOne(array('UID'=>(int)$item1['UID']),array('email','name','pic_phy','parentUID','profile_url'));
 					$status = 'Pending';
 					///$data = checkReferDate($profileData['email']);
 					//print_r($data);exit;
@@ -56,6 +56,44 @@ if(!empty($userReportData))
 					{
 						$status = 'Sent Referral'; 
 					}
+					$action = '';
+					if($item1['notFit'] == false && $item1['donotknow'] == false &&  $item1['fit']== false )
+					{
+						if($userType=='employee')
+						{
+							$action = 'Send Referral';
+						}
+						else
+						{
+							$action = 'Send Reminder';
+						}
+						
+					}
+					else if($item1['notFit'] == true || $item1['donotknow'] == true)
+					{
+						if($userType=='employee')
+						{
+							$action = '-';
+						}
+						else
+						{
+							$action = 'Search Again';
+						}
+						
+					}
+					else if($userType=='employee' && $item1['event'] == 'delivered')
+					{
+						$action = 'Send Reminder';
+					}
+					else if($userType=='employee' && $item1['event'] == 'opened')
+					{
+						$action = 'Call May Be';
+					}
+					else if($userType=='recruiter' && $item1['fit'] == true)
+					{
+						$action = '-';
+					}
+				
 					$parentUidList = $profileData['parentUID'];
 					$pic = $profileData['pic_phy'];
 					if(!file_exists(ANGULAR_ABSOLUTE_PATH.$profileData['pic_phy']))
@@ -63,7 +101,7 @@ if(!empty($userReportData))
 						$pic  = 'newui/images/user.png';
 					}
 					$connectedProfiles = $db->employee->find(array('UID'=>array('$in' =>$parentUidList)),array('UID','first_name','last_name'));
-					$userList[] =  array('name'=>$profileData['name'],'pic'=>$pic,'status'=>$status,'connectedUsers'=>array_values(iterator_to_array($connectedProfiles)));
+					$userList[] =  array('profile_url'=>$profileData['name'],'name'=>$profileData['name'],'pic'=>$pic,'action'=>$action,'status'=>$status,'connectedUsers'=>array_values(iterator_to_array($connectedProfiles)));
 					
 				
 				}
