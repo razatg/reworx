@@ -75,7 +75,7 @@ include_once('../config-ini.php');
                                         	<td width="30%"><img src="{{data.pic}}" width="30px" class="report_img_icon"/> {{data.name}}</td>
                                             <td  width="25%">{{data.status}}</td>
                                             <td  width="30%">
-												<a ng-if="data.action=='Send Referral'" href="<?php echo ANGULAR_ROUTE;?>/refer/<?php echo $_SESSION['member']['UID'];?>">{{data.action}}</a>
+												<a ng-if="data.action=='Send Referral'" ng-click="gotoReferPage(data.UID)" href="javascript:void(0);">{{data.action}}</a>
 												<a ng-if="data.action=='Send Reminder'" href="<?php echo ANGULAR_ROUTE;?>/refer/<?php echo $_SESSION['member']['UID'];?>">{{data.action}}</a>
 												<a ng-if="data.action=='Call May Be'" href="{{data.profile_url}}">{{data.action}}</a>
 												<a ng-if="data.action=='-'" href="{{data.profile_url}}">{{data.action}}</a>
@@ -107,6 +107,12 @@ trackingApp.registerCtrl('reportController',function($scope,$http, $location, $t
 	{
 		window.location.href =  '<?php echo ANGULAR_ROUTE; ?>/';
 	}
+	
+	$scope.gotoReferPage = function(UID)
+	{
+		setCookie('UID',UID,1);
+		window.location.href =  '<?php echo ANGULAR_ROUTE;?>/refer/<?php echo $_SESSION['member']['UID'];?>';
+	}
     $scope.showLoder = false;
 	$scope.getReport = function()
 	{
@@ -123,6 +129,12 @@ trackingApp.registerCtrl('reportController',function($scope,$http, $location, $t
 	
 	
 })
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
 </script>
 <style>
 .pagination {

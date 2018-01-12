@@ -81,7 +81,7 @@ if(!empty($userReportData))
 						}
 						
 					}
-					else if($userType=='employee' && ($item1['event'] == 'delivered' || $item1['event'] == 'fit'))
+					else if($userType=='employee' && ($item1['event'] == 'delivered' || $item1['fit'] == true))
 					{
 						$action = 'Send Reminder';
 					}
@@ -101,7 +101,7 @@ if(!empty($userReportData))
 						$pic  = 'newui/images/user.png';
 					}
 					$connectedProfiles = $db->employee->find(array('UID'=>array('$in' =>$parentUidList)),array('UID','first_name','last_name'));
-					$userList[] =  array('profile_url'=>$profileData['name'],'name'=>$profileData['name'],'pic'=>$pic,'action'=>$action,'status'=>$status,'connectedUsers'=>array_values(iterator_to_array($connectedProfiles)));
+					$userList[] =  array('UID'=>$profileData['UID'],'profile_url'=>$profileData['name'],'name'=>$profileData['name'],'pic'=>$pic,'action'=>$action,'status'=>$status,'connectedUsers'=>array_values(iterator_to_array($connectedProfiles)));
 					
 				
 				}
