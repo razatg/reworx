@@ -54,9 +54,8 @@ include_once('../config-ini.php');
                --> 
                 <div class="row mb-15">
                 	<div class="col-md-3 col-sm-4 col-xs-12"></div>
-                	<div ng-init="reportType=0" class="col-md-3 col-sm-4 col-xs-12 pull-right">
+                	<div ng-init="reportType=15" class="col-md-3 col-sm-4 col-xs-12 pull-right">
 						<select ng-model="reportType" ng-change="getReport(reportType)" class="form-control mb-0">
-							<option value="">--Select Report--</option>
 							<option value="15">Last 15 days</option>
 							<option value="1">Yesterday</option>
                        </select>
