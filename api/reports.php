@@ -5,24 +5,36 @@ $returnArr = array('status'=>'failure');
 $db = connect();
 $criteria = array();  
 $userType = $_SESSION['member']['userType']?$_SESSION['member']['userType']:"";
+$userData = json_decode(file_get_contents('php://input'), true);
+$selecteDate = 15;
+if(!empty($userData))
+{
+	$selecteDate = $userData['reportType'];
+}
+$diff = $selecteDate * 24 * 60 * 60;
+$mongotime = time()-$diff;
 if($userType=='recruiter')
 {
 	$cId = $_SESSION['member']['cId'];
-	$match    = array('$match'=>array('$and'=>array(array('cId'=>(int)$cId))));
+	$match    = array('$match'=>array('$and'=>array(array('cId'=>(int)$cId,"addedOn"=>array('$gte'=>$mongotime)))));
 }
 else if($userType=='employee')
 {
 	$UID = $_SESSION['member']['UID'];
 	$match    = array('$match'=>array('$and'=>array(array('UID'=>(int)$UID))));
-}  
+} 
+
+
 $criteria = array($match,array('$group'=>array('_id'=>array('date'=>array('$dateToString'=>array('format'=>
 				                "%Y-%m-%d","date"=>'$date')),'job_title'=>'$recruiterList.job_title'),
 				                'count'=>array('$sum'=>1),
 				                'employee'=>array('$push'=>'$$ROOT')
 				                ))
-				                );   
+				                );  
+//print_r(json_encode($criteria));exit;				                 
 $userReportData = $db->employeeReferData->aggregate($criteria);
 $reportDataList = array();
+$userReportCount = array('employee'=>0,'totalProfile'=>0,'selectedCandidate'=>0,'referRequest'=>0,'emailSent'=>0,'emailClicked'=>0,'hired'=>0);
 if(!empty($userReportData))
 {
 	foreach($userReportData['result'] as $data)
@@ -54,7 +66,7 @@ if(!empty($userReportData))
 					}
 					else if($item1['fit'] == true)
 					{
-						$status = 'Delivered'; 
+						$status = 'Sent Referral'; 
 					}
 					$action = '';
 					if($item1['notFit'] == false && $item1['donotknow'] == false &&  $item1['fit']== false )
@@ -111,6 +123,7 @@ if(!empty($userReportData))
 	   $reportDataList[] = array('date'=>$date,'job_position'=>$jobPost,'userList'=>$userList);	
 	}
 	$returnArr['data'] = $reportDataList;
+	$returnArr['userReportCount'] = $userReportCount;
 	$returnArr['status'] = 'success';
 }
 

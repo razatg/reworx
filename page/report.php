@@ -24,39 +24,46 @@ include_once('../config-ini.php');
 
 <div class="bodypan" ng-style="{'min-height':divHeight()}">
 	<div class="container">
-	<center  ng-if="showLoder"><img width="80" src="newui/images/widget-loader-lg-en.gif" alt=""></center>
-    <div ng-if="!showLoder" class="row">
+	<center ng-if="showLoder"><img width="80" src="newui/images/widget-loader-lg-en.gif" alt=""></center>
+    <div ng-show="!showLoder" class="row">
 		<section>
         <div class="wizard">
-                <ul class="nav nav-wizard">
+               <!-- <ul class="nav nav-wizard">
                     <li class="active">
-                        <a href="#step1" data-toggle="tab"><span>10</span>Employees</a>
+                        <a href="#step1" data-toggle="tab"><span>{{userReportCount.employee}}</span>Employees</a>
                     </li> 
                     <li class="disabled">
-                        <a href="#step3" data-toggle="tab"><span>15,000</span>Potential Base</a>
+                        <a href="#step3" data-toggle="tab"><span>{{userReportCount.totalProfile}}</span>Potential Base</a>
                     </li>
                      <li class="disabled">
-                        <a href="#step4" data-toggle="tab"><span>50</span>Candidates Selected</a>
+                        <a href="#step4" data-toggle="tab"><span>{{userReportCount.selectedCandidate}}</span>Candidates Selected</a>
                     </li>
                     <li class="disabled">
-                        <a href="#step4" data-toggle="tab"><span>125</span>Referrals Requested</a>
+                        <a href="#step4" data-toggle="tab"><span>{{userReportCount.referRequest}}</span>Referrals Requested</a>
                     </li>
                     <li class="disabled">
-                        <a href="#step4" data-toggle="tab"><span>100</span>Emails Sent</a>
+                        <a href="#step4" data-toggle="tab"><span>{{userReportCount.emailSent}}</span>Emails Sent</a>
                     </li>
                     <li class="disabled">
-                        <a href="#step4" data-toggle="tab"><span>10</span>Email Link Clicked</a>
+                        <a href="#step4" data-toggle="tab"><span>{{userReportCount.emailClicked}}</span>Email Link Clicked</a>
                     </li>
                     <li class="disabled">
-                        <a href="#step4" data-toggle="tab"><span>2</span>Hired</a>
+                        <a href="#step4" data-toggle="tab"><span>{{userReportCount.hired}}</span>Hired</a>
                     </li> 
                 </ul>
+               --> 
                 <div class="row mb-15">
-                	<div class="col-md-3 col-sm-4 col-xs-12"><select class="form-control mb-0"><option>Show Open Positions Only</option></select></div>
-                	<div class="col-md-3 col-sm-4 col-xs-12 pull-right"><select class="form-control mb-0"><option>Show Open Positions Only</option></select></div>
-                </div>
+                	<div class="col-md-3 col-sm-4 col-xs-12"></div>
+                	<div ng-init="reportType=0" class="col-md-3 col-sm-4 col-xs-12 pull-right">
+						<select ng-model="reportType" ng-change="getReport(reportType)" class="form-control mb-0">
+							<option value="0">--Select Report--</option>
+							<option value="15">Last 15 days</option>
+							<option value="1">Yesterday</option>
+                       </select>
+                    </div>
+                    </div>
             <form>
-            <div class="tab-content">
+            <div ng-show="reportList.length>0" class="tab-content">
                     <div class="tab-pane active" id="step1"> 
                          <div class="table-responsive">
                           <table class="table table-report">
@@ -94,6 +101,7 @@ include_once('../config-ini.php');
                         </div> 
                     </div> 
                 </div>
+              <center ng-show="reportList.length==0">No Report Found!</center>   
             </form>
             <br><br>
         </div>
@@ -119,18 +127,19 @@ trackingApp.registerCtrl('reportController',function($scope,$http, $location, $t
 		})
 	}
     $scope.showLoder = false;
-	$scope.getReport = function()
+	$scope.getReport = function(reportType)
 	{
 		$scope.showLoder = true;
 		var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/reports.php';
-		$http.post(absUrl).success(function(response)
+		$http.post(absUrl,{reportType:reportType}).success(function(response)
 		{
 			$scope.reportList = response.data;
+			$scope.userReportCount = response.userReportCount;
 			$scope.showLoder = false;
 			
 		})
 	}
-	$scope.getReport();
+	$scope.getReport(15);
 	
 	
 })
