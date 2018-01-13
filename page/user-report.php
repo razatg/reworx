@@ -74,7 +74,6 @@ include_once('../config-ini.php');
                                 	<table class="table">
                                     	<tr ng-repeat="data in item.userList">
                                         	<td width="30%"><img src="{{data.pic}}" width="30px" class="report_img_icon"/> {{data.name}}</td>
-                                        	
                                             <td  width="25%">{{data.status}}</td>
                                             <td  width="30%">
 												<a ng-if="data.action=='Send Referral'" ng-click="gotoReferPage(data.UID,data.addedOn)" href="javascript:void(0);">{{data.action}}</a>

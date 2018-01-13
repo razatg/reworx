@@ -64,7 +64,7 @@ include_once('../config-ini.php');
                               <tr>
                                 <th width="15%">Job Position</th>
                                 <th width="15%">Candidates</th>
-                                <th width="25%">Connections</th>
+                                <th width="25%">Employee</th>
                                 <th width="17%">Status</th>
                                 <th width="18%">Action</th>
                                 <th width="10%">Hired</th>
@@ -79,7 +79,11 @@ include_once('../config-ini.php');
                                         	<td width="18%"><img src="{{data.pic}}" width="30px" class="report_img_icon"/> {{data.name}}</td>
                                             <td  width="30%"><span ng-repeat="list in data.connectedUsers">{{list.first_name}} {{list.last_name}} </span></td>
                                             <td  width="20%">{{data.status}}</td>
-                                            <td  width="22%"><a href="#">Send Remider</a></td>
+                                            <td  width="22%">
+												<a ng-if="data.action=='Search Again'"  href="<?php echo ANGULAR_ROUTE;?>/report">{{data.action}}</a>
+												<a ng-if="data.action=='Send Reminder' || data.action=='Reminder Sent'"  ng-click="sendReminder(data.UID,data.addedOn,$parent.$index,$index)">{{data.action}}</a>
+												<a ng-if="data.action=='-'" href="javascript:void(0);">{{data.action}}</a>
+											</td>
                                             <td  width="17%"><input type="checkbox"></td>
                                         </tr>
                                     </table>
@@ -107,6 +111,15 @@ trackingApp.registerCtrl('reportController',function($scope,$http, $location, $t
 	if(!$scope.checkSession)
 	{
 		window.location.href =  '<?php echo ANGULAR_ROUTE; ?>/';
+	}
+	$scope.sendReminder = function(UID,uniqueId,parentIndex,index)
+	{
+		$scope['reportList'][parentIndex]['userList'][index]['action'] = 'Reminder Sent';	
+		var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/send-reminder-mail-to-employee.php';
+		$http.post(absUrl,{UID:UID,uniqueId:uniqueId}).success(function(response)
+		{
+			
+		})
 	}
     $scope.showLoder = false;
 	$scope.getReport = function()
