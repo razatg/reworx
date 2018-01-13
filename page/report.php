@@ -22,7 +22,7 @@ include_once('../config-ini.php');
 </nav>
 </header>
 
-<div class="bodypan">
+<div class="bodypan" ng-style="{'min-height':divHeight()}">
 	<div class="container">
 	<center  ng-if="showLoder"><img width="80" src="newui/images/widget-loader-lg-en.gif" alt=""></center>
     <div ng-if="!showLoder" class="row">
@@ -80,24 +80,21 @@ include_once('../config-ini.php');
                                             <td  width="30%"><span ng-repeat="list in data.connectedUsers">{{list.first_name}} {{list.last_name}} </span></td>
                                             <td  width="20%">{{data.status}}</td>
                                             <td  width="18%">
-												<a ng-if="data.action=='Search Again'"  href="<?php echo ANGULAR_ROUTE;?>/search">{{data.action}}</a>
-												<a ng-if="data.action=='Send Reminder' || data.action=='Reminder Sent'"  ng-click="sendReminder(data.UID,data.addedOn,$parent.$index,$index)">{{data.action}}</a>
-												<a ng-if="data.action=='-'" href="javascript:void(0);">{{data.action}}</a>
+												<a ng-show="data.action=='Search Again'"  href="<?php echo ANGULAR_ROUTE;?>/search">{{data.action}}</a>
+												<a ng-show="data.action=='Send Reminder' || data.action=='Reminder Sent'"  ng-click="sendReminder(data.UID,data.addedOn,$parent.$index,$index)">{{data.action}}</a>
+												<a ng-show="data.action=='-'" href="javascript:void(0);">{{data.action}}</a>
 											</td>
                                             <td  width="17%"><input type="checkbox"></td>
                                         </tr>
                                     </table>
                                 </td>
-                                 
                               </tr>
                             </tbody>
                           </table>
                         </div> 
                     </div> 
                 </div>
-                 
             </form>
-            <button type="button" class="btn btn-primary">Continue</button>
             <br><br>
         </div>
     </section>
@@ -115,7 +112,7 @@ trackingApp.registerCtrl('reportController',function($scope,$http, $location, $t
 	$scope.sendReminder = function(UID,uniqueId,parentIndex,index)
 	{
 		$scope['reportList'][parentIndex]['userList'][index]['action'] = 'Reminder Sent';	
-		var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/send-reminder-mail-to-employee.php';
+		var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/send-reminder-mail-from-recruiter.php';
 		$http.post(absUrl,{UID:UID,uniqueId:uniqueId}).success(function(response)
 		{
 			

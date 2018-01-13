@@ -22,7 +22,7 @@ include_once('../config-ini.php');
 </nav>
 </header>
 
-<div class="bodypan">
+<div class="bodypan" ng-style="{'min-height':divHeight()}">
 	<div class="container">
 	<center  ng-if="showLoder"><img width="80" src="newui/images/widget-loader-lg-en.gif" alt=""></center>
     <div ng-if="!showLoder" class="row">
