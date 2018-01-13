@@ -64,9 +64,9 @@ include_once('../config-ini.php');
                               <tr>
                                 <th width="15%">Job Position</th>
                                 <th width="16%">Candidates</th>
-                                <th width="25%">Employees</th>
-                                <th width="17%">Status</th>
-                                <th width="16%">Action</th>
+                                <th width="21%">Employees</th>
+                                <th width="13%">Status</th>
+                                <th width="12%">Action</th>
                                 <th width="10%">Hired</th>
                               </tr>
                             </thead>
