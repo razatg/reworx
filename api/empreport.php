@@ -21,7 +21,7 @@ if($userType=='recruiter')
 else if($userType=='employee')
 {
 	$UID = $_SESSION['member']['UID'];
-	$match    = array('$match'=>array('$and'=>array(array('UID'=>(int)$UID,"addedOn"=>array('$gte'=>$mongotime)))));
+	$match    = array('$match'=>array('$and'=>array(array('referalUIDList.employeeList'=>(int)$UID,"addedOn"=>array('$gte'=>$mongotime)))));
 } 
 
 
@@ -48,6 +48,8 @@ if(!empty($userReportData))
 			{
 				foreach($item['referalUIDList'] as $item1)
 				{
+				   if($item1['UID'] = $UID)
+				   {
 					$profileData = $db->profile->findOne(array('UID'=>(int)$item1['UID']),array('UID','email','name','pic_phy','parentUID','profile_url'));
 					$status = 'Pending';
 					///$data = checkReferDate($profileData['email']);
@@ -115,8 +117,9 @@ if(!empty($userReportData))
 					$connectedProfiles = $db->employee->find(array('UID'=>array('$in' =>$parentUidList)),array('UID','first_name','last_name'));
 					$userList[] =  array('addedOn'=>$item['addedOn'],'UID'=>$profileData['UID'],'profile_url'=>$profileData['name'],'name'=>$profileData['name'],'pic'=>$pic,'action'=>$action,'status'=>$status,'connectedUsers'=>array_values(iterator_to_array($connectedProfiles)));
 					
-				
+				 }
 				}
+			  }
 			}
 		}
 		
