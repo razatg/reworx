@@ -60,20 +60,22 @@ $userData = json_decode(file_get_contents('php://input'), true);
 if(!empty($userData))
 {
 	$mailData = $userData['formdata'];
+	//echo '<pre>';print_r($userData);
 	$db = connect();
 	$referArr = array();
 	$referArrParent = array();
 	$currentTime = time();
 	foreach($userData['connection']['data'] as $data)
 	{
+		$empList = array();
 		if(!empty($data['connectedUsers']))
 		{
 			foreach($data['connectedUsers'] as $key=>$item)
 			{
 				if($item['IsChecked']==true)
 				{
-					$referArrParent[] =  array('UID'=>(int)$data['UID'],'notFit'=>false,'donotknow'=>false,'fit'=>false);
-					$referArr[$item['UID']] =  $item['UID'];
+					$empList[] =  (int)$item['UID'];
+					$referArrParent[] =  array('employeeList'=>$empList,'UID'=>(int)$data['UID'],'notFit'=>false,'donotknow'=>false,'fit'=>false);
 					$to = array('to'=>array($item['email']));
 					$messageHTML = "Hi ".$item['name'].",<br>".$data['name']." seems to be a good fit for the open position that we have for, <strong>".$mailData['job_title']."</strong>. <br>Since ".$data['name']." is connected with you on your social network, requesting you to write to him and have him get in touch with me or the HR team.<br>Please Click on the Button Below to write to him:<br>";
 					$messageHTML = str_replace('__MSG_CONTENT__',$messageHTML,$body);
@@ -92,18 +94,14 @@ if(!empty($userData))
 			}
 		}
 	}
-	if(!empty($referArr))
+	if(!empty($referArrParent))
 	{
-		foreach($referArr as $key=>$val)
-		{
-			$dataRefer['UID'] = $key;
-			$dataRefer['cId'] = $_SESSION['member']['cId'];
-			$dataRefer['referalUIDList'] = $referArrParent;
-			$dataRefer['recruiterList'] =  $mailData;
-			$dataRefer['addedOn'] = $currentTime;
-			$dataRefer['date'] = new MongoDate();
-			$db->employeeReferData->insert($dataRefer);
-		}
+		$dataRefer['cId'] = $_SESSION['member']['cId'];
+		$dataRefer['referalUIDList'] = $referArrParent;
+		$dataRefer['recruiterList'] =  $mailData;
+		$dataRefer['addedOn'] = $currentTime;
+		$dataRefer['date'] = new MongoDate();
+		$db->employeeReferData->insert($dataRefer);
 		if(!empty($_SESSION['member']['cId']))
 		{
 			$cId = $_SESSION['member']['cId'];
