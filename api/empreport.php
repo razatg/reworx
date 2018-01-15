@@ -21,7 +21,7 @@ if($userType=='recruiter')
 else if($userType=='employee')
 {
 	$UID = $_SESSION['member']['UID'];
-	$match    = array('$match'=>array('$and'=>array(array('referalUIDList.employeeList'=>array('$in'=>(int)$UID),"addedOn"=>array('$gte'=>$mongotime)))));
+	$match    = array('$match'=>array('$and'=>array(array('referalUIDList.employeeList'=>array('$in'=>array($UID)),"addedOn"=>array('$gte'=>$mongotime)))));
 } 
 
 
