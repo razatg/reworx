@@ -121,9 +121,7 @@ if(!empty($userReportData))
 					}
 				}
 			  }
-			}
 		}
-		
 	   $reportDataList[] = array('date'=>$date,'job_position'=>$jobPost,'userList'=>$userList);	
 	}
 	$returnArr['data'] = $reportDataList;

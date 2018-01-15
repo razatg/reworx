@@ -135,7 +135,7 @@ trackingApp.registerCtrl('reportController',function($scope,$http, $location, $t
 	$scope.getReport = function(reportType)
 	{
 		$scope.showLoder = true;
-		var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/empreports.php';
+		var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/empreport.php';
 		$http.post(absUrl,{reportType:reportType}).success(function(response)
 		{
 			$scope.reportList = response.data;
