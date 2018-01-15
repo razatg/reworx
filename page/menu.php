@@ -4,16 +4,16 @@ include_once('../config-ini.php');?>
 <?php
  if($_SESSION['member']['userType']==='employee' &&  $_SESSION['member']['connectionUploaded'])
 {?>
-    <li><a href="employee-dashboard">Home</a></li>
-   <li><a href="refer/<?php echo $_SESSION['member']['UID'];?>">Refer</a></li>
-   <li><a href="user-report">Report</a></li>
+    <li><a href="employee-dashboard">Your Connections</a></li>
+   <li><a href="refer/<?php echo $_SESSION['member']['UID'];?>">Referrals</a></li>
+   <li><a href="user-report">Report & Actions</a></li>
   
 <?php }
 
  if($_SESSION['member']['userType']==='recruiter')
 {?>
    <li><a href="search">Search</a></li>
-   <li><a href="report">Report</a></li>
+   <li><a href="report">Report & Actions</a></li>
 <?php }
 ?>
 	
