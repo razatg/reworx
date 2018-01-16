@@ -9,6 +9,7 @@ if(!empty($postdatanew))
 	{
 		if(!empty($data['category']))
 		{
+			$cat = explode('_',$data['category']);
 			$activityList = $db->emailActivity->findOne(array("UID"=>(int)$cat[0],"employeeId"=>(int)$cat[2],"identifier"=>(int)$cat[1]));
 			if(!empty($activityList))
 			{
@@ -16,7 +17,7 @@ if(!empty($postdatanew))
 			}
 			else
 			{
-				$cat = explode('_',$data['category']);
+				
 				$insertArr['email'] = $data['email'];
 				$insertArr['timestamp'] = (int)$data['timestamp'];
 				$insertArr['UID'] = (int)$cat[0];
