@@ -83,10 +83,10 @@ include_once('../config-ini.php');
                                         	<td width="30%"><img src="{{data.pic}}" width="30px" class="report_img_icon"/> {{data.name}}</td>
                                             <td  width="25%">{{data.status}}</td>
                                             <td  width="30%">
-												<a ng-if="data.action=='Send Referral'" ng-click="gotoReferPage(data.UID,data.addedOn)" href="javascript:void(0);">{{data.action}}</a>
-												<a ng-if="data.action=='Send Reminder' || data.action=='Reminder Sent'"  ng-click="sendReminder(data.UID,data.addedOn,$parent.$index,$index)">{{data.action}}</a>
-												<a target="_blank" ng-if="data.action=='Call May Be'" href="{{data.profile_url}}">{{data.action}}</a>
-												<a ng-if="data.action=='-'" href="javascript:void(0);">{{data.action}}</a>
+												<a ng-show="data.action=='Send Referral'" ng-click="gotoReferPage(data.UID,data.addedOn)" href="javascript:void(0);">{{data.action}}</a>
+												<a ng-show="data.action=='Send Reminder' || data.action=='Reminder Sent'"  ng-click="sendReminder(data.UID,data.addedOn,$parent.$index,$index)">{{data.action}}</a>
+												<a target="_blank" ng-show="data.action=='Call May Be'" href="{{data.profile_url}}">{{data.action}}</a>
+												<a ng-show="data.action=='-'" href="javascript:void(0);">{{data.action}}</a>
 											</td>
                                         </tr>
                                     </table>
@@ -124,6 +124,7 @@ trackingApp.registerCtrl('reportController',function($scope,$http, $location, $t
 	
 	$scope.sendReminder = function(UID,uniqueId,parentIndex,index)
 	{
+		console.log(parentIndex+'ddd'+ index);
 		$scope['reportList'][parentIndex]['userList'][index]['action'] = 'Reminder Sent';	
 		var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/send-reminder-mail-to-employee.php';
 		$http.post(absUrl,{UID:UID,uniqueId:uniqueId}).success(function(response)
