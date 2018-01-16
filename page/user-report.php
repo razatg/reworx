@@ -85,7 +85,7 @@ include_once('../config-ini.php');
                                             <td  width="30%">
 												<a ng-if="data.action=='Send Referral'" ng-click="gotoReferPage(data.UID,data.addedOn)" href="javascript:void(0);">{{data.action}}</a>
 												<a ng-if="data.action=='Send Reminder' || data.action=='Reminder Sent'"  ng-click="sendReminder(data.UID,data.addedOn,$parent.$index,$index)">{{data.action}}</a>
-												<a ng-if="data.action=='Call May Be'" href="{{data.profile_url}}">{{data.action}}</a>
+												<a target="_blank" ng-if="data.action=='Call May Be'" href="{{data.profile_url}}">{{data.action}}</a>
 												<a ng-if="data.action=='-'" href="javascript:void(0);">{{data.action}}</a>
 											</td>
                                         </tr>
