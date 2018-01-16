@@ -86,13 +86,13 @@ if(!empty($userReportData))
 								$action = '-';
 							}
 						}
-						else if($userType=='employee' && $item1['event'] == 'delivered')
-						{
-							$action = 'Send Reminder';
-						}
 						else if($userType=='employee' && $item1['event'] == 'open')
 						{
 							$action = 'Call May Be';
+						}
+						else if($userType=='employee' && ($item1['event'] == 'delivered' || $item1['fit'] == true))
+						{
+							$action = 'Send Reminder';
 						}
 						else if($userType=='recruiter' && $item1['fit'] == true)
 						{
