@@ -30,6 +30,7 @@ include_once('../config-ini.php');
 </nav>
 </header>
 <div class="bodypan" ng-style="{'min-height':divHeight()}">
+	
 	<div class="search_container {{mainSearch}}">
 		<div class="container">
 			<div class="field_row">
@@ -44,6 +45,7 @@ include_once('../config-ini.php');
 			<a data-ng-click="showFilter()" class="filter_btn"></a>
 		</div>
 	</div>			
+	
 	<div class="search_container second_container" ng-show="showAdvancedFilter" style="padding:0; padding-bottom:15px;">
 		<div class="container">
 			<div class="field_row">

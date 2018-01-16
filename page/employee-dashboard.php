@@ -22,6 +22,20 @@ include_once('../config-ini.php');
 </nav>
 </header>
 <div class="bodypan" ng-style="{'min-height':divHeight()}">
+	<div class="search_container {{mainSearch}}">
+		<div class="container">
+			<div class="field_row">
+				<div class="fld_col">
+					<input  style="height:45px!important" ng-model="name" placeholder="Enter Name" class="form-control">
+				</div>
+				<div class="fld_col">
+				<input id="companyId" style="height:45px!important" ng-model="company" placeholder="Enter Company name sepereated by comma (,)" class="form-control">
+				</div>
+			</div>
+			<a class="search_btn" data-ng-click="currentPage=0;searchData()"></a>
+		</div>
+	</div>			
+	
 	<center  ng-if="showLoder"><img width="80" src="newui/images/widget-loader-lg-en.gif" alt=""></center>
 	<div ng-show="!showLoder" class="container">
 			<ul class="list-item">
@@ -68,9 +82,9 @@ trackingApp.registerCtrl('empController',function($scope,$http, $location, $time
     $scope.showLoder = false;
 	$scope.searchData = function()
 	{
-		 $scope.showLoder = true;
+		$scope.showLoder = true;
 		var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/employee-data.php';
-		$http.post(absUrl,{page:$scope.currentPage}).success(function(response)
+		$http.post(absUrl,{page:$scope.currentPage,company:$scope.company,name:$scope.name}).success(function(response)
 		{
 			$scope.resultList = response;
 			$scope.resultStatus = response.status;

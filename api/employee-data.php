@@ -3,6 +3,8 @@ include_once('../config-ini.php');
 $returnArr = array('status'=>'failure','data'=>'','totalCount'=>0);
 $arrValues = json_decode(file_get_contents('php://input'), true);
 $page = isset($arrValues['page'])?trim($arrValues['page']):"1";
+$company = isset($arrValues['company'])?explode(',',rtrim(trim($arrValues['company']),",")):"";
+$name = isset($arrValues['name'])?$arrValues['name']:"";
 $where = array();
 $db = connect();
 $collection = $db->profile;
@@ -11,6 +13,21 @@ if(!empty($_SESSION['member']['UID']))
 {
 	$UID = $_SESSION['member']['UID'];
 	$where['parentUID']	 = array('$in' => array($UID));
+}
+if(!empty($company))
+{
+	$tmp = array();
+	foreach($company as $q) 
+	{
+		$companyName = trim($q);
+		array_push($searchStringArr,$q);
+		$tmp[] = new MongoRegex("/$companyName/i");
+	}
+	$where['company'] = array('$in'=>$tmp);
+}
+if(!empty($name))
+{
+  $where['name']	 = new MongoRegex("/$name/i");
 }
 if(!empty($where))
 {
