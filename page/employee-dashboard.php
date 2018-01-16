@@ -55,7 +55,9 @@ include_once('../config-ini.php');
 						</div>
 					</div>
 				</li>
-				<li ng-if="resultStatus=='failure'">Please Check back after 24-72 hrs. We are reviewing your contacts</li>
+				<li ng-if="resultStatus=='failure' && !name && !company">Please Check back after 24-72 hrs. We are reviewing your contacts</li>
+				<li ng-if="resultStatus=='failure' && (name || company)">No Results Found. Please try some other.</li>
+
 			</ul>
 			<div ng-show="totalPageLength>0" class="pagination">
 			 <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1;searchData()">
