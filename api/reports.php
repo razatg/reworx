@@ -58,11 +58,11 @@ if(!empty($userReportData))
 					}
 					else if($item1['event'] == 'delivered')
 					{
-						$status = 'Delivered'; 
+						$status = 'Mail Delivered'; 
 					}
 					else if($item1['event'] == 'open')
 					{
-						$status = 'Open'; 
+						$status = 'Mail Opened'; 
 					}
 					else if($item1['fit'] == true)
 					{
