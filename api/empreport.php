@@ -21,7 +21,7 @@ if($userType=='recruiter')
 else if($userType=='employee')
 {
 	$UID = $_SESSION['member']['UID'];
-	$match    = array('$match'=>array('$and'=>array(array('referalUIDList.employeeList'=>array('$in'=>array($UID)),"addedOn"=>array('$gte'=>$mongotime)))));
+	$match    = array('$match'=>array('$and'=>array(array('referalUIDList.employeeList'=>(int)$UID,"addedOn"=>array('$gte'=>$mongotime)))));
 } 
 
 
@@ -49,7 +49,7 @@ if(!empty($userReportData))
 				foreach($item['referalUIDList'] as $item1)
 				{
 				   
-				   if(in_array($UID,$item1['employeeList']))
+				   if($UID==$item1['employeeList'])
 				   {
 						$profileData = $db->profile->findOne(array('UID'=>(int)$item1['UID']),array('UID','email','name','pic_phy','parentUID','profile_url'));
 						$status = 'Pending';

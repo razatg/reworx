@@ -112,7 +112,7 @@ if(!empty($userReportData))
 					{
 						$pic  = 'newui/images/user.png';
 					}
-					$connectedProfiles = $db->employee->find(array('UID'=>array('$in' =>$parentUidList)),array('UID','first_name','last_name'));
+					$connectedProfiles = $db->employee->find(array('UID'=>(int)$item1['employeeList']),array('UID','first_name','last_name'));
 					$userList[] =  array('addedOn'=>$item['addedOn'],'UID'=>$profileData['UID'],'profile_url'=>$profileData['name'],'name'=>$profileData['name'],'pic'=>$pic,'action'=>$action,'status'=>$status,'connectedUsers'=>array_values(iterator_to_array($connectedProfiles)));
 					
 				

@@ -51,6 +51,7 @@ include_once('../config-ini.php');
 							<div class="detail_action">
 								<a  class="detail_action_employee" target="_blank" href="{{data.profile_url}}"><img src="newui/images/linkden.png"></a>
 								<a href="mailto:{{data.email}}" class="detail_action_employee"><img src="newui/images/mail.png"></a>
+								<a style="background:{{data.IsEdit==true?'#93ABA4':''}}" class="{{data.IsEdit==true?'btn-res':'btn-res'}}" data-ng-click="addtolist(data.UID,data);">{{data.IsEdit==true?'Mark as Goodlist':'Unmark'}}</a>
 						</div>
 					</div>
 				</li>

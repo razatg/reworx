@@ -73,25 +73,22 @@ if(!empty($userData))
 					if($itemupdate['UID']== $UID)
 					{
 						$selectedProfile = $db->profile->findOne(array("UID"=>(int)$UID));
-						$employeeList = $db->employee->find(array("UID"=>array('$in'=>array($referData['UID']))));
+						$selectedEmp = $db->employee->find(array("UID"=>(int)$itemupdate['employeeList']);
 						if(!empty($selectedProfile))
 						{
-							foreach($employeeList as $selectedEmp)
-							{
-								$to = array('to'=>array($selectedEmp['email']));
-								$messageHTML = "Hi ".$selectedEmp['first_name'].",<br>".$selectedProfile['name']." seems to be a good fit for the open position that we have for, <strong>".$referData['recruiterList']['job_title']."</strong>. <br>Since ".$selectedProfile['name']." is connected with you on your social network, requesting you to write to him and have him get in touch with me or the HR team.<br>Please Click on the Button Below to write to him:<br>";
-								$messageHTML = str_replace('__MSG_CONTENT__',$messageHTML,$body);
-								$messageHTML = str_replace('__HR_TEAM__',"Regards,<br>Team HR",$messageHTML);
-								$linkurl = ANGULAR_ROUTE.'/api/referal-auth.php?email='.base64_encode($selectedEmp['email']).'&UID='.base64_encode($selectedEmp['UID']).'&key='.base64_encode($selectedProfile['UID']).'&uniqueID='.base64_encode($referData['addedOn']);
-								$messageHTML = str_replace('__LINK_URL__',$linkurl,$messageHTML);
-								$messageHTML = str_replace('__LINK_URL_MSG__','Refer '.$selectedProfile['name'],$messageHTML);
-								$from = '';
-								$fromName = $_SESSION['member']['full_name'];
-								$toname = $_SESSION['member']['full_name'];
-								$subject = 'Refer your Connection '.$selectedProfile['name'];
-								$messageText = '';
-								sendgridmail( $from, $fromName, $to, $toname, $subject, $messageText, $messageHTML, array());
-						  }
+							$to = array('to'=>array($selectedEmp['email']));
+							$messageHTML = "Hi ".$selectedEmp['first_name'].",<br>".$selectedProfile['name']." seems to be a good fit for the open position that we have for, <strong>".$referData['recruiterList']['job_title']."</strong>. <br>Since ".$selectedProfile['name']." is connected with you on your social network, requesting you to write to him and have him get in touch with me or the HR team.<br>Please Click on the Button Below to write to him:<br>";
+							$messageHTML = str_replace('__MSG_CONTENT__',$messageHTML,$body);
+							$messageHTML = str_replace('__HR_TEAM__',"Regards,<br>Team HR",$messageHTML);
+							$linkurl = ANGULAR_ROUTE.'/api/referal-auth.php?email='.base64_encode($selectedEmp['email']).'&UID='.base64_encode($selectedEmp['UID']).'&key='.base64_encode($selectedProfile['UID']).'&uniqueID='.base64_encode($referData['addedOn']);
+							$messageHTML = str_replace('__LINK_URL__',$linkurl,$messageHTML);
+							$messageHTML = str_replace('__LINK_URL_MSG__','Refer '.$selectedProfile['name'],$messageHTML);
+							$from = '';
+							$fromName = $_SESSION['member']['full_name'];
+							$toname = $_SESSION['member']['full_name'];
+							$subject = 'Refer your Connection '.$selectedProfile['name'];
+							$messageText = '';
+							sendgridmail( $from, $fromName, $to, $toname, $subject, $messageText, $messageHTML, array());
 					   }
 					}   
 				}

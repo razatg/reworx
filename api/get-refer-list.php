@@ -14,7 +14,7 @@ if(!empty($_SESSION['member']['UID']))
 {
 	$UID = $_SESSION['member']['UID'];
 	$dataReferListArr = array();
-	$dataListArr = $db->employeeReferData->find(array('referalUIDList.employeeList'=>array('$in'=>array($UID))));
+	$dataListArr = $db->employeeReferData->find(array('referalUIDList.employeeList'=>(int)$UID));
 	$dataListArr = iterator_to_array($dataListArr);
 	if(!empty($dataListArr))
 	{
@@ -24,7 +24,7 @@ if(!empty($_SESSION['member']['UID']))
 			{
 				foreach($data['referalUIDList'] as $item)
 				{
-					if(in_array($UID,$item['employeeList']))
+					if($UID ==$item['employeeList'])
 					 {
 						if($item['notFit']==false && $item['donotknow']==false && $item['fit']==false)
 						{

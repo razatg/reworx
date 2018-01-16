@@ -74,8 +74,7 @@ if(!empty($userData))
 			{
 				if($item['IsChecked']==true)
 				{
-					$empList[] =  (int)$item['UID'];
-					$referArrParent[] =  array('employeeList'=>$empList,'UID'=>(int)$data['UID'],'notFit'=>false,'donotknow'=>false,'fit'=>false);
+					$referArrParent[] =  array('employeeList'=>(int)$item['UID'],'UID'=>(int)$data['UID'],'notFit'=>false,'donotknow'=>false,'fit'=>false);
 					$to = array('to'=>array($item['email']));
 					$messageHTML = "Hi ".$item['name'].",<br>".$data['name']." seems to be a good fit for the open position that we have for, <strong>".$mailData['job_title']."</strong>. <br>Since ".$data['name']." is connected with you on your social network, requesting you to write to him and have him get in touch with me or the HR team.<br>Please Click on the Button Below to write to him:<br>";
 					$messageHTML = str_replace('__MSG_CONTENT__',$messageHTML,$body);
@@ -94,6 +93,7 @@ if(!empty($userData))
 			}
 		}
 	}
+	//echo '<pre>';print_r($referArrParent);exit;
 	if(!empty($referArrParent))
 	{
 		$dataRefer['cId'] = $_SESSION['member']['cId'];

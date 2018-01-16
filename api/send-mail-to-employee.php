@@ -107,7 +107,7 @@ if(!empty($userData))
 		{   $newUpdatedArr =  array(); 
 			foreach($uIdList as $item)
 			{
-				if($item['UID']== $UIDFromRemove)
+				if($item['UID']== $UIDFromRemove && $_SESSION['member']['UID'] == $item['employeeList'])
 				{
 					$item['fit'] = true; 
 				}

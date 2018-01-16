@@ -66,7 +66,7 @@ if(!empty($userData))
 			if(!empty($uIdList))
 				foreach($uIdList as $itemupdate)
 				{
-					if($itemupdate['UID']== $UID)
+					if($itemupdate['UID']== $UID && $_SESSION['member']['UID'] == $itemupdate['employeeList']) 
 					{
 						$selectedProfile = $db->profile->findOne(array("UID"=>(int)$UID),array('UID','title','pic_phy','name','email','designation','area','company','experience','parentUID','profile_url'));
 						if(!empty($selectedProfile))

@@ -16,7 +16,7 @@ if(!empty($_SESSION['member']['UID']))
 	{   $newUpdatedArr =  array(); 
 		foreach($uIdList as $item)
 		{
-			if($item['UID']== $UIDFromRemove)
+			if($item['UID']== $UIDFromRemove && $_SESSION['member']['UID'] == $item['employeeList'])
 			{
 				$item[$type] = true; 
 			}
