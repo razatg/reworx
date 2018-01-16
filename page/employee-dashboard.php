@@ -51,7 +51,7 @@ include_once('../config-ini.php');
 							<div class="detail_action">
 								<a  class="detail_action_employee" target="_blank" href="{{data.profile_url}}"><img src="newui/images/linkden.png"></a>
 								<a href="mailto:{{data.email}}" class="detail_action_employee"><img src="newui/images/mail.png"></a>
-								<a style="background:{{data.IsEdit==true?'#93ABA4':''}}" class="{{data.IsEdit==true?'btn-res':'btn-res'}}" data-ng-click="addtolist(data.UID,data);">{{data.IsEdit==true?'Mark as Goodlist':'Unmark'}}</a>
+								<a style="background:{{data.IsEdit==true?'#93ABA4':''}}" class="{{data.IsEdit==true?'btn-res':'btn-res'}}" data-ng-click="addtolist(data.UID,data.IsEdit,$index);">{{data.IsEdit==true?'Mark as Goodlist':'Unmark'}}</a>
 						</div>
 					</div>
 				</li>
@@ -92,6 +92,53 @@ trackingApp.registerCtrl('empController',function($scope,$http, $location, $time
 			$scope.totalPageLength = response.totalCount;
 			$scope.showLoder = false;
 		})
+	}
+	$scope.selectedUIDs =[];
+    $scope.addtolist = function(ID,data,index)
+	{
+		
+		if(data==true)
+		{
+			$scope.resultList.data[index]['IsEdit'] =  false;
+		}
+		else
+		{
+			$scope.resultList.data[index]['IsEdit'] =  true;
+		}
+		return false;
+		data.IsEdit=!data.IsEdit;
+		var tempArray=[];
+		var tempArray1=[];
+		var isExist=false;
+			angular.forEach($scope.selectedUIDs,function(id){
+			if(id==ID){
+			isExist=true;
+			}else{
+			tempArray.push(id);
+			}
+			
+			});
+			angular.forEach($scope.selectedProfiles,function(id){
+			if(id==data){
+			isExist=true;
+			}else{
+			tempArray1.push(id);
+			}
+			
+			});
+			if(!isExist)
+			{
+				tempArray.push(ID);
+				tempArray1.push(data);
+			}
+			
+			$scope.selectedUIDs=tempArray;
+			$scope.selectedProfiles = tempArray1;
+			var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/add-to-list.php';
+			$http.post(absUrl,{UIDList:$scope.selectedUIDs}).success(function(response)
+			{
+			})
+			$scope.addtolistdata = $scope.selectedUIDs.length;
 	}
 	$scope.searchData();
 	$scope.numberOfPages=function()

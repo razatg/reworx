@@ -43,6 +43,7 @@ if(!empty($where))
 			{
 				$data['pic_phy']  = 'newui/images/user.png';
 			}
+		 $data['IsEdit']	= true;	
 		 $dataList[] = $data;	
 		}
 		$returnArr['data'] = $dataList;
