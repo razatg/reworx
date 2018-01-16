@@ -86,7 +86,7 @@ if(!empty($userReportData))
 								$action = '-';
 							}
 						}
-						else if($userType=='employee' && ($item1['event'] == 'delivered' || $item1['fit'] == true))
+						else if($userType=='employee' && $item1['event'] == 'delivered')
 						{
 							$action = 'Send Reminder';
 						}
