@@ -71,35 +71,12 @@ if(!empty($userReportData))
 					$action = '';
 					if($item1['notFit'] == false && $item1['donotknow'] == false &&  $item1['fit']== false )
 					{
-						if($userType=='employee')
-						{
-							$action = 'Send Referral';
-						}
-						else
-						{
-							$action = 'Send Reminder';
-						}
-						
+						$action = 'Send Reminder';
 					}
 					else if($item1['notFit'] == true || $item1['donotknow'] == true)
 					{
-						if($userType=='employee')
-						{
-							$action = '-';
-						}
-						else
-						{
-							$action = 'Search Again';
-						}
+						$action = 'Search Again';
 						
-					}
-					else if($userType=='employee' && ($item1['event'] == 'delivered' || $item1['fit'] == true))
-					{
-						$action = 'Send Reminder';
-					}
-					else if($userType=='employee' && $item1['event'] == 'open')
-					{
-						$action = 'Call May Be';
 					}
 					else if($userType=='recruiter' && $item1['fit'] == true)
 					{
