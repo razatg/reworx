@@ -73,7 +73,7 @@ if(!empty($userData))
 					if($itemupdate['UID']== $UID)
 					{
 						$selectedProfile = $db->profile->findOne(array("UID"=>(int)$UID));
-						$selectedEmp = $db->employee->find(array("UID"=>(int)$itemupdate['employeeList']));
+						$selectedEmp = $db->employee->findOne(array("UID"=>(int)$itemupdate['employeeList']));
 						if(!empty($selectedProfile))
 						{
 							$to = array('to'=>array($selectedEmp['email']));
