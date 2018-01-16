@@ -60,11 +60,11 @@ if(!empty($userData))
 	$addedOn = $data['employeeDetail']['time'];
 	if($_SERVER['HTTP_HOST']=='demo.onsisdev.info')
 	{
-		$to = array('to'=>array("pradip.comat@gmail.com"),'category'=>$data['employeeDetail']['profile'][0]['UID'].'_'.$addedOn);
+		$to = array('to'=>array("pradip.comat@gmail.com"),'category'=>$data['employeeDetail']['profile'][0]['UID'].'_'.$addedOn.'_'.$_SESSION['member']['UID']);
 	}
 	else
 	{
-		$to = array('to'=>array($data['employeeDetail']['profile'][0]['email']),'category'=>$data['employeeDetail']['profile'][0]['UID'].'_'.$addedOn);
+		$to = array('to'=>array($data['employeeDetail']['profile'][0]['email']),'category'=>$data['employeeDetail']['profile'][0]['UID'].'_'.$addedOn.'_'.$_SESSION['member']['UID']);
 	}
 	
 	$cId = $data['employeeDetail']['cId'];
