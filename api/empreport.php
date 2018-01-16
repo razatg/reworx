@@ -78,11 +78,6 @@ if(!empty($userReportData))
 							{
 								$action = 'Send Referral';
 							}
-							else
-							{
-								$action = 'Send Reminder';
-							}
-							
 						}
 						else if($item1['notFit'] == true || $item1['donotknow'] == true)
 						{
@@ -90,11 +85,6 @@ if(!empty($userReportData))
 							{
 								$action = '-';
 							}
-							else
-							{
-								$action = 'Search Again';
-							}
-							
 						}
 						else if($userType=='employee' && ($item1['event'] == 'delivered' || $item1['fit'] == true))
 						{
