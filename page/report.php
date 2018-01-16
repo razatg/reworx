@@ -100,7 +100,7 @@ include_once('../config-ini.php');
                         </div> 
                     </div> 
                 </div>
-              <center ng-show="reportList.length==0">No Report Found!</center>   
+              <center ng-show="reportList.length==0">You will see a report here. Once your shortlist and ask for referrals from your team.</center>   
             </form>
             <br><br>
         </div>

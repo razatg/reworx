@@ -12,7 +12,7 @@ include_once('../config-ini.php');?>
 
  if($_SESSION['member']['userType']==='recruiter')
 {?>
-   <li><a href="search">Search</a></li>
+   <li><a href="search">Search & Shorlist</a></li>
    <li><a href="report">Report & Actions</a></li>
 <?php }
 ?>
