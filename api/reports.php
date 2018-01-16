@@ -78,6 +78,10 @@ if(!empty($userReportData))
 						$action = 'Search Again';
 						
 					}
+					else if($item1['event'] == 'open')
+					{
+							$action = '-';
+					}
 					else if($userType=='recruiter' && $item1['fit'] == true)
 					{
 						$action = '-';
