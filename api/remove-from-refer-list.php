@@ -10,7 +10,6 @@ $flagValue = true;
 $db = connect();
 if(!empty($_SESSION['member']['UID']))
 {
-	$UID = $_SESSION['member']['UID'];
 	$dataListArr = $db->employeeReferData->findOne(array('addedOn'=>(int)$addedOn));
 	$uIdList = $dataListArr['referalUIDList'];
 	if(!empty($uIdList))

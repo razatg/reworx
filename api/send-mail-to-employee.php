@@ -100,7 +100,6 @@ if(!empty($userData))
 	$db = connect();
 	if(!empty($_SESSION['member']['UID']))
 	{
-		$UID = $_SESSION['member']['UID'];
 		$UIDFromRemove = $data['employeeDetail']['profile'][0]['UID']; 
 		$dataListArr = $db->employeeReferData->findOne(array('addedOn'=>(int)$addedOn));
 		$uIdList = $dataListArr['referalUIDList'];

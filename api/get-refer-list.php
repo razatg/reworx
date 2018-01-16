@@ -14,7 +14,7 @@ if(!empty($_SESSION['member']['UID']))
 {
 	$UID = $_SESSION['member']['UID'];
 	$dataReferListArr = array();
-	$dataListArr = $db->employeeReferData->find(array('UID'=>(int)$UID));
+	$dataListArr = $db->employeeReferData->find(array('referalUIDList.employeeList'=>array('$in'=>array($UID))));
 	$dataListArr = iterator_to_array($dataListArr);
 	if(!empty($dataListArr))
 	{
@@ -24,25 +24,28 @@ if(!empty($_SESSION['member']['UID']))
 			{
 				foreach($data['referalUIDList'] as $item)
 				{
-					if($item['notFit']==false && $item['donotknow']==false && $item['fit']==false)
-					{
-						$selectedProfile = $collection->find(array("UID"=>(int)$item['UID']),array('UID','title','pic_phy','name','email','designation','area','company','experience','parentUID','profile_url'));
-						if(!empty($selectedProfile))
+					if(in_array($UID,$item['employeeList']))
+					 {
+						if($item['notFit']==false && $item['donotknow']==false && $item['fit']==false)
 						{
-							$profileListArr = array();
-							foreach($selectedProfile as $profile)
+							$selectedProfile = $collection->find(array("UID"=>(int)$item['UID']),array('UID','title','pic_phy','name','email','designation','area','company','experience','parentUID','profile_url'));
+							if(!empty($selectedProfile))
 							{
-								if(!file_exists(ANGULAR_ABSOLUTE_PATH.$profile['pic_phy']))
+								$profileListArr = array();
+								foreach($selectedProfile as $profile)
 								{
-									$profile['pic_phy']  = 'newui/images/user.png';
+									if(!file_exists(ANGULAR_ABSOLUTE_PATH.$profile['pic_phy']))
+									{
+										$profile['pic_phy']  = 'newui/images/user.png';
+									}
+									
+									$profileListArr[] =  $profile;
 								}
-								
-								$profileListArr[] =  $profile;
 							}
+							$dataReferListArr[] = array('profile'=>array_values($profileListArr),'recruiterMsg'=>$data['recruiterList'],'time'=>$data['addedOn'],'cId'=>$data['cId']);
 						}
-						$dataReferListArr[] = array('profile'=>array_values($profileListArr),'recruiterMsg'=>$data['recruiterList'],'time'=>$data['addedOn'],'cId'=>$data['cId']);
-				    }
-				}
+					}
+			    }
 			}
 		}
 		if(!empty($dataReferListArr))
