@@ -66,18 +66,18 @@ if(!empty($userData))
 			if(!empty($uIdList))
 				foreach($uIdList as $itemupdate)
 				{
-					if($itemupdate['UID']== $UID && $_SESSION['member']['UID'] == $itemupdate['employeeList']) 
+					if($itemupdate['UID']== $UID) 
 					{
 						$selectedProfile = $db->profile->findOne(array("UID"=>(int)$UID),array('UID','title','pic_phy','name','email','designation','area','company','experience','parentUID','profile_url'));
 						if(!empty($selectedProfile))
 						{
 							if($_SERVER['HTTP_HOST']=='demo.onsisdev.info')
 							{
-								$to = array('to'=>array("pradip.comat@gmail.com"),'category'=>$selectedProfile['UID'].'_'.$addedOn);
+								$to = array('to'=>array("pradip.comat@gmail.com"),'category'=>$selectedProfile['UID'].'_'.$addedOn.'_'.$itemupdate['employeeList']);
 							}
 							else
 							{
-								$to = array('to'=>array($selectedProfile['email']),'category'=>$selectedProfile['UID'].'_'.$addedOn);
+								$to = array('to'=>array($selectedProfile['email']),'category'=>$selectedProfile['UID'].'_'.$addedOn.'_'.$itemupdate['employeeList']);
 							}
 							
 							$cId = $referData['cId'];
