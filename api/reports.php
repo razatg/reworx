@@ -60,9 +60,9 @@ if(!empty($userReportData))
 					{
 						$status = 'Delivered'; 
 					}
-					else if($item1['event'] == 'opened')
+					else if($item1['event'] == 'open')
 					{
-						$status = 'Opened'; 
+						$status = 'Open'; 
 					}
 					else if($item1['fit'] == true)
 					{
@@ -97,7 +97,7 @@ if(!empty($userReportData))
 					{
 						$action = 'Send Reminder';
 					}
-					else if($userType=='employee' && $item1['event'] == 'opened')
+					else if($userType=='employee' && $item1['event'] == 'open')
 					{
 						$action = 'Call May Be';
 					}

@@ -16,7 +16,7 @@ if(!empty($udpateDbList))
 			{   $newUpdatedArr =  array(); 
 				foreach($uIdList as $itemupdate)
 				{
-					if($itemupdate['UID']== $item['UID'])
+					if($itemupdate['UID']== $item['UID'] && $itemupdate['employeeList']== $item['employeeId'])
 					{
 						$itemupdate['event'] = $item['event']; 
 						$itemupdate['timestamp'] = $item['timestamp']; 
