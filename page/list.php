@@ -47,7 +47,11 @@ include_once('../config-ini.php');
 <script>
 trackingApp.registerCtrl('ListController',function($scope,$http, $location, $timeout, $element)
 {
-	
+	$scope.checkSession = '<?php echo !empty($_SESSION['member']['userType'])?$_SESSION['member']['userType']:"";?>';
+	if(!$scope.checkSession || $scope.checkSession!='employee')
+	{
+		window.location.href =  '<?php echo ANGULAR_ROUTE; ?>/';
+	}
 	
 	$scope.resultList = {};
 	$scope.showpanelView = function () 
