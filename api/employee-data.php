@@ -43,7 +43,15 @@ if(!empty($where))
 			{
 				$data['pic_phy']  = 'newui/images/user.png';
 			}
-		 $data['IsEdit']	= true;	
+		 $checkResult =$db->employeeshortlist->count(array('employeId'=>(int)$UID,'UID'=>(int)$data['UID']));
+		 if($checkResult>0)
+		 {
+			  $data['IsEdit']	= false;	
+		 }
+		 else
+		 {
+			  $data['IsEdit']	= true;	
+		 }	
 		 $dataList[] = $data;	
 		}
 		$returnArr['data'] = $dataList;

@@ -28,6 +28,9 @@ trackingApp.config(['$routeProvider','$controllerProvider','$locationProvider','
 	.when('/report/',{'templateUrl':function(params){ return angRoute+'/page/report.php'}
 		})
 		
+	.when('/user-list/',{'templateUrl':function(params){ return angRoute+'/page/list.php'}
+		})	
+		
 	.when('/user-report/',{'templateUrl':function(params){ return angRoute+'/page/user-report.php'}
 		})			
 		

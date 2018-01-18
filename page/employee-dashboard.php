@@ -107,40 +107,11 @@ trackingApp.registerCtrl('empController',function($scope,$http, $location, $time
 		{
 			$scope.resultList.data[index]['IsEdit'] =  true;
 		}
-		return false;
-		data.IsEdit=!data.IsEdit;
-		var tempArray=[];
-		var tempArray1=[];
-		var isExist=false;
-			angular.forEach($scope.selectedUIDs,function(id){
-			if(id==ID){
-			isExist=true;
-			}else{
-			tempArray.push(id);
-			}
+		var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/mark-as-good.php';
+		$http.post(absUrl,{UID:ID,type:data}).success(function(response)
+		{
 			
-			});
-			angular.forEach($scope.selectedProfiles,function(id){
-			if(id==data){
-			isExist=true;
-			}else{
-			tempArray1.push(id);
-			}
-			
-			});
-			if(!isExist)
-			{
-				tempArray.push(ID);
-				tempArray1.push(data);
-			}
-			
-			$scope.selectedUIDs=tempArray;
-			$scope.selectedProfiles = tempArray1;
-			var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/add-to-list.php';
-			$http.post(absUrl,{UIDList:$scope.selectedUIDs}).success(function(response)
-			{
-			})
-			$scope.addtolistdata = $scope.selectedUIDs.length;
+		})
 	}
 	$scope.searchData();
 	$scope.numberOfPages=function()
