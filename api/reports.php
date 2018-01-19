@@ -23,13 +23,13 @@ else if($userType=='employee')
 	$UID = $_SESSION['member']['UID'];
 	$match    = array('$match'=>array('$and'=>array(array('UID'=>(int)$UID,"addedOn"=>array('$gte'=>$mongotime)))));
 } 
-
+$sort =  array('$sort'=>array('_id'=>-1));
 
 $criteria = array($match,array('$group'=>array('_id'=>array('date'=>array('$dateToString'=>array('format'=>
 				                "%Y-%m-%d","date"=>'$date')),'job_title'=>'$recruiterList.job_title'),
 				                'count'=>array('$sum'=>1),
 				                'employee'=>array('$push'=>'$$ROOT')
-				                ))
+				                )),$sort
 				                );  
 //print_r(json_encode($criteria));exit;				                 
 $userReportData = $db->employeeReferData->aggregate($criteria);
