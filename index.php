@@ -16,6 +16,15 @@ include_once('config-ini.php');
 		<script type="text/javascript" src="newui/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="newui/js/angular-route.js"></script>
 		<script type="text/javascript" src="newui/js/config.js?v=<?php echo time();?>"></script>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-112844185-1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	  gtag('config', 'UA-112844185-1');
+	</script>
+	<img height="1" width="1" style="display:none;" alt="" src="https://dc.ads.linkedin.com/collect/?pid=174875&conversionId=184195&fmt=gif" />
 	</head>
 	<body class="{{currentUrl=='/'?'bg':''}} {{currentUrl=='/uploadcsv'?'bgHome':''}}">
 		 <div ng-view></div>

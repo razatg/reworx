@@ -31,7 +31,6 @@ $criteria = array($match,array('$group'=>array('_id'=>array('date'=>array('$date
 				                'employee'=>array('$push'=>'$$ROOT')
 				                )),$sort
 				                );  
-//print_r(json_encode($criteria));exit;				                 
 $userReportData = $db->employeeReferData->aggregate($criteria);
 $reportDataList = array();
 $userReportCount = array('employee'=>0,'totalProfile'=>0,'selectedCandidate'=>0,'referRequest'=>0,'emailSent'=>0,'emailClicked'=>0,'hired'=>0);
@@ -50,8 +49,6 @@ if(!empty($userReportData))
 				{
 					$profileData = $db->profile->findOne(array('UID'=>(int)$item1['UID']),array('UID','email','name','pic_phy','parentUID','profile_url'));
 					$status = 'Pending';
-					///$data = checkReferDate($profileData['email']);
-					//print_r($data);exit;
 					if($item1['notFit'] == true || $item1['donotknow'] == true)
 					{
 						$status = 'Not Suitable'; 
@@ -107,36 +104,5 @@ if(!empty($userReportData))
 	$returnArr['userReportCount'] = $userReportCount;
 	$returnArr['status'] = 'success';
 }
-
-function checkReferDate($email)
-{
-	$url = SENDGRID_URL;
-	$user = SENDGRID_KEY;
-	$pass = SENDGRID_PASS;
-    $params = array(
-					'api_user'  => $user,
-					'api_key'   => $pass,
-					'date'      => 1,
-					'email'     =>$email
-				   );
-			echo $request =  $url.'api/bounces.get.json?api_user='.$user.'&api_key='.$pass.'&date=1&email='.$email;
-			// Generate curl request
-			$session = curl_init($request);
-			// Tell curl to use HTTP POST
-			//curl_setopt ($session, CURLOPT_GET, true);
-			// Tell curl that this is the body of the POST
-			//curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
-			// Tell curl not to return headers, but do return the response
-			curl_setopt($session, CURLOPT_HEADER, false);
-			// Tell PHP not to use SSLv3 (instead opting for TLS)
-			curl_setopt($session, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
-			curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-			// obtain response
-			$response = curl_exec($session);
-			curl_close($session);
-			// print everything out
-			return $response;
-}
-
 echo json_encode($returnArr);exit;	
 ?>
