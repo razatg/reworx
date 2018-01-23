@@ -165,16 +165,19 @@ trackingApp.registerCtrl('homeController',function($scope,$http, $location, $tim
 			
 		    if($scope.register.email && !pattern.test($scope.register.email))
 			{
+				 createImage();
 				$scope.errorEmailMsg = 'Please enter your valid Work Email.';
 				return false;
 			}
 			else if($scope.register.email && ($scope.register.email.match(/yahoo/i) || $scope.register.email.match(/gmail/i) || $scope.register.email.match(/rediff/i) || $scope.register.email.match(/aol/i) || $scope.register.email.match(/msn/i) || $scope.register.email.match(/live/i) || $scope.register.email.match(/hotmail/i)))
 			{
+				createImage();
 				$scope.errorEmailMsg =  'Please enter your Work Email instead of Company email not valid.';
 				return false;
 			}
 			if($scope.register.mobile_number && !phonePattern.test($scope.register.mobile_number))
 			{
+				createImage();
 				$scope.errorMobileMsg = 'Please enter valid mobile number.';
 				return false;
 			}
@@ -185,19 +188,20 @@ trackingApp.registerCtrl('homeController',function($scope,$http, $location, $tim
 				$scope.showLodermail = false;
 				if(response.status=='success')
 				{
-					createImage();
 					$scope.successMsg = response.msg;
 					$scope.register = {};
 				}
 				else
 				{
 					$scope.errorMsg = response.msg;
+					createImage();
 				}
 			
 			})
 		}
 		else
 		{
+			createImage();
 			if(!$scope.register.email)
 			{
 				$scope.errorEmailMsg = 'Please enter your Work Email.';
