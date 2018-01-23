@@ -120,6 +120,7 @@ include_once('../config-ini.php');
 	</div>
 	</div>
 </div>
+<?php include_once('../Analytics.php');?>
  <script>
  $('#myCarousel').carousel({
     interval: false

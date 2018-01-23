@@ -106,6 +106,7 @@ include_once('../config-ini.php');
    </div>
 </div>
 </div>
+<?php include_once('../Analytics.php');?>
 <script>
 trackingApp.registerCtrl('reportController',function($scope,$http, $location, $timeout, $element)
 {

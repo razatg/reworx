@@ -2,8 +2,7 @@
 include_once('../config-ini.php');
 ?>
 <div data-ng-controller="ListController">
- 
-
+ <?php include_once('../Analytics.php');?>
 <header>
 	<div class="container">
 	 	<?php include_once('navbar.php');?>

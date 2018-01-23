@@ -34,6 +34,7 @@ include_once('../config-ini.php');
 </div>
 <?php include_once('login.php');?>
 </div>
+<?php include_once('../Analytics.php');?>
 <script>
 trackingApp.registerCtrl('homeController',function($scope,$http, $location, $timeout, $element)
 {

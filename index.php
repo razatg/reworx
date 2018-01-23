@@ -17,13 +17,6 @@ include_once('config-ini.php');
 		<script type="text/javascript" src="newui/js/angular-route.js"></script>
 		<script type="text/javascript" src="newui/js/config.js?v=<?php echo time();?>"></script>
 		<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-112844185-1"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
-	  gtag('config', 'UA-112844185-1');
-	</script>
 	</head>
 	<body class="{{currentUrl=='/'?'bg':''}} {{currentUrl=='/uploadcsv'?'bgHome':''}}">
 		 <div ng-view></div>

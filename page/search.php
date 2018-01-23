@@ -116,9 +116,8 @@ include_once('../config-ini.php');
 			</button>
 		   </div>	
 	  </div>
-  
-
-<?php include_once('login.php');?>	  
+<?php include_once('login.php');?>	 
+<?php include_once('../Analytics.php');?> 
 </div>
 <style type="text/css">
 			.angular-highlight {
