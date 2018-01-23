@@ -24,7 +24,6 @@ include_once('config-ini.php');
 	  gtag('js', new Date());
 	  gtag('config', 'UA-112844185-1');
 	</script>
-	<img height="1" width="1" style="display:none;" alt="" src="https://dc.ads.linkedin.com/collect/?pid=174875&conversionId=184195&fmt=gif" />
 	</head>
 	<body class="{{currentUrl=='/'?'bg':''}} {{currentUrl=='/uploadcsv'?'bgHome':''}}">
 		 <div ng-view></div>
