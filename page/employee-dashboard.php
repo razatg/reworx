@@ -68,7 +68,7 @@ include_once('../config-ini.php');
 			</button>
 	  </div>
 <?php include_once('login.php');?>	
-<?php include_once('../Analytics.php');?>
+<?php include_once('Analytics.php');?>
 </div>
 <script>
 trackingApp.registerCtrl('empController',function($scope,$http, $location, $timeout, $element)

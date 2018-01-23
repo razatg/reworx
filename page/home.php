@@ -126,7 +126,7 @@ include_once('../config-ini.php');
         </div>
     </div>
 </div>
-<?php include_once('../Analytics.php');?>
+<?php include_once('Analytics.php');?>
 <?php include_once('login.php');?>
 </div>
 <script>
