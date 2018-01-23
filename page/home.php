@@ -182,6 +182,7 @@ trackingApp.registerCtrl('homeController',function($scope,$http, $location, $tim
 			var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/save-user.php';
 			$http.post(absUrl,{data:$scope.register}).success(function(response)
 			{
+				$scope.showLodermail = false;
 				if(response.status=='success')
 				{
 					createImage();
@@ -192,7 +193,7 @@ trackingApp.registerCtrl('homeController',function($scope,$http, $location, $tim
 				{
 					$scope.errorMsg = response.msg;
 				}
-				$scope.showLodermail = false;
+			
 			})
 		}
 		else
@@ -223,7 +224,7 @@ function createImage() {
             x.setAttribute("width", "1");
             x.setAttribute("alt", "");
             x.setAttribute("style", "display:none");
-            document.getElementById("res").appendChild(x);
+            document.getElementById("homebanner").appendChild(x);
         }
 $(document).ready(function(){
 	if($(window).width() > 767) {
