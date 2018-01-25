@@ -74,8 +74,8 @@ include_once('../config-ini.php');
 								</h3>
 							  
 								<ul  ng-if="data.isSortlisted>0 || data.isMarkGood>0" class="short_list">
-									<li ng-if="data.isSortlisted>0"><i class="fa fa-thumbs-up"></i> Shortlisted Before</li>
-									<li  ng-if="data.isMarkGood>0"><i class="fa fa-info"></i>Top Talent</li>
+									<li ng-if="data.isSortlisted>0"><i class="fa fa-info"></i> Shortlisted Before</li>
+									<li  ng-if="data.isMarkGood>0"><i class="fa fa-thumbs-up"></i>Top Talent</li>
 						       </ul>
 								<p  class="location" ng-bind-html="data.area | to_trusted"></p>
 								<div ng-repeat="item in data.connectedUsers" class="relative-pos">
