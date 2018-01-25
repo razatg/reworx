@@ -9,6 +9,7 @@ include_once('config-ini.php');
 		 <link rel="stylesheet" href="newui/css/bootstrap.min.css">
 		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 		<link href="newui/css/style.css?v=<?php echo time();?>" rel="stylesheet" type="text/css"/>
+		<link href="newui/css/font-awesome.css" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" src="newui/js/jquery.min.js"></script>
 		<script type="text/javascript" src="newui/js/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="newui/js/angular.min.js"></script>

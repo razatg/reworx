@@ -91,8 +91,14 @@ if(!empty($where))
 	{
 		$dataListArr = $db->recruitershortlist->findOne(array('cId'=>$cId));
 		$dataList = array();
+		$referCount = 0;
+		$isMarkGood = 0;
 		foreach($searchResult  as $data)
 		{
+			$referCount = $db->employeeReferData->count(array('referalUIDList.UID'=>(int)$data['UID']));
+			$data['isSortlisted'] = $referCount;
+			$isMarkGood = $db->employeeshortlist->count(array('UID'=>(int)$data['UID']));
+			$data['isMarkGood'] = $isMarkGood;
 			$searchString = serialize($data);
 			$i = 0; 
 			if(!empty($position))

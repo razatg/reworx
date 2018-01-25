@@ -65,6 +65,7 @@ include_once('../config-ini.php');
             <div ng-show="reportList.length>0" class="tab-content">
                     <div class="tab-pane active" id="step1"> 
                          <div class="table-responsive">
+							 
                           <table class="table table-report">
                             <thead>
                               <tr>
@@ -97,6 +98,7 @@ include_once('../config-ini.php');
                               </tr>
                             </tbody>
                           </table>
+                        
                         </div> 
                     </div> 
                 </div>

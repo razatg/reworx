@@ -2054,3 +2054,13 @@ display: inline-block;}
 border-radius: 100%;
 height: 35px;
 margin-right: 5px;}
+
+.short_list{display: inline-block;
+    margin: 14px 0;}
+.short_list li{    border: 1px solid #aaa;
+    padding: 5px 10px;
+    border-radius: 5px;
+    width:auto;
+    margin-right:5px;
+    
+    }

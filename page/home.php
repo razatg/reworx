@@ -22,13 +22,6 @@ include_once('../config-ini.php');
   </div>
 </nav>
 </header>
-
-
-
-
-
-
-	
 <div class="homebanner" id="homebanner"> 
     <img src="newui/images/2X1.png" class="header_bg" alt=""/>
     <div class="banner">
@@ -61,12 +54,9 @@ include_once('../config-ini.php');
         <!--Slides-->
          <div class="carousel-inner-hidden">
         <div class="carousel-inner" role="listbox">
-       
             <!--First slide-->
             <div class="item active">
-
                 <div class="testimonial">
-                    
                     <h4>Neha Tyagi, AppyPie</h4>
                     <i class="glyphicon glyphicon-star"></i>
                     <i class="glyphicon glyphicon-star"></i>
@@ -77,36 +67,20 @@ include_once('../config-ini.php');
                     <p><i class="fa fa-quote-left"></i> We suddenly had database of 1000s of relevant profiles from networks of our team and work process to automate and manage referrals at scale.. This has helped us both reduce the time to close new positions and the most obvious benefit has been cost, as we are spending a fraction of what we did, per position.
                  </p>   
                 </div>
-
             </div>
-            <!--First slide-->
-
-            <!--Second slide-->
-             
-            <!--Second slide-->
-
-            <!--Third slide-->
-             
-            <!--Third slide-->
 			</div>
         </div>
         <!--Slides-->
-
-        
-
     </div>
     <!--Carousel Wrapper-->
-
 </section>
 </div>
-
 <div class="client_wrapper">
 	<div class="container grid-center text-center">
     	<h4>Clients</h4>
         <img src="newui/images/client_logo.png">
     </div>
 </div>
-
 <div class="howitwork" id="howitwork">
 	<div class="container grid-center text-center">
     <h4>How it Works</h4>
@@ -223,6 +197,7 @@ function createImage() {
             x.setAttribute("alt", "");
             x.setAttribute("style", "display:none");
             document.getElementById("homebanner").appendChild(x);
+            gtag('event', 'conversion', {'send_to': 'AW-855729200/f7aiCIyIyHsQsMiFmAM'});
         }
 $(document).ready(function(){
 	if($(window).width() > 767) {
