@@ -33,7 +33,7 @@ margin-right: 5px;}</style>
 .emailer_temp{max-width:90%; margin:15px auto;}
 }
 </style>
-<a style="text-decoration:none;" href="'.ANGULAR_ROUTE.'/report">
+<a style="text-decoration:none;" href="'.ANGULAR_ROUTE.'/user-report">
 <table class="emailer_temp" width="600px" bgcolor="#ffffff" border="0" cellspacing="0" cellpadding="0" align="center" style="border: 1px solid #bccbcb;">
    <tr>
       <td align="center" bgcolor="#fff">
@@ -77,17 +77,18 @@ margin-right: 5px;}</style>
 </html>'; 
 $db = connect();
 $returnArr = array('status'=>'failure');
-	$recruiterList = $db->recruiter->find();
-	if(!empty($recruiterList))
+	$employeeList = $db->employee->find();
+	if(!empty($employeeList))
 	{
-	   foreach(iterator_to_array($recruiterList) as $rdata)
+	   foreach(iterator_to_array($employeeList) as $rdata)
 		{
 			$criteria = array();  
 			$selecteDate = 20;
 			$diff = $selecteDate * 24 * 60 * 60;
 			$mongotime = time()-$diff;
-			$cId = $rdata['cId'];
-			$match    = array('$match'=>array('$and'=>array(array('cId'=>(int)$cId,"addedOn"=>array('$gte'=>$mongotime)))));
+			$UID = $rdata['UID'];
+			$match    = array('$match'=>array('$and'=>array(array('referalUIDList.employeeList'=>(int)$UID,"addedOn"=>array('$gte'=>$mongotime)))));
+
 			$sort =  array('$sort'=>array('_id'=>-1));
 			$criteria = array($match,array('$group'=>array('_id'=>array('date'=>array('$dateToString'=>array('format'=>
 											"%Y-%m-%d","date"=>'$date')),'job_title'=>'$recruiterList.job_title'),
@@ -96,7 +97,6 @@ $returnArr = array('status'=>'failure');
 											)),$sort
 											);  
 			$userReportData = $db->employeeReferData->aggregate($criteria);
-			//echo '<pre>';print_r($userReportData);
 			$reportDataList = array();
 			$userReportCount = array('employee'=>0,'totalProfile'=>0,'selectedCandidate'=>0,'referRequest'=>0,'emailSent'=>0,'emailClicked'=>0,'hired'=>0);
 			if(!empty($userReportData['result']))
@@ -155,8 +155,7 @@ $returnArr = array('status'=>'failure');
 								{
 									$pic  = 'newui/images/user.png';
 								}
-								$connectedProfiles = $db->employee->find(array('UID'=>(int)$item1['employeeList']),array('UID','first_name','last_name'));
-								$userList[] =  array('addedOn'=>$item['addedOn'],'UID'=>$profileData['UID'],'profile_url'=>$profileData['name'],'name'=>$profileData['name'],'pic'=>$pic,'action'=>$action,'status'=>$status,'connectedUsers'=>array_values(iterator_to_array($connectedProfiles)));
+								$userList[] =  array('addedOn'=>$item['addedOn'],'UID'=>$profileData['UID'],'profile_url'=>$profileData['name'],'name'=>$profileData['name'],'pic'=>$pic,'action'=>$action,'status'=>$status);
 								
 							
 							}
@@ -175,8 +174,7 @@ $returnArr = array('status'=>'failure');
 				$htmlTable = '<table class="table table-report"><thead>
                               <tr>
                                 <th style="height:40px" width="15%">Job Position</th>
-                                <th style="height:40px" width="16%">Candidates</th>
-                                <th style="height:40px" width="21%">Employees</th>
+                                <th style="height:40px" width="16%">Connections</th>
                                 <th style="height:40px" width="13%">Status</th>
                               </tr>
                             </thead><tbody>'; 
@@ -189,14 +187,8 @@ $returnArr = array('status'=>'failure');
 											{
 												
 										 $htmlTable .='<tr>
-												<td width="210px"><img src='.ANGULAR_ROUTE.'/'.$ulist["pic"].' width="30px" class="report_img_icon"/>'.$ulist["name"].'</td>
-												<td  width="160px">';
-												foreach($ulist['connectedUsers'] as $cuser)
-												{
-													$htmlTable .='<span>'.$cuser["first_name"].' '.$cuser["last_name"].' </span>';
-												}
-												
-										 $htmlTable .='	</td> <td  width="90px">'.$ulist["status"].'</td>
+												<td width="210px"><img src='.ANGULAR_ROUTE.'/'.$ulist["pic"].' width="30px" class="report_img_icon"/>'.$ulist["name"].'</td>';
+										 $htmlTable .='	<td  width="90px">'.$ulist["status"].'</td>
 											</tr>';
 											}
 											
@@ -217,7 +209,6 @@ $returnArr = array('status'=>'failure');
 				$subject = 'Weekly Refhireable Report';
 				$messageText = '';
 				sendgridmail( $from, $fromName, $to, $toname, $subject, $messageText, $messageHTML, array(),array("UID"=>$data['UID']));
- 
 		  }
     	}
 	}
@@ -244,6 +235,7 @@ function sendgridmail( $from, $fromName, $json_string, $toname, $subject, $messa
 			$request =  $url.'api/mail.send.json';
 			// Generate curl request
 			$session = curl_init($request);
+			//print_r($messageHTML);exit;
 			// Tell curl to use HTTP POST
 			curl_setopt ($session, CURLOPT_POST, true);
 			// Tell curl that this is the body of the POST

@@ -198,6 +198,7 @@ function createImage() {
             x.setAttribute("style", "display:none");
             document.getElementById("homebanner").appendChild(x);
             gtag('event', 'conversion', {'send_to': 'AW-855729200/f7aiCIyIyHsQsMiFmAM'});
+            console.log(gtag('event', 'conversion', {'send_to': 'AW-855729200/f7aiCIyIyHsQsMiFmAM'}));
         }
 $(document).ready(function(){
 	if($(window).width() > 767) {
