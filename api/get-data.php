@@ -101,12 +101,12 @@ if(!empty($where))
 			$data['isMarkGood'] = $isMarkGood;
 			$searchString = serialize($data);
 			$i = 0; 
+			$data['experiencearr']      = $data['experience'];
 			if(!empty($position))
             {
 				$data['title']	            = beliefmedia_highlights($data['title'], implode(',',$position), $case = false);
 				$data['featured_skiils']	= beliefmedia_highlights(implode(', ',$data['featured_skiils']),implode(',',$position),$case = false);
 				$data['summary']	        = beliefmedia_highlights($data['summary'],implode(',',$position),$case = false);
-				$data['experiencearr']      = $data['experience'];
 				if(!empty($data['experience']))
 				{
 					$expStr = '';
