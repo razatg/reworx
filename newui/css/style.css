@@ -2056,10 +2056,10 @@ height: 35px;
 margin-right: 5px;}
 
 .short_list{display: inline-block;
-    margin: 14px 0;}
+    margin: 5px 0 10px 0;}
 .short_list li{     border: 1px solid #aaa;
     padding: 5px 15px;
-    border-radius: 17px;
+    border-radius: 5px;
     width: auto;
     margin-right: 10px;
     
