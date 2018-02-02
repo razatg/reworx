@@ -47,53 +47,55 @@ if(!empty($userReportData))
 			{
 				foreach($item['referalUIDList'] as $item1)
 				{
-					$profileData = $db->profile->findOne(array('UID'=>(int)$item1['UID']),array('UID','email','name','pic_phy','parentUID','profile_url'));
-					$status = 'Pending';
-					if($item1['notFit'] == true || $item1['donotknow'] == true)
+					if($item1['hired'] != true)
 					{
-						$status = 'Not Suitable'; 
-					}
-					else if($item1['event'] == 'delivered')
-					{
-						$status = 'Mail Delivered'; 
-					}
-					else if($item1['event'] == 'open')
-					{
-						$status = 'Mail Opened'; 
-					}
-					else if($item1['fit'] == true)
-					{
-						$status = 'Sent Referral'; 
-					}
-					$action = '';
-					if($item1['notFit'] == false && $item1['donotknow'] == false &&  $item1['fit']== false )
-					{
-						$action = 'Send Reminder';
-					}
-					else if($item1['notFit'] == true || $item1['donotknow'] == true)
-					{
-						$action = 'Search Again';
-						
-					}
-					else if($item1['event'] == 'open')
-					{
+						$profileData = $db->profile->findOne(array('UID'=>(int)$item1['UID']),array('UID','email','name','pic_phy','parentUID','profile_url'));
+						$status = 'Pending';
+						if($item1['notFit'] == true || $item1['donotknow'] == true)
+						{
+							$status = 'Not Suitable'; 
+						}
+						else if($item1['event'] == 'delivered')
+						{
+							$status = 'Mail Delivered'; 
+						}
+						else if($item1['event'] == 'open')
+						{
+							$status = 'Mail Opened'; 
+						}
+						else if($item1['fit'] == true)
+						{
+							$status = 'Sent Referral'; 
+						}
+						$action = '';
+						if($item1['notFit'] == false && $item1['donotknow'] == false &&  $item1['fit']== false )
+						{
+							$action = 'Send Reminder';
+						}
+						else if($item1['notFit'] == true || $item1['donotknow'] == true)
+						{
+							$action = 'Search Again';
+							
+						}
+						else if($item1['event'] == 'open')
+						{
+								$action = '-';
+						}
+						else if($userType=='recruiter' && $item1['fit'] == true)
+						{
 							$action = '-';
-					}
-					else if($userType=='recruiter' && $item1['fit'] == true)
-					{
-						$action = '-';
-					}
-				
-					$parentUidList = $profileData['parentUID'];
-					$pic = $profileData['pic_phy'];
-					if(!file_exists(ANGULAR_ABSOLUTE_PATH.$profileData['pic_phy']))
-					{
-						$pic  = 'newui/images/user.png';
-					}
-					$connectedProfiles = $db->employee->find(array('UID'=>(int)$item1['employeeList']),array('UID','first_name','last_name'));
-					$userList[] =  array('addedOn'=>$item['addedOn'],'UID'=>$profileData['UID'],'profile_url'=>$profileData['name'],'name'=>$profileData['name'],'pic'=>$pic,'action'=>$action,'status'=>$status,'connectedUsers'=>array_values(iterator_to_array($connectedProfiles)));
+						}
 					
-				
+						$parentUidList = $profileData['parentUID'];
+						$pic = $profileData['pic_phy'];
+						if(!file_exists(ANGULAR_ABSOLUTE_PATH.$profileData['pic_phy']))
+						{
+							$pic  = 'newui/images/user.png';
+						}
+						$connectedProfiles = $db->employee->find(array('UID'=>(int)$item1['employeeList']),array('UID','first_name','last_name'));
+						$userList[] =  array('addedOn'=>$item['addedOn'],'UID'=>$profileData['UID'],'profile_url'=>$profileData['name'],'name'=>$profileData['name'],'pic'=>$pic,'action'=>$action,'status'=>$status,'connectedUsers'=>array_values(iterator_to_array($connectedProfiles)));
+						
+			    	}
 				}
 			}
 		}

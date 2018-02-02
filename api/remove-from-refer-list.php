@@ -8,7 +8,7 @@ $addedOn = isset($arrValues['addedOn'])?trim($arrValues['addedOn']):"";
 $type = isset($arrValues['type'])?trim($arrValues['type']):"";
 $flagValue = true;
 $db = connect();
-if(!empty($_SESSION['member']['UID']))
+if(!empty($_SESSION['member']['UID']) || $type=='hired')
 {
 	$dataListArr = $db->employeeReferData->findOne(array('addedOn'=>(int)$addedOn));
 	$uIdList = $dataListArr['referalUIDList'];
@@ -16,7 +16,11 @@ if(!empty($_SESSION['member']['UID']))
 	{   $newUpdatedArr =  array(); 
 		foreach($uIdList as $item)
 		{
-			if($item['UID']== $UIDFromRemove && $_SESSION['member']['UID'] == $item['employeeList'])
+			if($item['UID']== $UIDFromRemove  && $type=='hired')
+			{
+				$item[$type] = true; 
+			}
+			else if($item['UID']== $UIDFromRemove && $_SESSION['member']['UID'] == $item['employeeList'] && $type!='hired')
 			{
 				$item[$type] = true; 
 			}

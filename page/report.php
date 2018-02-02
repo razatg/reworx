@@ -91,7 +91,7 @@ include_once('../config-ini.php');
 												<a ng-show="data.action=='Send Reminder' || data.action=='Reminder Sent'"  ng-click="sendReminder(data.UID,data.addedOn,$parent.$index,$index)">{{data.action}}</a>
 												<a ng-show="data.action=='-'" href="javascript:void(0);">{{data.action}}</a>
 											</td>
-                                            <td  width="17%"><input type="checkbox"></td>
+                                            <td ng-click="openHireModal(data.UID,data.addedOn)"  width="17%"><input type="checkbox"></td>
                                         </tr>
                                     </table>
                                 </td>
@@ -107,6 +107,24 @@ include_once('../config-ini.php');
             <br><br>
         </div>
     </section>
+    <div data-backdrop="static" class="modal fade moldelRnz" id="myModalRefuse" role="dialog">
+		   <div class="modal-dialog modal-md">
+			  <!-- Modal content-->
+			  <div class="modal-content">
+				 <div class="modal-header">
+					<button type="button"  class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title"><b>Confirm</b> </h4>
+				 </div>
+				 <div class="modal-body">
+					<span>Please confirm the Hire</span>
+				 </div>
+				 <div class="modal-footer">
+					<button type="button" ng-click="markedHired()" class="btn btn-lg btn-default">OK</button>
+					<button type="button" class="btn btn-lg btn-default" data-dismiss="modal">Close</button>
+				 </div>
+			  </div>
+		   </div>
+		</div>
    </div>
 </div>
 </div>
@@ -142,8 +160,22 @@ trackingApp.registerCtrl('reportController',function($scope,$http, $location, $t
 		})
 	}
 	$scope.getReport(15);
-	
-	
+   $scope.openHireModal = function(UID,addedOn)
+   {
+	   $scope.seletedUID = UID;
+	   $scope.addedOn = addedOn;
+	   $('#myModalRefuse').modal('show');
+   }
+ 
+   $scope.markedHired = function()
+   {
+		var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/remove-from-refer-list.php';
+		$http.post(absUrl,{UID:$scope.seletedUID,addedOn:$scope.addedOn,type:'hired'}).success(function(response)
+		{
+			$('#myModalRefuse').modal('hide');
+			$scope.getReport(15);
+		})
+   }
 })
 </script>
 <style>
