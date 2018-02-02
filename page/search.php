@@ -73,8 +73,8 @@ include_once('../config-ini.php');
 									<li ng-if="data.isSortlisted>0"><i class="fa fa-info"></i> Shortlisted Before</li>
 									<li  ng-if="data.isMarkGood>0"><i class="fa fa-thumbs-up"></i>Top Talent</li>
 						       </ul>
-						        <h3 ng-if="data.title" ng-bind-html="data.title | to_trusted">
-								<h3 ng-if="!data.title" ng-bind-html="data.company | to_trusted">
+								<h3 ng-if="data.experience[0].designation && data.experience[0].company" ng-bind-html="data.experience[0].designation+' at '+ data.experience[0].company | to_trusted"></h3> 
+								<h3 ng-if="!data.experience[0].designation && !data.experience[0].company" ng-bind-html="data.company | to_trusted">
 								</h3>
 								<p  class="location" ng-bind-html="data.area | to_trusted"></p>
 								<div ng-repeat="item in data.connectedUsers" class="relative-pos">
