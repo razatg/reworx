@@ -69,11 +69,9 @@ include_once('../config-ini.php');
 					   <div class="item-row">
 						   <div class="detail_info">
 								<h1 style="text-align:left;" ng-bind-html="data.name"></h1>
-								<ul  ng-if="data.isSortlisted>0 || data.isMarkGood>0" class="short_list">
-									<li ng-if="data.isSortlisted>0"><i class="fa fa-info"></i> Shortlisted Before</li>
-									<li  ng-if="data.isMarkGood>0"><i class="fa fa-thumbs-up"></i>Top Talent</li>
-						       </ul>
+								
 								<h3 ng-if="data.title" ng-bind-html="data.title | to_trusted">
+								<h3 ng-if="!data.title" ng-bind-html="data.company | to_trusted">
 								</h3>
 								<p  class="location" ng-bind-html="data.area | to_trusted"></p>
 								<div ng-repeat="item in data.connectedUsers" class="relative-pos">
