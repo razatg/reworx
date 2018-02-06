@@ -22,6 +22,7 @@ include_once('../config-ini.php');
   </div>
 </nav>
 </header>
+
 <div class="homebanner" id="homebanner"> 
     <img src="newui/images/2X1.png" class="header_bg" alt=""/>
     <div class="banner">
@@ -36,17 +37,20 @@ include_once('../config-ini.php');
 			<span ng-if="errorEmailMsg" class="warning-error" ng-bind-html="errorEmailMsg"></span>
 			<input type="text" ng-model="register.mobile_number" placeholder="Mobile No"/>
 			<span ng-if="errorMobileMsg" class="warning-error" ng-bind-html="errorMobileMsg"></span>
-			<h2  ng-if="successMsg"  style="color:#fff;font-size:21px;" ng-bind-html="successMsg"></h2>
+			<h2  ng-if="successMsg"  style="color:#fff;font-size:21px;" ng-bind-html="successMsg"></h2>			  
+
               <div style="margin-top:20px;">
 			<button ng-if="!showLodermail && !successMsg" data-ng-click="userRegister();" class="trailBtn" href="#">
 				Start Free Trial
 				</button></div>
+
 			<center  ng-if="showLodermail"><img width="80" src="newui/images/widget-loader-lg-en.gif" alt=""></center>
 		</form>
 	</div>
     </div>
     </div>
 </div>
+
 <div class=" testimonial-second">
 <section class="container text-center grid-center">
    <!--Carousel Wrapper-->
@@ -186,6 +190,9 @@ trackingApp.registerCtrl('homeController',function($scope,$http, $location, $tim
 			
 		}
 	}
+	
+	
+	
 
 });	
 

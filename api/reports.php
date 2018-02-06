@@ -6,23 +6,37 @@ $db = connect();
 $criteria = array();  
 $userType = $_SESSION['member']['userType']?$_SESSION['member']['userType']:"";
 $userData = json_decode(file_get_contents('php://input'), true);
+$reportType = $userData['reportType']?$userData['reportType']:"";
+$position = $userData['position']?$userData['position']:"openposition";
 $selecteDate = 15;
+$diff = $selecteDate * 24 * 60 * 60;
+$mongotime = time()-$diff;
+$addedOn = array('$gte'=>$selecteDate);
 if(!empty($userData))
 {
 	$selecteDate = $userData['reportType'];
+	$diff = $selecteDate * 24 * 60 * 60;
+    $mongotime = time()-$diff;
+	$addedOn = array('$gte'=>$mongotime);
+	if($selecteDate!=1 && $selecteDate!=15)
+	{
+		$selecteDate = explode('-',$userData['reportType']);
+		$startDate = strtotime($selecteDate[0]);
+		$endDate = strtotime($selecteDate[1]);
+		$addedOn = array('$gte'=>$startDate,'$lte'=>$endDate);
+	}
 }
-$diff = $selecteDate * 24 * 60 * 60;
-$mongotime = time()-$diff;
-if($userType=='recruiter')
+
+$cId = $_SESSION['member']['cId'];
+if($position=='showall')
 {
-	$cId = $_SESSION['member']['cId'];
-	$match    = array('$match'=>array('$and'=>array(array('cId'=>(int)$cId,"addedOn"=>array('$gte'=>$mongotime)))));
+	$match    = array('$match'=>array('$and'=>array(array('cId'=>(int)$cId,'addedOn'=>$addedOn))));
 }
-else if($userType=='employee')
+else 
 {
-	$UID = $_SESSION['member']['UID'];
-	$match    = array('$match'=>array('$and'=>array(array('UID'=>(int)$UID,"addedOn"=>array('$gte'=>$mongotime)))));
-} 
+	$match    = array('$match'=>array('$and'=>array(array('referalUIDList.hired'=>true,'cId'=>(int)$cId,"addedOn"=>$addedOn))));
+}
+
 $sort =  array('$sort'=>array('_id'=>-1));
 
 $criteria = array($match,array('$group'=>array('_id'=>array('date'=>array('$dateToString'=>array('format'=>
@@ -47,8 +61,6 @@ if(!empty($userReportData))
 			{
 				foreach($item['referalUIDList'] as $item1)
 				{
-					if($item1['hired'] != true)
-					{
 						$profileData = $db->profile->findOne(array('UID'=>(int)$item1['UID']),array('UID','email','name','pic_phy','parentUID','profile_url'));
 						$status = 'Pending';
 						if($item1['notFit'] == true || $item1['donotknow'] == true)
@@ -93,9 +105,8 @@ if(!empty($userReportData))
 							$pic  = 'newui/images/user.png';
 						}
 						$connectedProfiles = $db->employee->find(array('UID'=>(int)$item1['employeeList']),array('UID','first_name','last_name'));
-						$userList[] =  array('addedOn'=>$item['addedOn'],'UID'=>$profileData['UID'],'profile_url'=>$profileData['name'],'name'=>$profileData['name'],'pic'=>$pic,'action'=>$action,'status'=>$status,'connectedUsers'=>array_values(iterator_to_array($connectedProfiles)));
-						
-			    	}
+						$userList[] =  array('hired'=>$item1['hired'],'addedOn'=>$item['addedOn'],'UID'=>$profileData['UID'],'profile_url'=>$profileData['name'],'name'=>$profileData['name'],'pic'=>$pic,'action'=>$action,'status'=>$status,'connectedUsers'=>array_values(iterator_to_array($connectedProfiles)));
+					
 				}
 			}
 		}

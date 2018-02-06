@@ -21,7 +21,19 @@ include_once('../config-ini.php');
   </div>
 </nav>
 </header>
-
+<style>
+ob-daterangepicker .picker-dropdown-container .picker-dropdown {
+    box-sizing: border-box;
+    position: relative;
+    width: 256px;
+    height: 30px;
+    line-height: 30px;
+    border: none;
+    border-radius: 2px;
+    padding-left: 10px;
+    font-size: 14px;
+}
+</style>
 <div class="bodypan" ng-style="{'min-height':divHeight()}">
 	<div class="container">
 	<center ng-if="showLoder"><img width="80" src="newui/images/widget-loader-lg-en.gif" alt=""></center>
@@ -53,12 +65,19 @@ include_once('../config-ini.php');
                 </ul>
                --> 
                 <div class="row mb-15">
-                	<div class="col-md-3 col-sm-4 col-xs-12"></div>
+                	<div ng-init="positionType='openposition'" class="col-md-3 col-sm-4 col-xs-12">
+						<select ng-model="positionType" ng-change="getReport(reportType)" class="form-control mb-0">
+							<option value="openposition">Show Open Positions</option>
+							<option value="showall">Show All Positions</option>
+                       </select></div>
                 	<div ng-init="reportType=15" class="col-md-3 col-sm-4 col-xs-12 pull-right">
-						<select ng-model="reportType" ng-change="getReport(reportType)" class="form-control mb-0">
+						  
+						 <ob-daterangepicker ng-class="{'up': dropsUp}" class="form-control mb-0 {{opens}}" min-day="min" max-day="max" linked-calendars="linked" api="dateRangeApi" on-apply="rangeApplied(start, end)" ranges="ranges" range="range" format="format" week-start="weekStart" auto-apply="autoApply" disabled="disabled" calendars-always-on="calendarsAlwaysOn" range-window="rangeWindow" value-postfix="postfix"></ob-daterangepicker>
+						<!--<select ng-model="reportType" ng-change="getReport(reportType)" class="form-control mb-0">
 							<option value="15">Last 15 days</option>
 							<option value="1">Yesterday</option>
-                       </select>
+							<option value="0">Custom Date Range</option>
+                       </select>-->
                     </div>
                     </div>
             <form>
@@ -82,7 +101,7 @@ include_once('../config-ini.php');
                                 <td><span class="report_title">{{item.job_position}}</span></td>
                                 <td colspan="5">
                                 	<table class="table">
-                                    	<tr ng-repeat="data in item.userList">
+                                    	<tr ng-hide="positionType=='openposition' && data.hired==true" ng-repeat="data in item.userList">
                                         	<td width="22%"><img src="{{data.pic}}" width="30px" class="report_img_icon"/> {{data.name}}</td>
                                             <td  width="30%"><span ng-repeat="list in data.connectedUsers">{{list.first_name}} {{list.last_name}} </span></td>
                                             <td  width="20%">{{data.status}}</td>
@@ -91,7 +110,10 @@ include_once('../config-ini.php');
 												<a ng-show="data.action=='Send Reminder' || data.action=='Reminder Sent'"  ng-click="sendReminder(data.UID,data.addedOn,$parent.$index,$index)">{{data.action}}</a>
 												<a ng-show="data.action=='-'" href="javascript:void(0);">{{data.action}}</a>
 											</td>
-                                            <td ng-click="openHireModal(data.UID,data.addedOn)"  width="17%"><input type="checkbox"></td>
+                                            <td width="17%">
+												<input ng-hide="data.hired==true"  ng-click="openHireModal(data.UID,data.addedOn)" type="checkbox">
+											    <span ng-show="data.hired==true" class="glyphicon glyphicon-ok"></span>
+											</td>
                                         </tr>
                                     </table>
                                 </td>
@@ -151,7 +173,7 @@ trackingApp.registerCtrl('reportController',function($scope,$http, $location, $t
 	{
 		$scope.showLoder = true;
 		var absUrl = '<?php echo ANGULAR_ROUTE; ?>/api/reports.php';
-		$http.post(absUrl,{reportType:reportType}).success(function(response)
+		$http.post(absUrl,{reportType:reportType,position:$scope.positionType}).success(function(response)
 		{
 			$scope.reportList = response.data;
 			$scope.userReportCount = response.userReportCount;
@@ -176,6 +198,81 @@ trackingApp.registerCtrl('reportController',function($scope,$http, $location, $t
 			$scope.getReport(15);
 		})
    }
+   $scope.dateRangeApi = {};
+        $scope.dropsUp = false;
+        $scope.opens = 'left';
+        $scope.disabled = false;
+        $scope.format = 'DD-MM-YYYY';
+        $scope.autoApply = false;
+        $scope.linked = true;
+        $scope.calendarsAlwaysOn = true;
+        $scope.postfix = '';
+
+        $scope.range = {
+          start: moment(),
+          end: moment()
+        };
+        $scope.rangeWindow = null;
+
+       $scope.ranges = [
+          {
+            name: 'Last 15 Day',
+            start: moment(),
+            end: moment()
+          },
+          {
+            name: 'Yesterday',
+            start: moment().subtract(1, 'd'),
+            end: moment().subtract(1, 'd')
+          },
+          
+        ];
+
+        $scope.rangeApplied = function(start, end) {
+          
+			var date1 = new Date(start);
+			var date2 = new Date(end);
+			var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+			var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+			if(diffDays==0)
+			{
+				$scope.getReport(15);
+			}
+			else if(diffDays==1)
+			{
+				$scope.getReport(1);
+			}
+			else
+			{
+				date1 = date1.getFullYear()+'/'+(parseInt(date1.getMonth())+1)+'/'+date1.getDate(); 
+				date2 = date2.getFullYear()+'/'+(parseInt(date2.getMonth())+1)+'/'+date2.getDate();
+				$scope.getReport(date1+'-'+date2);
+			}	
+	
+        };
+
+        $scope.setDateRange = function() {
+          $scope.dateRangeApi.setDateRange({
+            start: moment(),
+            end: moment().add(2, 'd')
+          });
+        };
+
+        $scope.render = function(e) {
+          console.log(this.calendarsAlwaysOn);
+          if(e) {
+            e.keyCode == 13 && $scope.dateRangeApi.render();
+          } else {
+            $scope.dateRangeApi.render()
+          }
+        };
+
+        $scope.setRange = function() {
+          $scope.dateRangeApi.setDateRange({
+            start: moment().subtract(1, 'd'),
+            end: moment().subtract(1, 'd')
+          });
+        }
 })
 </script>
 <style>

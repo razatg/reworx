@@ -7,7 +7,7 @@ else if(window.location.hostname=='demo.onsisdev.info')
 {
 	var angRoute = "http://demo.onsisdev.info/tracking";
 }
-var trackingApp = angular.module('trackingApp',['ngRoute','ngSanitize']);
+var trackingApp = angular.module('trackingApp',['obDateRangePicker','ngRoute','ngSanitize']);
 trackingApp.config(['$routeProvider','$controllerProvider','$locationProvider','$httpProvider',function($routeProvider,$controllerProvider,$locationProvider,$httpProvider){
 	trackingApp.registerCtrl = $controllerProvider.register;
 	
@@ -51,7 +51,7 @@ trackingApp.config(['$routeProvider','$controllerProvider','$locationProvider','
 	
 	 $locationProvider.html5Mode(true);
 	 $locationProvider.hashPrefix('!');
-	
+	 
 	}
 ]);
 trackingApp.run(['$routeParams','$rootScope','$timeout','$location','$templateCache','$http', function($routeParams,$root,$timeout,$location,$templateCache,$http) 
